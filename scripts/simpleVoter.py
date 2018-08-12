@@ -1,3 +1,10 @@
+# Creates a list of two posts and two players. Each player votes for
+# each post in the order that they appear in the list and the list is
+# reordered after each player completes its vote. We assume that both
+# players have 1 SP. We have selected player preferences that show
+# that the final order of posts does not correspond to the ideal
+# order.
+
 class Post:
   def __init__(self, name, score = 0):
     assert isinstance(name, str)
