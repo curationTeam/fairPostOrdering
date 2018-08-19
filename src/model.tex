@@ -1,2 +1,142 @@
 \section{Model}
-  Our model is like very similar to Steem.
+  \subsection{Properties}
+    \subsubsection*{Players}
+      The are $N \in \mathbb{N}^{*}$ players in the model. A player $u$ is
+      defined by it Steem Power $SP$, its Voting Power $VP$, its Likability
+      Distribution $L$ and its Strategy $S$. Let the $ith$ player be
+      characterized with the following tuple $u_i = (SP_i,VP_i,L_i,S_i)$ where
+      $SP \in \mathbb{N}$, $VP \in [0,100]$, $L \in
+      \mathcal{D}\left([0,1]^N\right)$ and $S \in \lbrace H,G \rbrace \times
+      [100] \times 2^{[N]}$. Lets describe each of the properties of a player in
+      more detail:
+      \begin{itemize}
+        \item The Steem Power funds of player $U_i$ are defined as $sp_{i} \in
+        \mathbb{N}$. The vector of Steem Power funds for the $N$ players is
+        defined as $\mathcal{SP} = (sp_{1},...,sp_{i},...sp_{n})$ $\forall i \in
+        N$.
+        \item The Voting Power...
+        \item A player $u_i$ will have a "Likability Distribution" $L_i$ which
+        determines how likely is the $jth$ to like a post created by $u_i$ ,
+        defined as $L_i \in \mathcal{D}\left([0,1]^N\right)$. The Likability
+        Distribution for all the players will be $\mathcal{L} = ( L_1,...,
+        L_i,..., L_n )$ $\forall i \in N$
+        \item The strategy of player $u_i$ is defined as $s_i \in (\lbrace H,G
+        \rbrace, Min, R )$, where $H \equiv honest$ and $G \equiv greedy$, $Min
+        \in [0,1]$ is the Minimum Voting Power the player can reach and $r_i \in
+        \mathbb{N}$ is the size of $u_i$ Voting Ring. If player $u_i$ is
+        $Honest$, her Voting Ring $r_i = \emptyset$. If player $u_j$ is $Greedy$,
+        her Voting Ring $r_j = {p_1,...,p_k,...,p_r}$ where $p_k \in [1,N], $
+        .The vector of the strategies for the $N$ players is defined as
+        $\mathcal{S} = (s_1,...,s_i,...s_n)$ $\forall i \in N$
+      \end{itemize}
+
+      The set of players is defined as $\mathcal{U} = ( u_1,..., u_i,..., u_n )$
+      $\forall i \in \left[N\right]$.
+
+    \subsubsection*{Posts}
+      \begin{itemize}
+        \item Each player can create one post. The post created by $U_i$ is
+        defined as $p_i$. The set of all posts will be then $\mathcal{P} =
+        \bigcup_{i=1}^N p_i$.
+        \item The likability of a post will be defined as $l_i \in [0,1]^{N}$,
+        where $l_i \sim L_i$ is retrieved at random following the "Likability
+        Distribution" of player $U_i$.
+      \end{itemize}
+  %\newpage
+  \subsection{Game Execution}
+    \begin{algorithm}
+      \caption{Each player creates a post according to Likability Distribution}
+      \label{alg:postGeneration}
+      \begin{algorithmic}[1]
+      \Function{PostGeneration}{$N,\mathcal{L}$}
+        \State $\mathcal{P} = \emptyset$ \Comment{List of posts}
+        \For{$i \in N$}
+           \State $l_i$ $\xleftarrow{\text{R}}$ $\mathcal{L_i}$
+             \Comment{Get likability of posts}
+           \State $p \leftarrow (i,l_i)$
+           \State $\mathcal{P} \leftarrow \mathcal{P} \Vert p$
+             \Comment{Add post to list of Posts}
+        \EndFor
+        \State $\mathcal{P} \leftarrow \textsc{Shuffle}(\mathcal{P})$
+          \Comment{Shuffle the order of Posts}
+        \State \Return $\mathcal{P}$
+      \EndFunction
+      \end{algorithmic}
+    \end{algorithm}
+
+    \begin{algorithm}[H]
+      \caption{Player casts votes according to her strategy and until she
+      reaches her Min Voting Power}
+      \label{alg:vote}
+      \begin{algorithmic}[1]
+      \Function{Vote}{$player,\mathcal{P},s,sp$}
+        \Switch{$s$}
+          \Case{$Honest$}
+            \For{$p \in \mathcal{P}$}
+              \Comment{Iterate over all the posts}
+              \State
+                \Comment{If user likes the post and has not reached min VPower}
+              \If{$l_p > 0 $ $\land $ $p.VPower > s.Min$}
+                \State $voteValue \leftarrow p.VPower \cdot l_p \cdot sp$
+                \State $p \leftarrow p.votes +  voteValue$
+              \EndIf
+            \EndFor
+          \EndCase
+
+          \Case{$Greedy$}
+             \For{$p \in \mathcal{P}$}
+               \Comment{Iterate over all the posts}
+               \State
+                 \Comment{If post belongs to voting ring and not reached min
+                 VPower}
+               \If{$p \in s.R $ $\land $ $p.VPower > s.Min$}
+                 \State $voteValue \leftarrow p.VPower \cdot weight \cdot sp$
+                 \State $p \leftarrow p.votes +  voteValue$
+               \EndIf
+             \EndFor
+          \EndCase
+        \EndSwitch
+
+        \State $\mathcal{P} \leftarrow \textsc{Order}(\mathcal{P}.votes)$
+          \Comment{Order posts by value of votes received}
+        \State \Return $\mathcal{P}$
+      \EndFunction
+      \end{algorithmic}
+    \end{algorithm}
+
+    \begin{algorithm}[H]
+      \caption{Players cast votes over the maxRounds}
+      \label{alg:curation}
+      \begin{algorithmic}[1]
+      \Function{Curation}{$N,\mathcal{S},\mathcal{P},\mathcal{SP}, maxR$}
+        \State round = 0
+        \While{round $<$ $maxR$}
+          \Comment{Vote while there are rounds left}
+          \State $\mathcal{N} \leftarrow \textsc{Shuffle}(\mathcal{N})$
+            \Comment{Randomize order of player participation}
+            \For {$i \in \mathcal{N}$}
+              \State $\mathcal{P} \leftarrow \textsc{Vote}(i,\mathcal{P}, s,sp)$
+                \Comment{Player i votes for posts}
+            \EndFor
+          \State $\mathrm{round} \leftarrow \mathrm{round} + 1$
+        \EndWhile
+        \State \Return $\mathcal{P}$
+      \EndFunction
+      \end{algorithmic}
+    \end{algorithm}
+
+    \begin{algorithm}[H]
+      \caption{Main protocol of curation of posts in Steem. It represents one
+      week of voting and each player creates only one post. At the end of the
+      week, the list of ordered posts by value of votes received will be
+      returned.}
+      \label{alg:Protocol}
+      \begin{algorithmic}[1]
+      \Function{Protocol}{$N,\mathcal{S},\mathcal{L},\mathcal{SP}, maxR$}
+        \State $\mathcal{P} \leftarrow \textsc{PostGeneration}(N,\mathcal{L})$
+        \State $\mathcal{P} \leftarrow
+        \textsc{Curation}(N,\mathcal{S},\mathcal{P},\mathcal{SP}, maxR)$
+        \State \Comment{Discuss payout part}
+      \EndFunction
+      \end{algorithmic}
+    \end{algorithm}
