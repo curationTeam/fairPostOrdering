@@ -91,20 +91,19 @@
 
   \subsection{Game Execution}
     \begin{algorithm}
-      \caption{Each player creates a post according to Likability Distribution}
-      \label{alg:postGeneration}
+      \caption{Each player creates one post}
+      \label{alg:postGen}
       \begin{algorithmic}[1]
-      \Function{PostGeneration}{$N,\mathcal{L}$}
+      \Function{GeneratePosts}{$\mathcal{U}$}
         \State $\mathcal{P} = \emptyset$ \Comment{List of posts}
-        \For{$i \in N$}
-           \State $l_i$ $\xleftarrow{\text{R}}$ $\mathcal{L_i}$
-             \Comment{Get likability of posts}
-           \State $p \leftarrow (i,l_i)$
-           \State $\mathcal{P} \leftarrow \mathcal{P} \Vert p$
+        \For{$u_i \in \mathcal{U}$}
+           \State $l \xleftarrow{r} L_i$
+             \Comment{Get likeability of posts}
+           \State $\mathcal{P} \leftarrow \mathcal{P} \Vert \left(i, l, 0\right)$
              \Comment{Add post to list of Posts}
         \EndFor
         \State $\mathcal{P} \leftarrow \textsc{Shuffle}(\mathcal{P})$
-          \Comment{Shuffle the order of Posts}
+          \Comment{Shuffle posts to a random order}
         \State \Return $\mathcal{P}$
       \EndFunction
       \end{algorithmic}
