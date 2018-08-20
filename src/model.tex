@@ -31,8 +31,9 @@
         whole system is $\mathcal{L} = \left(L_1, \dots, L_i, \dots, L_n\right)$.
 
         \item \textbf{Strategy.} The strategy of $u_i$ is defined as $S_i \in
-        \lbrace H, G \rbrace \times 2^{\left[N\right]}$, where the first element
-        is the core strategy of the player and the second is her voting ring.
+        \lbrace H, G \rbrace \times \mathbb{N}^* \times 2^{\left[N\right]}$,
+        where the first element is the player's core strategy, the second is her
+        attention span and the third is her voting ring.
         \begin{itemize}
           \item \textbf{Honest/Greedy.} $H$ corresponds to the $honest$ and $G$
           to the $greedy$ strategy. An $honest$ player votes according to the
@@ -47,6 +48,11 @@
           Voting Ring. The value of vote for a player if $u_i$ is $greedy$ is
           defined as $v_{G,i} = VP_i \cdot SP_i$,\footnote{TODO: same} as in our
           model all $greedy$ votes are executed with full weight.
+
+          \item \textbf{Attention Span.} This is a positive integer that
+          represents the number of posts a player can consider voting
+          simultaneously. For the benefit of simplicity, we will assume that this
+          number is constant throughought all players.\footnote{TODO: discuss}
 
           \item \textbf{Voting Ring.}  If player $u_i$ is $honest$, her Voting
           Ring is $R_i = \emptyset$. If $u_i$ is $greedy$, her Voting Ring is $R_i
