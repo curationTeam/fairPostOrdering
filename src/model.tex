@@ -109,41 +109,33 @@
       \end{algorithmic}
     \end{algorithm}
 
-    \begin{algorithm}[H]
-      \caption{Player casts votes according to her strategy and until she
-      reaches her Min Voting Power}
+    \begin{algorithm}%[H]
+      \caption{Player votes for best of $k$ posts}
       \label{alg:vote}
       \begin{algorithmic}[1]
-      \Function{Vote}{$player,\mathcal{P},s,sp$}
-        \Switch{$s$}
-          \Case{$Honest$}
-            \For{$p \in \mathcal{P}$}
-              \Comment{Iterate over all the posts}
-              \State
-                \Comment{If user likes the post and has not reached min VPower}
-              \If{$l_p > 0 $ $\land $ $p.VPower > s.Min$}
-                \State $voteValue \leftarrow p.VPower \cdot l_p \cdot sp$
-                \State $p \leftarrow p.votes +  voteValue$
-              \EndIf
-            \EndFor
+      \Function{Vote}{$u_i, \mathcal{P}$}
+        \Switch{$S_i$}
+          \Case{$honest$}
+            \State $p_j \leftarrow \argmax\limits_{p \in \mathcal{P}_{1 ..
+              k}}{\lbrace l_{i, p}\rbrace}$\footnote{TODO: Improve notation}
+            \State Parse $p_j$ as $\left(m, l_p, v\right)$
+            \State $v' \leftarrow v + VP_i \cdot l_{i, p} \cdot sp_i$
+            \State $\mathcal{P} \leftarrow p_1 \Vert p_2 \Vert \dots \Vert
+            p_{j-1} \Vert \left(m, l_p, v'\right) \Vert p_{j+1} \Vert \dots \Vert
+            p_N$
           \EndCase
 
           \Case{$Greedy$}
-             \For{$p \in \mathcal{P}$}
-               \Comment{Iterate over all the posts}
-               \State
-                 \Comment{If post belongs to voting ring and not reached min
-                 VPower}
-               \If{$p \in s.R $ $\land $ $p.VPower > s.Min$}
-                 \State $voteValue \leftarrow p.VPower \cdot weight \cdot sp$
-                 \State $p \leftarrow p.votes +  voteValue$
-               \EndIf
-             \EndFor
+             \State
+               \Comment{If post belongs to voting ring and not reached min
+               VPower}
+             \If{$p \in s.R $ $\land $ $p.VPower > s.Min$}
+               \State $voteValue \leftarrow p.VPower \cdot weight \cdot sp$
+               \State $p \leftarrow p.votes +  voteValue$
+             \EndIf
           \EndCase
         \EndSwitch
 
-        \State $\mathcal{P} \leftarrow \textsc{Order}(\mathcal{P}.votes)$
-          \Comment{Order posts by value of votes received}
         \State \Return $\mathcal{P}$
       \EndFunction
       \end{algorithmic}
