@@ -150,38 +150,41 @@
     \end{algorithm}
 
     \begin{algorithm}[H]
-      \caption{Players cast votes over the maxRounds}
+      \caption{Players cast votes for $r$ rounds}
       \label{alg:curation}
       \begin{algorithmic}[1]
-      \Function{Curation}{$N,\mathcal{S},\mathcal{P},\mathcal{SP}, maxR$}
-        \State round = 0
-        \While{round $<$ $maxR$}
-          \Comment{Vote while there are rounds left}
-          \State $\mathcal{N} \leftarrow \textsc{Shuffle}(\mathcal{N})$
-            \Comment{Randomize order of player participation}
-            \For {$i \in \mathcal{N}$}
-              \State $\mathcal{P} \leftarrow \textsc{Vote}(i,\mathcal{P}, s,sp)$
-                \Comment{Player i votes for posts}
-            \EndFor
-          \State $\mathrm{round} \leftarrow \mathrm{round} + 1$
-        \EndWhile
+      \Function{Curate}{$\mathcal{U}, \mathcal{P}, r$}
+        \For{$j = 1$ to $r$}
+          \Comment{$r$ voting rounds}
+          \For {$u_i \in \mathcal{U}$}
+            \If{\textsc{IsVoteRound}$\left(r, j, S_i\right)$}
+              \State $\mathcal{P} \leftarrow \textsc{Vote}\left(u_i,
+              \mathcal{P}\right)$
+                \Comment{Player $i$ votes zero or one posts}
+            \EndIf
+          \EndFor
+          \State $\mathcal{P} \leftarrow \textsc{Order}\left(\mathcal{P}\right)$
+            \Comment{Order posts by vote count after each round of votes}
+        \EndFor
         \State \Return $\mathcal{P}$
       \EndFunction
       \end{algorithmic}
     \end{algorithm}
 
     \begin{algorithm}[H]
-      \caption{Main protocol of curation of posts in Steem. It represents one
-      week of voting and each player creates only one post. At the end of the
-      week, the list of ordered posts by value of votes received will be
-      returned.}
-      \label{alg:Protocol}
+      \caption{Calculates whether voting in this round is optimal}
+      \label{alg:isvoteround}
       \begin{algorithmic}[1]
-      \Function{Protocol}{$N,\mathcal{S},\mathcal{L},\mathcal{SP}, maxR$}
-        \State $\mathcal{P} \leftarrow \textsc{PostGeneration}(N,\mathcal{L})$
-        \State $\mathcal{P} \leftarrow
-        \textsc{Curation}(N,\mathcal{S},\mathcal{P},\mathcal{SP}, maxR)$
-        \State \Comment{Discuss payout part}
-      \EndFunction
+    \begin{algorithm}[H]
+      \caption{Posts curation procedure}
+      \label{alg:main}
+      \hspace*{\algorithmicindent} \textbf{Input:} $\mathcal{U}, r$ \\
+      \hspace*{\algorithmicindent} \textbf{Output:} $\mathcal{P}$
+      \begin{algorithmic}[1]
+      \State $\mathcal{P} \leftarrow
+      \textsc{GeneratePosts}\left(\mathcal{U}\right)$
+      \State $\mathcal{P} \leftarrow \textsc{Curate}\left(\mathcal{U},
+      \mathcal{P}, r\right)$
+      \State \Return $\mathcal{P}$
       \end{algorithmic}
     \end{algorithm}
