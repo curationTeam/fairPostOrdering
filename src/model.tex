@@ -120,6 +120,7 @@
               k}}{\lbrace l_{i, p}\rbrace}$\footnote{TODO: Improve notation}
             \State Parse $p_j$ as $\left(m, l_p, v\right)$
             \State $v' \leftarrow v + VP_i \cdot l_{i, p} \cdot sp_i$
+            \State $VP_i \gets VP_i - \left(a VP_i l_{i, p} + b\right)$
             \State $\mathcal{P} \leftarrow p_1 \Vert p_2 \Vert \dots \Vert
             p_{j-1} \Vert \left(m, l_p, v'\right) \Vert p_{j+1} \Vert \dots \Vert
             p_N$
