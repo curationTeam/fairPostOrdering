@@ -1,15 +1,41 @@
 \section{Model}
-  \subsection{Properties}
+  \subsection{Notation}
+    \begin{itemize}
+      \item We denote the set of all probability distributions on set $A$ as
+      $\mathcal{D\left(A\right)}$.
+      \item We denote the powerset of a set $A$ with $2^A$.
+      \item $a \Vert b$ denotes the concatenation of $a$ and $b$.
+    \end{itemize}
+
+  \subsection{Modeling Steem}
+    \subsubsection*{Posts}
+      A post is defined as $p = \left(i, l, v\right)$, with $i \in
+      \left[N\right], l \sim L_i$ and $v \in \mathbb{R}_{+}$.
+      \begin{itemize}
+        \item \textbf{Author.} Each player $u_i$ creates one post. The first
+        element of that post is the index of its creator, $i$.
+
+        \item \textbf{Likeability.} The likeability of a post is defined as $l
+        \in \left[0, 1\right]^N$, where $l$ is drawn from $L_i$ (the Likeability
+        Distribution of its creator $u_i$).
+
+        \item \textbf{Votes.} A post has an associated ``vote'' value, which is a
+        real non-negative number. It is initialized at 0 and increases whenever a
+        player votes for the post, as explained later in detail.
+      \end{itemize}
+      Let $l_i \sim L_i$ and $p_i = \left(i, l_i, 0\right)$. The set of all posts
+      is $\mathcal{P} = \Vert_{i=1}^N p_i$.
+
     \subsubsection*{Players}
       The are $N \in \mathbb{N}^{*}$ players in the model. A player $u$ is
       defined by her Steem Power $SP \in \mathbb{N}$, her Voting Power $VP \in
       \left[0, 1\right]$, her Likeability Distribution $L \in \mathcal{D}
       \left(\left[0, 1\right]^N\right)$ and her Strategy $S \in \left\{H,
-      G\right\} \times \times 2^{\left[N\right]}$.\footnote{We denote the
-      powerset of a set $A$ with $2^A$.} Let the $i$th player be represented by
-      the tuple $u_i = \left(SP_i, VP_i, L_i, S_i\right)$. The tuple of players
-      is defined as $\mathcal{U} = \left(u_1, \dots, u_i, \dots, u_N\right)$ and
-      each player is identified by her index in $\mathcal{U}$.
+      G\right\} \times \times 2^{\left[N\right]}$. Let the $i$th player be
+      represented by the tuple $u_i = \left(SP_i, VP_i, L_i, S_i\right)$. The
+      tuple of players is defined as $\mathcal{U} = \left(u_1, \dots, u_i,
+      \dots, u_N\right)$ and each player is identified by her index in
+      $\mathcal{U}$.
 
       We will now explain each field in $u_i$ in detail:
       \begin{itemize}
@@ -24,11 +50,10 @@
         \dots, VP_i, \dots, VP_N\right)$.
 
         \item \textbf{Likeability Distribution.} The Likeability Distribution
-        $L_i\in \mathcal{D}\left([0,1]^N\right)$\footnote{We denote the set of
-        all probability distributions on set $A$ as $\mathcal{D\left(A\right)}$.}
-        of $u_i$ is a distribution on how likeable is the content produced by
-        $u_i$ to the rest of the players. The Likeability Distribution for the
-        whole system is $\mathcal{L} = \left(L_1, \dots, L_i, \dots, L_n\right)$.
+        $L_i\in \mathcal{D}\left([0,1]^N\right)$ of $u_i$ is a distribution on
+        how likeable is the content produced by $u_i$ to the rest of the
+        players. The Likeability Distribution for the whole system is
+        $\mathcal{L} = \left(L_1, \dots, L_i, \dots, L_n\right)$.
 
         \item \textbf{Strategy.} The strategy of $u_i$ is defined as $S_i \in
         \lbrace H, G \rbrace \times \mathbb{N}^* \times 2^{\left[N\right]}$,
@@ -68,26 +93,6 @@
       \end{itemize}
       The set of players is defined as $\mathcal{U} = ( u_1,..., u_i,..., u_n )$
       $\forall i \in \left[N\right]$.\footnote{TODO: fix appearance}
-
-    \subsubsection*{Posts}
-      A post is defined as $p = \left(i, l, v\right)$, with $i \in
-      \left[N\right], l \sim L_i$ and $v \in \mathbb{R}_{+}$.
-      \begin{itemize}
-        \item \textbf{Author.} Each player $u_i$ creates one post. The first
-        element of that post is the index of its creator, $i$.
-
-        \item \textbf{Likeability.} The likeability of a post is defined as $l
-        \in \left[0, 1\right]^N$, where $l$ is drawn from $L_i$ (the Likeability
-        Distribution of its creator $u_i$).
-
-        \item \textbf{Votes.} A post has an associated ``vote'' value, which is a
-        real non-negative number. It is initialized at 0 and increases whenever a
-        player votes for the post, as explained later in detail.
-      \end{itemize}
-      Let $l_i \sim L_i$ and $p_i = \left(i, l_i, 0\right)$. The set of all posts
-      is $\mathcal{P} = \Vert_{i=1}^N p_i$.\footnote{$a \Vert b$ denotes the
-      concatenation of $a$ and $b$.}
-
 
   \subsection{Game Execution}
     \begin{algorithm}
