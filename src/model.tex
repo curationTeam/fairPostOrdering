@@ -150,7 +150,7 @@
         \For{$j = 1$ to $r$}
           \Comment{$r$ voting rounds}
           \For {$u_i \in \mathcal{U}$}
-            \If{\textsc{IsVoteRound}$\left(r, j, S_i\right)$}
+            \If{\textsc{IsVoteRound}$\left(j, S_i, r, N\right)$}
               \State $\mathcal{P} \leftarrow \textsc{Vote}\left(u_i,
               \mathcal{P}\right)$
                 \Comment{Player $i$ votes zero or one posts}
@@ -168,7 +168,7 @@
       \caption{Calculates whether voting in this round is optimal}
       \label{alg:isvoteround}
       \begin{algorithmic}[1]
-        \Function{IsVoteRound}{$r, j, S$}
+        \Function{IsVoteRound}{$j, S, r, N$}
           \State 
         \EndFunction
       \end{algorithmic}
