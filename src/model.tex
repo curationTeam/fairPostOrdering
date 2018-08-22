@@ -117,7 +117,7 @@
         \Switch{$S_i$}
           \Case{$honest$}
             \State $p_j \leftarrow \argmax\limits_{p \in \mathcal{P}_{1 ..
-              k}}{\lbrace l_{i, p}\rbrace}$\footnote{TODO: Improve notation}
+              k}}{\lbrace l_{i, p}\rbrace}$
             \State Parse $p_j$ as $\left(m, l_p, v\right)$
             \State $v' \leftarrow v + VP_i \cdot l_{i, p} \cdot sp_i$
             \State $VP_i \gets VP_i - \left(a VP_i l_{i, p} + b\right)$
@@ -141,6 +141,7 @@
       \EndFunction
       \end{algorithmic}
     \end{algorithm}
+    TODOS\footnote{TODO: Improve argmax notation}\footnote{TODO: Write Greedy}
 
     \begin{algorithm}[H]
       \caption{Players cast votes for $r$ rounds}
