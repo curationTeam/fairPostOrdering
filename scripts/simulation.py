@@ -118,10 +118,7 @@ def get_number_players(noProfiles):
 
 # Return a list with the author_id of the posts
 def display_list(posts):
-    posts_ranking = []
-    for p in posts:
-        posts_ranking.append(p.author_id)
-    return posts_ranking
+    return [p.author_id for p in posts]
 
 # Getter for the id of the attacker --------WIP
 def get_attacker_id(players):
@@ -143,15 +140,12 @@ def net_position(players, posts):
 
 # Sort lists of posts by quality
 def sort_by_quality(posts):
-    posts.sort(key=lambda x: x.quality, reverse = True)# no cambiar orden de los posts
-    quality_sorted = display_list(posts)
-    return quality_sorted
-
+    return sorted(posts, key=lambda x: x.quality, reverse = True)
 
 # Print results of execution
 def print_result(posts):
     order_posts = display_list(posts)
-    quality_sorted = sort_by_quality(posts)
+    quality_sorted = display_list(sort_by_quality(posts))
     print('Final ranking of posts:', order_posts)
     print('Quality sorted:', quality_sorted)
     print('Spearman:', stats.spearmanr(quality_sorted, order_posts)[0])
