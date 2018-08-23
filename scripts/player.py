@@ -14,6 +14,8 @@ class Player:
 
     def __init__(self, id, quality_mean, quality_sd, type, sp, attention):
         self.id = id
+        # TODO: use a function that returns a tuple of N numbers in [0, 1]
+        #       instead of mean and standard deviation for quality
         self.quality = [quality_mean, quality_sd]
         self.strategy = Strategy(type, id)
         self.sp = sp
