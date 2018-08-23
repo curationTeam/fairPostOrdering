@@ -44,3 +44,7 @@ class Post:
 
     def __str__(self):
         return str(self.author_id)
+
+    def __repr__(self):
+        return "Post(author = %r, quality = %r, votes = %r)" % \
+          (self.author_id, self.quality, self.votes_received)
