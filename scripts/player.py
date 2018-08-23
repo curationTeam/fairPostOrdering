@@ -46,7 +46,11 @@ class Player:
         """
         self.quality = [quality_mean, quality_sd]
 
+    def spend_vp(self, a, weight, b):
+        self.vp = max(self.vp - (a * self.vp * weight + b), 0)
 
+    def regenerate_vp(self, c):
+        self.vp = min(self.vp + c, 1) # TODO: We have to define c in terms of the rounds
 
     def create_post(self, quality, players):
         """
