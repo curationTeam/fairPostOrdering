@@ -60,18 +60,6 @@
     \end{definition}
 
 
-    \begin{definition}[Honest Player]
-      A player $u$ is considered \emph{honest} if her utility is maximized
-      when the result of the post-voting system equals her subjective ordering
-      of the posts:
-      \begin{equation*}
-        \forall i < j \in \left|\mathcal{P}\right|, l_{u, u\textsc{-Order}
-        \left(\mathcal{P}\right)\left[i\right]} \geq l_{u, u\textsc{-Order}
-        \left(\mathcal{P}\right)\left[j\right]}
-        \enspace.
-      \end{equation*}\footnote{TODO: discuss list notation}
-    \end{definition}
-
     \begin{definition}[Convergence under honesty]
       A post-voting system $t$-\emph{converges under honesty} if the output of
       the system with all parties playing honestly equals the ideal order in the
@@ -164,6 +152,23 @@
     \end{definition}
 
   \subsection{Game Execution}
+    \begin{definition}[Honest Player v1]
+      A player $u$ is considered \emph{honest} if her utility is maximized
+      when the result of the post-voting system equals her subjective ordering
+      of the posts:
+      \begin{equation*}
+        \forall i < j \in \left|\mathcal{P}\right|, l_{u, u\textsc{-Order}
+        \left(\mathcal{P}\right)\left[i\right]} \geq l_{u, u\textsc{-Order}
+        \left(\mathcal{P}\right)\left[j\right]}
+        \enspace.
+      \end{equation*}\footnote{TODO: discuss list notation}
+    \end{definition}
+
+    \begin{definition}[Honest Player v2]
+      A player $u$ is considered \emph{honest} if she always votes the best post
+      of the top $k$ (her attention span) with a weight equal to how much she
+      likes the post.\footnote{TODO: discuss definition of honesty}
+    \end{definition}
     \begin{algorithm}
       \caption{Each player creates one post}
       \label{alg:postGen}
