@@ -1,5 +1,5 @@
 
-from Post import Post
+from post import Post
 
 class Strategy:
 

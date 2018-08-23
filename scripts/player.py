@@ -1,6 +1,5 @@
-
-from Post import Post
-from Strategy import Strategy
+from post import Post
+from strategy import Strategy
 
 class Player:
     """
