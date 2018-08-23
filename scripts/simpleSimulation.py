@@ -1,20 +1,17 @@
-
 from scipy import stats
 import random
 
 rounds_of_votes = 5
 number_of_players = 15
 
-
 class Player():
-    def __init__(self,player_id):
+    def __init__(self, player_id):
         self.player_id = player_id
         self.quality = player_id
         self.honest = True
 
-    
-    def create_post(self,quality,players):
-        post = Post(self.player_id,players,self.player_id)
+    def create_post(self, quality, players):
+        post = Post(self.player_id, players, self.player_id)
         return post
 
 
@@ -22,7 +19,7 @@ class Post():
     def __init__(self, quality, players, player_id):
         self.author_id = player_id
         self.quality = quality
-        self.potential_voters = random.sample(players,quality)
+        self.potential_voters = random.sample(players, quality)
         self.votes_received = 0
         self.voters = []
 
@@ -36,7 +33,7 @@ def init_setup(seed):
     players = init_players()
     posts = init_posts(players)
 
-    return players,posts
+    return players, posts
 
     
 #Initialize players
@@ -44,7 +41,7 @@ def init_players():
     players = []
     for i in range(number_of_players):
         players.append(Player(i))
-    bad_guy = random.randint(0,len(players)-1)
+    bad_guy = random.randint(0, len(players)-1)
     players[bad_guy].honest = False #Choose dishonest player at random
     print ("Bad guy: ", players[bad_guy].player_id)
     return players
@@ -67,19 +64,19 @@ def init_posts(players):
 #all players behave honestly
 def execute_all_honest(seed):
     
-    players,posts = init_setup(seed)
+    players, posts = init_setup(seed)
     
     for _round in range(rounds_of_votes):
         random.shuffle(players) #randomize voting order in each round
 
         for player in players:
-            posts = vote (player,posts)
+            posts = vote (player, posts)
 
     posts1 = display_list(posts)
-    attacker_net_position_1 = net_position(players,posts)
-    print_result(posts,posts1,attacker_net_position_1)
+    attacker_net_position_1 = net_position(players, posts)
+    print_result(posts, posts1, attacker_net_position_1)
 
-    return posts1,attacker_net_position_1
+    return posts1, attacker_net_position_1
 
 #one player is dishonest. Dishonest player self-vote his post in the first round
 def execute_1_self_vote(seed):#WIP
@@ -93,13 +90,13 @@ def execute_1_self_vote(seed):#WIP
             if(not player.honest and round == 0):
                 posts = selfvote(player, posts)    
                 break #jump to next player
-            posts = vote (player,posts)
+            posts = vote (player, posts)
 
     posts2 = display_list(posts)
-    attacker_net_position_2 = net_position(players,posts)
-    print_result(posts,posts2,attacker_net_position_2)
+    attacker_net_position_2 = net_position(players, posts)
+    print_result(posts, posts2, attacker_net_position_2)
 
-    return posts2,attacker_net_position_2
+    return posts2, attacker_net_position_2
 
 #one player is dishonest. Dishonest player self-vote his post in every round
 def execute_2_self_vote(seed):#WIP
@@ -114,13 +111,13 @@ def execute_2_self_vote(seed):#WIP
                 posts = selfvote (player, posts)
                 break   #jump to next player        
 
-            posts = vote (player,posts)
+            posts = vote (player, posts)
 
     posts3 = display_list(posts)
-    attacker_net_position_3 = net_position(players,posts)
-    print_result(posts,posts3,attacker_net_position_3)
+    attacker_net_position_3 = net_position(players, posts)
+    print_result(posts, posts3, attacker_net_position_3)
 
-    return posts3,attacker_net_position_3
+    return posts3, attacker_net_position_3
 
 def vote (player, posts):
 
@@ -156,7 +153,7 @@ def get_attacker_id(players):
     return attacker_id
 
 
-def net_position(players,posts):
+def net_position(players, posts):
     ctr = 0
     attacker_id = get_attacker_id(players)
     for p in posts:
@@ -172,12 +169,12 @@ def sort_by_quality(posts):
     return quality_sorted
 
 
-def print_result(posts,order_posts,attacker_position):
+def print_result(posts, order_posts, attacker_position):
 
     quality_sorted = sort_by_quality(posts)
   
-    print ('Final ranking of posts:',order_posts, '     Attacker net position:', attacker_position)
-    print ('Spearman:',stats.spearmanr(quality_sorted, order_posts)[0],'   KendallTau:',stats.kendalltau(quality_sorted, order_posts)[0])
+    print ('Final ranking of posts:', order_posts, '     Attacker net position:', attacker_position)
+    print ('Spearman:', stats.spearmanr(quality_sorted, order_posts)[0],'   KendallTau:', stats.kendalltau(quality_sorted, order_posts)[0])
     print ("")
 
 
@@ -185,7 +182,7 @@ def print_result(posts,order_posts,attacker_position):
 
 def main():
   
-  seed = random.randint(0,1000)
+  seed = random.randint(0, 1000)
 
   execute_all_honest(seed)
   execute_1_self_vote(seed)
