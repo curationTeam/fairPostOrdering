@@ -114,6 +114,7 @@ def get_number_players(noProfiles):
         ctr += profile
 
     return ctr
+    player.spend_vp(a, weight, b) # Decrease voting power after vote
     return player, posts
 
 # Return a list with the author_id of the posts
