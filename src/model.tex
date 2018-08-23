@@ -136,7 +136,6 @@
       The system returns an ordered list of the input posts, possibly reordered
     \end{definition}
 
-  \subsection{Game Execution}
     \begin{definition}[Honest Player v1]
       A player $u$ is considered \emph{honest} if her utility is maximized
       when the result of the post-voting system equals her subjective ordering
@@ -173,6 +172,8 @@
 
     The above result is tight.
     If the conditions are violated the above theorem is not true.
+
+  \subsection{Steem Execution}
     \begin{algorithm}
       \caption{Each player creates one post}
       \label{alg:postGen}
@@ -202,9 +203,10 @@
             \State $p_j \leftarrow \argmax\limits_{p \in \mathcal{P}_{1 ..
               k}}{\lbrace l_{i, p}\rbrace}$
             \State Parse $p_j$ as $\left(m, l_p, v\right)$
-            \State $v' \leftarrow v + \mathcal{VP}_i \cdot l_{i, p} \cdot sp_i$
-            \State $\mathcal{VP}_i \gets \mathcal{VP}_i - \left(a \mathcal{VP}_i
-            l_{i, p} + b\right)$
+            \State $v' \leftarrow v + a \cdot \mathrm{VP}_i \cdot l_{i, p} \cdot
+            \mathrm{SP}_i + b$
+            \State $\mathrm{VP}_i \gets \mathrm{VP}_i - \left(a \cdot
+            \mathrm{VP}_i \cdot l_{i, p} + b\right)$
             \State $\mathcal{P} \leftarrow p_1 \Vert p_2 \Vert \dots \Vert
             p_{j-1} \Vert \left(m, l_p, v'\right) \Vert p_{j+1} \Vert \dots \Vert
             p_N$
@@ -260,13 +262,9 @@
     \end{algorithm}
 
     \begin{algorithm}[H]
-      \caption{Posts curation procedure}
+      \caption{Steem$\left(\mathcal{U}, \mathcal{P}, r\right)$}
       \label{alg:main}
-      \hspace*{\algorithmicindent} \textbf{Input:} $\mathcal{U}, r$ \\
-      \hspace*{\algorithmicindent} \textbf{Output:} $\mathcal{P}$
       \begin{algorithmic}[1]
-      \State $\mathcal{P} \leftarrow
-      \textsc{GeneratePosts}\left(\mathcal{U}\right)$
       \State $\mathcal{P} \leftarrow \textsc{Curate}\left(\mathcal{U},
       \mathcal{P}, r\right)$
       \State \Return $\mathcal{P}$
