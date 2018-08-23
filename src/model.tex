@@ -100,29 +100,19 @@
       The are $N \in \mathbb{N}^{*}$ players in the model. A player $u$ is
       defined by her Steem Power $\mathrm{SP} \in \mathbb{N}$, her Voting Power
       $\mathrm{VP} \in \left[0, 1\right]$, her Likeability Distribution $L \in
+    \begin{definition}[Player]
+      Let $N \in \mathbb{N}^{*}$. A player $u$ is defined by her unique
+      $\mathrm{id} \in \left[N\right]$, her Likeability Distribution $L \in
       \mathcal{D} \left(\left[0, 1\right]^N\right)$ and her Strategy $S \in
-      \left\{H, G\right\} \times \times 2^{\left[N\right]}$. Let the $i$th
-      player be represented by the tuple $u_i = \left(\mathcal{SP}_i,
-      \mathcal{VP}_i, L_i, S_i\right)$. The tuple of players is defined as
-      $\mathcal{U} = \left(u_1, \dots, u_i, \dots, u_N\right)$ and each player
-      is identified by her index in $\mathcal{U}$.
+      \left\{H, G\right\} \times \mathbb{N}^* \times 2^{\left[N\right]}$. Let
+      the $i$th player be represented by the tuple $u_i = \left(i, L_i,
+      S_i\right)$. The tuple of players is defined as $\mathcal{U} = \left(u_1,
+      \dots, u_i, \dots, u_N\right)$.
 
       We will now explain each field in $u_i$ in detail:
       \begin{itemize}
-        \item \textbf{Steem Power.} The Steem Power of $u_i$ is defined as
-        $\mathcal{SP}_{i} \in \mathbb{N}$ and represent the influence of the
-        player in the platform. The vector of Steem Power funds for the $N$
-        players is defined as $\mathcal{\mathcal{SP}} = \left(\mathcal{SP}_{1},
-        \dots, \mathcal{SP}_{i}, \dots, \mathcal{SP}_{n}\right)$.
-        \item \textbf{Voting Power.} The Voting Power of $u_i$ is defined as
-        $\mathcal{VP}_i \in \left[0, 1\right]$ and can be understood as  voting
-        influence that is used up when voting and regenerates with time. The
-        vector of Voting Power for the N players is defined as $\mathcal{VP} =
-        \left(\mathcal{VP}_1, \dots, \mathcal{VP}_i, \dots,
-        \mathcal{VP}_N\right)$.
-
         \item \textbf{Likeability Distribution.} The Likeability Distribution
-        $L_i\in \mathcal{D}\left([0,1]^N\right)$ of $u_i$ is a distribution on
+        $L_i \in \mathcal{D}\left([0,1]^N\right)$ of $u_i$ is a distribution on
         how likeable is the content produced by $u_i$ to the rest of the
         players. The Likeability Distribution for the whole system is
         $\mathcal{L} = \left(L_1, \dots, L_i, \dots, L_n\right)$.
@@ -133,20 +123,20 @@
         attention span and the third is her voting ring.
         \begin{itemize}
           \item \textbf{Honest/Greedy.} $H$ corresponds to the $honest$ and $G$
-          to the $greedy$ strategy. An $honest$ player votes according to the
-          likeability of a post $l_i$ (defined later)\footnote{TODO: untangle},
-          that is to say she votes the posts she likes. For $honest$ players, the
-          value of the vote is computed as $v_{H,i} = a \cdot \mathcal{VP} \cdot
-          l \cdot \mathcal{SP} + b$, where $l$ is drawn from the Likeability
-          distribution\footnote{TODO: move to posts section}\footnote{TODO:
-          explain $a$, $b$}. In Steem terms, $l$ can be understood as the weight
-          of a vote.
+          to the $greedy$ strategy. An $honest$ player $u_i$ would vote a post
+          $p$ according to its likeability towards herself, $l_{p, i}$, that is
+          to say she votes posts following her preferences. (For $honest$
+          players, the value of the vote is computed as $v_{H,i} = a \cdot
+          \mathcal{VP} \cdot l \cdot \mathcal{SP} + b$, where $l$ is drawn from
+          the Likeability distribution)\footnote{TODO: move to posts
+          section}\fnmsep\footnote{TODO: explain $a$, $b$}. In Steem terms, $l$
+          can be understood as the weight of a vote.
 
           A $greedy$ player only votes for posts produced by users of its Voting
-          Ring. The value of vote for a player if $u_i$ is $greedy$ is defined
+          Ring. (The value of vote for a player if $u_i$ is $greedy$ is defined
           as $v_{G,i} = a \cdot \mathcal{VP}_i \cdot
           \mathcal{SP}_i$,\footnote{TODO: same} as in our model all $greedy$
-          votes are executed with full weight.
+          votes are executed with full weight.)
 
           \item \textbf{Attention Span.} This is a positive integer that
           represents the number of posts a player can consider voting
@@ -162,11 +152,13 @@
           ($\forall i \neq j \in \left[N\right], R_i = R_j \vee \left(R_i \cap
           R_j = \emptyset\right)$).
         \end{itemize}
-        The tuple of the strategies for the $N$ players is defined as
-        $\mathcal{S} = (S_1, \dots, S_i, \dots, s_N)$.
+        The tuple of all strategies is defined as $\mathcal{S} = (S_1, \dots,
+        S_i, \dots, s_N)$.
       \end{itemize}
-      The set of players is defined as $\mathcal{U} = ( u_1,..., u_i,..., u_n )$
-      $\forall i \in \left[N\right]$.\footnote{TODO: fix appearance}
+      The set of players is defined as $\mathcal{U} = \left(u_1, \dots, u_i,
+      \dots, u_N\right)$.
+    \end{definition}
+      \end{itemize}
 
   \subsection{Game Execution}
     \begin{algorithm}
