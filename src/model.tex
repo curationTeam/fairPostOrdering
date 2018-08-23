@@ -59,14 +59,6 @@
       \end{equation*}\footnote{TODO: discuss list notation}
     \end{definition}
 
-    \begin{definition}[Post-Voting System]
-      Accepts as inputs:
-      \begin{itemize}
-        \item list of posts (in some order)
-        \item set of players, each consisting of a strategy profile
-      \end{itemize}
-      Returns an ordered list of the same posts, possibly reordered
-    \end{definition}
 
     \begin{definition}[Honest Player]
       A player $u$ is considered \emph{honest} if her utility is maximized
@@ -158,7 +150,18 @@
       The set of players is defined as $\mathcal{U} = \left(u_1, \dots, u_i,
       \dots, u_N\right)$.
     \end{definition}
+
+    \begin{definition}[Post-Voting System]
+      An algorithm $F$ that accepts as inputs:
+      \begin{itemize}
+        \item list of posts (in some order)
+        \item set of players
       \end{itemize}
+      All posts must have a likeability vector of length equal to the number of
+      players.
+
+      The system returns an ordered list of the input posts, possibly reordered
+    \end{definition}
 
   \subsection{Game Execution}
     \begin{algorithm}
