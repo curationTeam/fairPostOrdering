@@ -60,21 +60,6 @@
     \end{definition}
 
 
-    \begin{definition}[Convergence under honesty]
-      A post-voting system $t$-\emph{converges under honesty} if the output of
-      the system with all parties playing honestly equals the ideal order in the
-      first $t$, for any initial order, and any likeability
-      distribution.\footnote{TODO: continue}
-    \end{definition}
-
-    \begin{theorem}
-      The Steem system $t$-converges under honesty, assuming the following
-      conditions on $\mathcal{SP}, v$ ...\footnote{TODO: continue}
-    \end{theorem}
-
-    The above result is tight.
-    If the conditions are violated the above theorem is not true.
-
   \subsection{Modeling Steem}
     \subsubsection*{Players}
       The are $N \in \mathbb{N}^{*}$ players in the model. A player $u$ is
@@ -169,6 +154,25 @@
       of the top $k$ (her attention span) with a weight equal to how much she
       likes the post.\footnote{TODO: discuss definition of honesty}
     \end{definition}
+
+    \begin{definition}[Convergence under honesty]
+      We say that a post-voting system $F$ $t$-\emph{converges under honesty}
+      if, for every valid input $\left(\mathcal{P}, \mathcal{U}\right)$ where
+      all players are honest, it is
+      \begin{equation*}
+        F\left(\mathcal{P}, \mathcal{U}\right)_{1..t} =
+        \textsc{IdealOrder}\left(\mathcal{P}\right)_{1..t} \enspace.
+      \end{equation*}
+    \end{definition}
+
+    \begin{theorem}
+      The Steem system $t$-converges under honesty, assuming the following
+      conditions on $N, P, \mathcal{SP}, v, att\_span, a, b, c$
+      ...\footnote{TODO: continue}
+    \end{theorem}
+
+    The above result is tight.
+    If the conditions are violated the above theorem is not true.
     \begin{algorithm}
       \caption{Each player creates one post}
       \label{alg:postGen}
