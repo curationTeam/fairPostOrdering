@@ -22,6 +22,7 @@ def simulation(seed, rounds, noProfiles, a, b, regen, att_span): # TODO: poner n
     players, posts = init_setup(seed, noProfiles, att_span)
 
     for _round in range(0, rounds):
+        # TODO: no randomizing is necessary with the chosen model
         random.shuffle(players) # randomize voting order in each round
 
         for player in players:
@@ -80,9 +81,11 @@ def init_posts(players):
 
     return posts
 
+# TODO: score calculation should happen in the strategy/player method
 def execute_vote(player, post, posts, a, b):
     # Calculate vote as the product of player sp, player current vp and likability(weight)
     weight = post.likability[player.id]
+    # TODO: isn't it a * player.sp * player.vp * weight + b?
     post.votes_received += player.sp * player.vp * weight
     post.voters.append(player.id)
     player = recalculate_vp(player,a,b) #Decrease voting power after vote
