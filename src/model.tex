@@ -13,7 +13,7 @@
     likeability matrix for the posts.
 
     \begin{definition}[Post]
-      Let $N, P \in \mathbb{N}^*, L_i \in \mathcal{D}\left(\left[0,
+      Let $N \in \mathbb{N}^*, L_i \in \mathcal{D}\left(\left[0,
       1\right]^N\right)$. A post is defined as $p = \left(i, l(, v)\right)$,
       with $i \in \left[N\right], l \sim L_i$ (and $v \in \mathbb{R}_{+}$).
       \begin{itemize}
@@ -28,9 +28,11 @@
         real non-negative number. It is initialized at 0 and increases whenever a
         player votes for the post, as explained later in detail.)
       \end{itemize}
-      Let $l_i \sim L_i$ and $p_i = \left(i, l_i, 0\right)$. The set of all
-      posts is $\mathcal{P} = \bigcup\limits_{i=1}^P
-      \left\{p_i\right\}$.\footnote{TODO: consider removing things in
+      Let $P \in \mathbb{N}^*$ the number of posts. Then $\forall j \in
+      \left[P\right],$ let $\mathrm{creator}_j \in \left[N\right], l_j \sim
+      L_{\mathrm{creator}_j}$ and $p_j = \left(\mathrm{creator}_j, l_j(,
+      0)\right)$. The set of all posts is $\mathcal{P} = \bigcup\limits_{j=1}^P
+      \left\{p_j\right\}$.\footnote{TODO: consider removing things in
       parentheses}\fnmsep\footnote{TODO: consider dropping $L_i$ entirely}
     \end{definition}
 
