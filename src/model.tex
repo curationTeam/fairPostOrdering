@@ -2,141 +2,189 @@
   \subsection{Properties}
     \subsubsection*{Players}
       The are $N \in \mathbb{N}^{*}$ players in the model. A player $u$ is
-      defined by it Steem Power $SP$, its Voting Power $VP$, its Likability
-      Distribution $L$ and its Strategy $S$. Let the $ith$ player be
-      characterized with the following tuple $u_i = (SP_i,VP_i,L_i,S_i)$ where
-      $SP \in \mathbb{N}$, $VP \in [0,100]$, $L \in
-      \mathcal{D}\left([0,1]^N\right)$ and $S \in \lbrace H,G \rbrace \times
-      [100] \times 2^{[N]}$. Lets describe each of the properties of a player in
-      more detail:
-      \begin{itemize}
-        \item The Steem Power funds of player $U_i$ are defined as $sp_{i} \in
-        \mathbb{N}$. The vector of Steem Power funds for the $N$ players is
-        defined as $\mathcal{SP} = (sp_{1},...,sp_{i},...sp_{n})$ $\forall i \in
-        N$.
-        \item The Voting Power...
-        \item A player $u_i$ will have a "Likability Distribution" $L_i$ which
-        determines how likely is the $jth$ to like a post created by $u_i$ ,
-        defined as $L_i \in \mathcal{D}\left([0,1]^N\right)$. The Likability
-        Distribution for all the players will be $\mathcal{L} = ( L_1,...,
-        L_i,..., L_n )$ $\forall i \in N$
-        \item The strategy of player $u_i$ is defined as $s_i \in (\lbrace H,G
-        \rbrace, Min, R )$, where $H \equiv honest$ and $G \equiv greedy$, $Min
-        \in [0,1]$ is the Minimum Voting Power the player can reach and $r_i \in
-        \mathbb{N}$ is the size of $u_i$ Voting Ring. If player $u_i$ is
-        $Honest$, her Voting Ring $r_i = \emptyset$. If player $u_j$ is $Greedy$,
-        her Voting Ring $r_j = {p_1,...,p_k,...,p_r}$ where $p_k \in [1,N], $
-        .The vector of the strategies for the $N$ players is defined as
-        $\mathcal{S} = (s_1,...,s_i,...s_n)$ $\forall i \in N$
-      \end{itemize}
+      defined by her Steem Power $SP \in \mathbb{N}$, her Voting Power $VP \in
+      \left[0, 1\right]$, her Likeability Distribution $L \in \mathcal{D}
+      \left(\left[0, 1\right]^N\right)$ and her Strategy $S \in \left\{H,
+      G\right\} \times \times 2^{\left[N\right]}$.\footnote{We denote the
+      powerset of a set $A$ with $2^A$.} Let the $i$th player be represented by
+      the tuple $u_i = \left(SP_i, VP_i, L_i, S_i\right)$. The tuple of players
+      is defined as $\mathcal{U} = \left(u_1, \dots, u_i, \dots, u_N\right)$ and
+      each player is identified by her index in $\mathcal{U}$.
 
+      We will now explain each field in $u_i$ in detail:
+      \begin{itemize}
+        \item \textbf{Steem Power.} The Steem Power of $u_i$ is defined as
+        $SP_{i} \in \mathbb{N}$ and represent the influence of the player in the
+        platform. The vector of Steem Power funds for the $N$ players is defined
+        as $\mathcal{SP} = \left(SP_{1}, \dots, SP_{i}, \dots, SP_{n}\right)$.
+        \item \textbf{Voting Power.} The Voting Power of $u_i$ is defined as
+        $VP_i \in \left[0, 1\right]$ and can be understood as  voting influence
+        that is used up when voting and regenerates with time. The vector of
+        Voting Power for the N players is defined as $\mathcal{VP} = \left(VP_1,
+        \dots, VP_i, \dots, VP_N\right)$.
+
+        \item \textbf{Likeability Distribution.} The Likeability Distribution
+        $L_i\in \mathcal{D}\left([0,1]^N\right)$\footnote{We denote the set of
+        all probability distributions on set $A$ as $\mathcal{D\left(A\right)}$.}
+        of $u_i$ is a distribution on how likeable is the content produced by
+        $u_i$ to the rest of the players. The Likeability Distribution for the
+        whole system is $\mathcal{L} = \left(L_1, \dots, L_i, \dots, L_n\right)$.
+
+        \item \textbf{Strategy.} The strategy of $u_i$ is defined as $S_i \in
+        \lbrace H, G \rbrace \times \mathbb{N}^* \times 2^{\left[N\right]}$,
+        where the first element is the player's core strategy, the second is her
+        attention span and the third is her voting ring.
+        \begin{itemize}
+          \item \textbf{Honest/Greedy.} $H$ corresponds to the $honest$ and $G$
+          to the $greedy$ strategy. An $honest$ player votes according to the
+          likeability of a post $l_i$ (defined later)\footnote{TODO: untangle},
+          that is to say she votes the posts she likes. For $honest$ players, the
+          value of the vote is computed as $v_{H,i} = VP \cdot l \cdot SP$, where
+          $l$ is drawn from the Likeability distribution\footnote{TODO: move to
+          posts section}. In Steem terms, $l$ can be understood as the weight of
+          a vote.
+
+          A $greedy$ player only votes for posts produced by users of its
+          Voting Ring. The value of vote for a player if $u_i$ is $greedy$ is
+          defined as $v_{G,i} = VP_i \cdot SP_i$,\footnote{TODO: same} as in our
+          model all $greedy$ votes are executed with full weight.
+
+          \item \textbf{Attention Span.} This is a positive integer that
+          represents the number of posts a player can consider voting
+          simultaneously. For the benefit of simplicity, we will assume that this
+          number is constant throughought all players.\footnote{TODO: discuss}
+
+          \item \textbf{Voting Ring.}  If player $u_i$ is $honest$, her Voting
+          Ring is $R_i = \emptyset$. If $u_i$ is $greedy$, her Voting Ring is $R_i
+          \in 2^{\left[N\right]}$. A voting ring is defined as $R_i = \lbrace
+          g_1, \dots, g_j, \dots, g_n \rbrace$ where $g_j \in \mathcal{U}$ is the
+          $j$th member of the voting ring and $n$ is the size of the ring. Two
+          $greedy$ players will either have the same or disjoint voting rings
+          ($\forall i \neq j \in \left[N\right], R_i = R_j \vee \left(R_i \cap
+          R_j = \emptyset\right)$).
+        \end{itemize}
+        The tuple of the strategies for the $N$ players is defined as
+        $\mathcal{S} = (S_1, \dots, S_i, \dots, s_N)$.
+      \end{itemize}
       The set of players is defined as $\mathcal{U} = ( u_1,..., u_i,..., u_n )$
-      $\forall i \in \left[N\right]$.
+      $\forall i \in \left[N\right]$.\footnote{TODO: fix appearance}
 
     \subsubsection*{Posts}
+      A post is defined as $p = \left(i, l, v\right)$, with $i \in
+      \left[N\right], l \sim L_i$ and $v \in \mathbb{R}_{+}$.
       \begin{itemize}
-        \item Each player can create one post. The post created by $U_i$ is
-        defined as $p_i$. The set of all posts will be then $\mathcal{P} =
-        \bigcup_{i=1}^N p_i$.
-        \item The likability of a post will be defined as $l_i \in [0,1]^{N}$,
-        where $l_i \sim L_i$ is retrieved at random following the "Likability
-        Distribution" of player $U_i$.
+        \item \textbf{Author.} Each player $u_i$ creates one post. The first
+        element of that post is the index of its creator, $i$.
+
+        \item \textbf{Likeability.} The likeability of a post is defined as $l
+        \in \left[0, 1\right]^N$, where $l$ is drawn from $L_i$ (the Likeability
+        Distribution of its creator $u_i$).
+
+        \item \textbf{Votes.} A post has an associated ``vote'' value, which is a
+        real non-negative number. It is initialized at 0 and increases whenever a
+        player votes for the post, as explained later in detail.
       \end{itemize}
-  %\newpage
+      Let $l_i \sim L_i$ and $p_i = \left(i, l_i, 0\right)$. The set of all posts
+      is $\mathcal{P} = \Vert_{i=1}^N p_i$.\footnote{$a \Vert b$ denotes the
+      concatenation of $a$ and $b$.}
+
+
   \subsection{Game Execution}
     \begin{algorithm}
-      \caption{Each player creates a post according to Likability Distribution}
-      \label{alg:postGeneration}
+      \caption{Each player creates one post}
+      \label{alg:postGen}
       \begin{algorithmic}[1]
-      \Function{PostGeneration}{$N,\mathcal{L}$}
+      \Function{GeneratePosts}{$\mathcal{U}$}
         \State $\mathcal{P} = \emptyset$ \Comment{List of posts}
-        \For{$i \in N$}
-           \State $l_i$ $\xleftarrow{\text{R}}$ $\mathcal{L_i}$
-             \Comment{Get likability of posts}
-           \State $p \leftarrow (i,l_i)$
-           \State $\mathcal{P} \leftarrow \mathcal{P} \Vert p$
+        \For{$u_i \in \mathcal{U}$}
+           \State $l \xleftarrow{r} L_i$
+             \Comment{Get likeability of posts}
+           \State $\mathcal{P} \leftarrow \mathcal{P} \Vert \left(i, l, 0\right)$
              \Comment{Add post to list of Posts}
         \EndFor
         \State $\mathcal{P} \leftarrow \textsc{Shuffle}(\mathcal{P})$
-          \Comment{Shuffle the order of Posts}
+          \Comment{Shuffle posts to a random order}
         \State \Return $\mathcal{P}$
       \EndFunction
       \end{algorithmic}
     \end{algorithm}
 
-    \begin{algorithm}[H]
-      \caption{Player casts votes according to her strategy and until she
-      reaches her Min Voting Power}
+    \begin{algorithm}%[H]
+      \caption{Player votes for best of $k$ posts}
       \label{alg:vote}
       \begin{algorithmic}[1]
-      \Function{Vote}{$player,\mathcal{P},s,sp$}
-        \Switch{$s$}
-          \Case{$Honest$}
-            \For{$p \in \mathcal{P}$}
-              \Comment{Iterate over all the posts}
-              \State
-                \Comment{If user likes the post and has not reached min VPower}
-              \If{$l_p > 0 $ $\land $ $p.VPower > s.Min$}
-                \State $voteValue \leftarrow p.VPower \cdot l_p \cdot sp$
-                \State $p \leftarrow p.votes +  voteValue$
-              \EndIf
-            \EndFor
+      \Function{Vote}{$u_i, \mathcal{P}$}
+        \Switch{$S_i$}
+          \Case{$honest$}
+            \State $p_j \leftarrow \argmax\limits_{p \in \mathcal{P}_{1 ..
+              k}}{\lbrace l_{i, p}\rbrace}$
+            \State Parse $p_j$ as $\left(m, l_p, v\right)$
+            \State $v' \leftarrow v + VP_i \cdot l_{i, p} \cdot sp_i$
+            \State $VP_i \gets VP_i - \left(a VP_i l_{i, p} + b\right)$
+            \State $\mathcal{P} \leftarrow p_1 \Vert p_2 \Vert \dots \Vert
+            p_{j-1} \Vert \left(m, l_p, v'\right) \Vert p_{j+1} \Vert \dots \Vert
+            p_N$
           \EndCase
 
           \Case{$Greedy$}
-             \For{$p \in \mathcal{P}$}
-               \Comment{Iterate over all the posts}
-               \State
-                 \Comment{If post belongs to voting ring and not reached min
-                 VPower}
-               \If{$p \in s.R $ $\land $ $p.VPower > s.Min$}
-                 \State $voteValue \leftarrow p.VPower \cdot weight \cdot sp$
-                 \State $p \leftarrow p.votes +  voteValue$
-               \EndIf
-             \EndFor
+             \State
+               \Comment{If post belongs to voting ring and not reached min
+               VPower}
+             \If{$p \in s.R $ $\land $ $p.VPower > s.Min$}
+               \State $voteValue \leftarrow p.VPower \cdot weight \cdot sp$
+               \State $p \leftarrow p.votes +  voteValue$
+             \EndIf
           \EndCase
         \EndSwitch
 
-        \State $\mathcal{P} \leftarrow \textsc{Order}(\mathcal{P}.votes)$
-          \Comment{Order posts by value of votes received}
         \State \Return $\mathcal{P}$
       \EndFunction
       \end{algorithmic}
     \end{algorithm}
+    TODOS\footnote{TODO: Improve argmax notation}\footnote{TODO: Write Greedy}
 
     \begin{algorithm}[H]
-      \caption{Players cast votes over the maxRounds}
+      \caption{Players cast votes for $r$ rounds}
       \label{alg:curation}
       \begin{algorithmic}[1]
-      \Function{Curation}{$N,\mathcal{S},\mathcal{P},\mathcal{SP}, maxR$}
-        \State round = 0
-        \While{round $<$ $maxR$}
-          \Comment{Vote while there are rounds left}
-          \State $\mathcal{N} \leftarrow \textsc{Shuffle}(\mathcal{N})$
-            \Comment{Randomize order of player participation}
-            \For {$i \in \mathcal{N}$}
-              \State $\mathcal{P} \leftarrow \textsc{Vote}(i,\mathcal{P}, s,sp)$
-                \Comment{Player i votes for posts}
-            \EndFor
-          \State $\mathrm{round} \leftarrow \mathrm{round} + 1$
-        \EndWhile
+      \Function{Curate}{$\mathcal{U}, \mathcal{P}, r$}
+        \For{$j = 1$ to $r$}
+          \Comment{$r$ voting rounds}
+          \For {$u_i \in \mathcal{U}$}
+            \If{\textsc{IsVoteRound}$\left(j, S_i, r, N\right)$}
+              \State $\mathcal{P} \leftarrow \textsc{Vote}\left(u_i,
+              \mathcal{P}\right)$
+                \Comment{Player $i$ votes zero or one posts}
+            \EndIf
+          \EndFor
+          \State $\mathcal{P} \leftarrow \textsc{Order}\left(\mathcal{P}\right)$
+            \Comment{Order posts by vote count after each round of votes}
+        \EndFor
         \State \Return $\mathcal{P}$
       \EndFunction
       \end{algorithmic}
     \end{algorithm}
 
     \begin{algorithm}[H]
-      \caption{Main protocol of curation of posts in Steem. It represents one
-      week of voting and each player creates only one post. At the end of the
-      week, the list of ordered posts by value of votes received will be
-      returned.}
-      \label{alg:Protocol}
+      \caption{Calculates whether voting in this round is optimal}
+      \label{alg:isvoteround}
       \begin{algorithmic}[1]
-      \Function{Protocol}{$N,\mathcal{S},\mathcal{L},\mathcal{SP}, maxR$}
-        \State $\mathcal{P} \leftarrow \textsc{PostGeneration}(N,\mathcal{L})$
-        \State $\mathcal{P} \leftarrow
-        \textsc{Curation}(N,\mathcal{S},\mathcal{P},\mathcal{SP}, maxR)$
-        \State \Comment{Discuss payout part}
-      \EndFunction
+        \Function{IsVoteRound}{$j, S, r, N$}
+          \State 
+        \EndFunction
+      \end{algorithmic}
+    \end{algorithm}
+
+    \begin{algorithm}[H]
+      \caption{Posts curation procedure}
+      \label{alg:main}
+      \hspace*{\algorithmicindent} \textbf{Input:} $\mathcal{U}, r$ \\
+      \hspace*{\algorithmicindent} \textbf{Output:} $\mathcal{P}$
+      \begin{algorithmic}[1]
+      \State $\mathcal{P} \leftarrow
+      \textsc{GeneratePosts}\left(\mathcal{U}\right)$
+      \State $\mathcal{P} \leftarrow \textsc{Curate}\left(\mathcal{U},
+      \mathcal{P}, r\right)$
+      \State \Return $\mathcal{P}$
       \end{algorithmic}
     \end{algorithm}
