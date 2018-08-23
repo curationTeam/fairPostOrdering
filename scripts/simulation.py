@@ -2,9 +2,9 @@
 from scipy import stats
 import random
 
-from Strategy import Strategy
-from Player import Player
-from Post import Post
+from strategy import Strategy
+from player import Player
+from post import Post
 
 #honest and greedy content creators. users only vote and do not create content (and are honest)
 profile = ["honest","greedy","user"]
