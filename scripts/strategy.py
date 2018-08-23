@@ -13,6 +13,7 @@ class Strategy:
     min_vp(int) - It is the minimum voting power threshold the player is willing to reach.
     """
 
+    # TODO: attention should be renamed att_span, changed to player property and set in __init__()
     def __init__(self, type_strategy, id):
         self.type_strategy = type_strategy
         self.id = id
