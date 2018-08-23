@@ -88,32 +88,6 @@ def execute_vote(player, post, posts, a, b):
     # TODO: isn't it a * player.sp * player.vp * weight + b?
     post.votes_received += player.sp * player.vp * weight
     post.voters.append(player.id)
-    player = recalculate_vp(player,a,b) #Decrease voting power after vote
-    posts.sort(key=lambda x: x.votes_received, reverse = True) # Order post ranking by votes received
-
-def recalculate_vp(player,a,b):
-    
-    player.vp = player.vp - (a * player.vp * 1 + b)
-
-    if player.vp < 0:
-        player.vp = 0
-
-    return player
-
-def regenerate_vp(player,c):
-
-    player.vp = min(player.vp + c, 1) #We have to define c in terms of the rounds
-
-    return player
-
-# Get the number of players in the simulation (as a sum of the number of players of each profile)
-def get_number_players(noProfiles):
-
-    ctr = 0
-    for profile in noProfiles:
-        ctr += profile
-
-    return ctr
     player.spend_vp(a, weight, b) # Decrease voting power after vote
     return player, posts
 
