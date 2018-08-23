@@ -52,6 +52,8 @@ class Strategy:
             if (self.id not in post.voters and attention > number_posts):
                 short_list.append(post)
                 number_posts += 1
+            if (attention == number_posts):
+                break
 
         return short_list
 
