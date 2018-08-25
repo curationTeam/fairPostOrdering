@@ -1,5 +1,6 @@
 from scipy import stats
 import random
+import matplotlib.pyplot as plt
 
 from strategy import Strategy
 from player import Player
@@ -150,3 +151,9 @@ class Simulation:
         return t_similar, spearman, kendall_tau
 
 
+    def plot (self, x, y):
+        
+        plt.plot(x,y)
+        plt.xlabel("Rounds")
+        plt.ylabel("t-similarity")
+        plt.show()
