@@ -104,7 +104,7 @@ class Simulation:
 
         self.print_result(posts) 
 
-        return posts, players
+        return players, posts
 
     # TODO: score calculation should happen in the strategy/player method
     def execute_vote(self,player, post, posts):
