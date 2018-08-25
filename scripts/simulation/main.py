@@ -17,14 +17,8 @@ def main():
         rounds.append(i)
         t_similar_list.append(t_similar)
 
-    sim.plot(rounds,t_similar_list)
+    sim.plot(rounds, t_similar_list)
     
     
-
-
-
-
-
-
 if __name__== "__main__":
   main()
