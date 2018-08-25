@@ -8,7 +8,7 @@ def main():
   sim = Simulation(201600, (15, 0, 10), 1/200, 1, 6.94*10-6, 10)
   players, posts = sim.init_setup(seed)
   players, posts = sim.execute(players, posts)
-  t_similar, spearman = sim.results(posts)
+  t_similar, spearman, kendall_tau = sim.results(posts)
 
 
 if __name__== "__main__":

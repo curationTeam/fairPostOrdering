@@ -89,7 +89,7 @@ class Simulation:
         return posts
 
 
-    def execute(self, players, posts): # TODO: poner nStrategies en tuple
+    def execute(self, players, posts):
 
         for _round in range(0, self.rounds):
             
@@ -133,18 +133,20 @@ class Simulation:
         print('Spearman:', stats.spearmanr(quality_sorted, order_posts)[0])
         print('KendallTau:', stats.kendalltau(quality_sorted, order_posts)[0])
 
+
+    #Calculate t-similarity and spearman correlation coefficient
     def results(self, posts):
         t_similar = 0
         order_posts = self.display_list(posts)
         quality_sorted = self.display_list(self.sort_by_quality(posts))
         spearman = stats.spearmanr(quality_sorted, order_posts)[0]
+        kendall_tau = stats.kendalltau(quality_sorted, order_posts)[0]
 
         for i in range(0, len(posts)):
             if order_posts[i] == quality_sorted[i]:
                 t_similar += 1
             else: break
 
-        
-        return t_similar, spearman
+        return t_similar, spearman, kendall_tau
 
 
