@@ -16,6 +16,13 @@ class Simulation:
     voting_power usage per vote           -->    VP' = VP - (a*VP*w + b)
     voting_power regeneration per round   -->    VP' = min (VP + regen_time, 1)
     attention span --> att_span
+
+    In Steem:
+
+    regen_time --> the regeneration per round is given by 3/(5*24*60*60) = 6.94*10-6
+    rounds ------> the number of 3 seconds rounds in one weeks is 201600
+    a ----------->  1/200
+    b ----------->  1
     ''' 
 
     def __init__(self, rounds, noProfiles, a, b, regen_time, att_span):
@@ -85,15 +92,15 @@ class Simulation:
     def execute(self, players, posts): # TODO: poner nStrategies en tuple
 
         for _round in range(0, self.rounds):
-            # TODO: no randomizing is necessary with the chosen model
-            random.shuffle(players) # randomize voting order in each round
-
+            
             for player in players:
                 player.regenerate_vp(self.regen_time) # TODO: We have to define "regen" in terms of the rounds
                 post = player.vote(posts)
                 #print(post)
                 if post != False: #Check if the player actually voted for something
                     player, posts = self.execute_vote(player, post, posts)
+
+            posts.sort(key = lambda x: x.votes_received, reverse = True)
 
         self.print_result(posts) 
 
@@ -103,7 +110,7 @@ class Simulation:
     def execute_vote(self,player, post, posts):
         # Calculate vote as the product of player sp, player current vp and likability(weight)
         weight = post.likability[player.id]
-        post.votes_received += self.a * player.sp * player.vp * weight + self.b
+        post.votes_received += (self.a *  player.vp * weight + self.b) * player.sp
         post.voters.append(player.id)
         player.spend_vp(self.a, weight, self.b) # Decrease voting power after vote
         return player, posts
@@ -126,23 +133,18 @@ class Simulation:
         print('Spearman:', stats.spearmanr(quality_sorted, order_posts)[0])
         print('KendallTau:', stats.kendalltau(quality_sorted, order_posts)[0])
 
-    def t_similarity(self, posts):
-        index = 0
+    def results(self, posts):
+        t_similar = 0
         order_posts = self.display_list(posts)
         quality_sorted = self.display_list(self.sort_by_quality(posts))
+        spearman = stats.spearmanr(quality_sorted, order_posts)[0]
 
         for i in range(0, len(posts)):
             if order_posts[i] == quality_sorted[i]:
-                index += 1
+                t_similar += 1
             else: break
 
-        print(index)
-        return index
-
-
-
-
         
-    
+        return t_similar, spearman
 
-    
+
