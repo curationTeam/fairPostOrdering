@@ -29,9 +29,13 @@ class Strategy:
         """
         if (self.type_strategy == "honest" or self.type_strategy == "user"):
             short_list = self.get_short_list(posts, attention)
-            favorite_post = max(short_list, key=lambda x: x.likability[self.id])
 
-            return favorite_post
+            if len(short_list) > 0:
+
+                favorite_post = max(short_list, key=lambda x: x.likability[self.id])
+                return favorite_post
+
+            else: return False
 
         elif self.type_strategy == "greedy": #WIP---------
             for post in posts:
