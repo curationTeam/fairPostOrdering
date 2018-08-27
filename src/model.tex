@@ -122,12 +122,10 @@
     \begin{definition}[Convergence under honesty]
       We say that a post-voting system $\pvs = \left(\gfunc, \honeststr\right)$
       $t$-\emph{converges under honesty} if, for every valid input
-      $\left(\mathcal{P}, \mathcal{U}\right)$ where all players are honest, it
-      is
-      \begin{equation*}
-        F\left(\mathcal{P}, \mathcal{U}\right)_{1..t} =
-        \textsc{IdealOrder}\left(\mathcal{P}\right)_{1..t} \enspace.
-      \end{equation*}
+      $\postlist$, for every $\env$ and given that all protocols execute
+      $\honeststr$, eventually $\gfunc$ sends a single message (\texttt{output},
+      $\postlist$) to $\env$ such that $\textsc{Ideal}^t\left(\postlist\right)$
+      holds.
     \end{definition}
 
     \begin{theorem}
