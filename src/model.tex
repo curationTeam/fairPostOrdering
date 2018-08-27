@@ -115,16 +115,68 @@
     \end{definition}
 
     \begin{definition}[Post-Voting System]
-      An algorithm $F$ that accepts as inputs:
-      \begin{itemize}
-        \item list of posts (in some order)
-        \item set of players
-      \end{itemize}
-      All posts must have a likeability vector of length equal to the number of
-      players.
+      A tuple $\left(\gfunc, \honeststr\right)$ of two ITMs. The two
+      ITMs have to implement the following API:
 
-      The system returns an ordered list of the input posts, possibly reordered.
+      $\gfunc$ is a global functionality that accepts two messages:
+      \texttt{read}, which responds with the current list of posts and
+      \texttt{vote}, which can take various arguments and can do whatever the
+      functionality wants.
+
+      $\honeststr$ is a protocol that sends \texttt{read} and \texttt{vote}
+      messages to $\gfunc$ whenever activated by $\env$.
     \end{definition}
+
+    \begin{algorithm}[H]
+      \caption{$\gfunc\left(\textsc{Init}, \textsc{Aux},
+      \textsc{HandleVote}\right)\left(\postlist\right)$}
+      \label{alg:gfunc}
+      \begin{algorithmic}[1]
+        \State Initialization:
+        \Indent
+          \State $\forall i \in |\postlist|,$ Parse $\postlist[i]$ as
+          $\left(\mathrm{creator}_i, \like_i\right)$
+          \State Assert($\forall i \neq j \in |\postlist|, |\like_i| =
+          |\like_j|$)
+          \State $\playerlen \gets |\like_1|$
+          \State $\playerlist \gets \emptyset$
+          \State \textsc{Init}()
+        \EndIndent
+        \State
+        \State Upon receiving (\texttt{read}) from sender:
+        \Indent
+          \State Send (\texttt{posts}, $\postlist$, \textsc{Aux}(sender)) to sender
+        \EndIndent
+        \State
+        \State Upon receiving (\texttt{vote}, args) from $\player_{\mathrm{pid}}$:
+         \Indent
+           \State $\playerlist \gets \playerlist \cup \player_{\mathrm{pid}}$
+           \If{$|\playerlist| > \playerlen$}
+             \State Abort
+           \EndIf
+           \State \textsc{HandleVote}(args)
+         \EndIndent
+      \end{algorithmic}
+    \end{algorithm}
+
+    \begin{algorithm}[H]
+      \caption{$\honeststr\left(\textsc{Init}, \textsc{Vote}\right)$}
+      \label{alg:honest}
+      \begin{algorithmic}[1]
+        \State Initialization:
+        \Indent
+          \State \textsc{Init}()
+        \EndIndent
+        \State
+        \State Upon receiving (\texttt{activate}) from $\env$:
+        \Indent
+          \State Send (\texttt{read}) to $\gfunc$
+          \State Wait for response (\texttt{posts}, $\postlist$, aux)
+          \State $\mathrm{args} \gets \textsc{Vote}\left(\mathrm{aux}\right)$
+          \State Send (\texttt{vote}, args) to $\gfunc$
+        \EndIndent
+      \end{algorithmic}
+    \end{algorithm}
 
     \begin{definition}[Honest Player v1]
       A player $u$ is considered \emph{honest} if her utility is maximized
