@@ -126,25 +126,6 @@
       The system returns an ordered list of the input posts, possibly reordered.
     \end{definition}
 
-    \paragraph{Discussion}
-      If the system's description ends here, it is trivial to make a system
-      which always returns the ideal order. Also, the contribution of the
-      players is completely unspecified, thus we cannot define what it means to
-      have honest behaviour.
-
-      I suggest that we turn to a simulation-based approach. The Environment
-      gives players their likeabilities and puts posts in a global "Feed"
-      functionality. Players can interact with this functionality in very
-      specific ways (e.g. vote up to m times for each post, pay some
-      money/reduce some value (like voting power) with each vote) and the global
-      functionality reorders the posts according to the votes from time to time
-      (when?). Then we can talk about honest behaviour (vote according to a
-      specific protocol, e.g. view first k posts and choose which to vote) and
-      deviation (being malicious) and maybe prove incentive-compatibility. Also
-      we can easily envision a "Vote" functionality that replaces the players
-      and makes the necessary votes so that the final list of posts in the
-      "Feed" functionality matches the ideal.
-
     \begin{definition}[Honest Player v1]
       A player $u$ is considered \emph{honest} if her utility is maximized
       when the result of the post-voting system equals her subjective ordering
