@@ -23,6 +23,8 @@
 \usepackage{import}
 
 % Macros for symbols
+\newcommand{\gfunc}{\mathcal{G}_{\mathrm{Feed}}}
+\newcommand{\honeststr}{\Pi_{\mathrm{honest}}}
 \newcommand{\post}{p}
 \newcommand{\player}{u}
 \newcommand{\like}{l}
@@ -30,6 +32,12 @@
 \newcommand{\playerlist}{\mathcal{U}}
 \newcommand{\postlen}{M}
 \newcommand{\playerlen}{N}
+\newcommand{\env}{\mathcal{E}}
+
+% Indentation for algorithmic
+\algdef{SE}[SUBALG]{Indent}{EndIndent}{}{\algorithmicend\ }%
+\algtext*{Indent}
+\algtext*{EndIndent}
 
 % Commands for algorithmic
 \algnewcommand\algorithmicswitch{\textbf{switch}}
