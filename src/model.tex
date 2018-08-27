@@ -13,25 +13,27 @@
     likeability matrix for the posts.
 
     \begin{definition}[Post]
-      Let $N \in \mathbb{N}^*$. A post is defined as $p = \left(i, l\right)$,
-      with $i \in \left[N\right], l \in \left[0, 1\right]^N$.
+      Let $\playerlen \in \mathbb{N}^*$. A post is defined as $\post = \left(i,
+      \like\right)$, with $i \in \left[\playerlen\right], \like \in \left[0,
+      1\right]^\playerlen$.
       \begin{itemize}
         \item \textbf{Author.} The first element of a post is the index of its
         creator, $i$.
 
-        \item \textbf{Likeability.} The likeability of a post is defined as $l
-        \in \left[0, 1\right]^N$.
+        \item \textbf{Likeability.} The likeability of a post is defined as
+        $\like \in \left[0, 1\right]^\playerlen$.
       \end{itemize}
-      Let $M \in \mathbb{N}^*$ the number of posts. Then $\forall j \in
-      \left[M\right],$ let $\mathrm{creator}_j \in \left[N\right], l_j \in
-      \left[0, 1\right]^N$ and $p_j = \left(\mathrm{creator}_j, l_j\right)$. The
-      set of all posts is $\mathcal{P} = \bigcup\limits_{j=1}^M
-      \left\{p_j\right\}$.
+      Let $\postlen \in \mathbb{N}^*$ the number of posts. Then $\forall j \in
+      \left[\postlen\right],$ let $\mathrm{creator}_j \in
+      \left[\playerlen\right], \like_j \in \left[0, 1\right]^\playerlen$ and
+      $\post_j = \left(\mathrm{creator}_j, \like_j\right)$. The set of all posts
+      is $\postlist = \bigcup\limits_{j=1}^\postlen \left\{\post_j\right\}$.
     \end{definition}
 
     \begin{definition}[Post score]
-      Let post $p = \left(m, l\right)$. We define the \emph{score} of $p$ as
-      $\mathrm{sc}\left(p\right) = \sum\limits_{i = 1}^N l_i$.
+      Let post $\post = \left(m, \like\right)$. We define the \emph{score} of
+      $\post$ as $\mathrm{sc}\left(\post\right) = \sum\limits_{i = 1}^\playerlen
+      \like_i$.
     \end{definition}
     The score of a post is a single number that represents its overall worth to
     the community. By using simple summation, we assume that the opinions of all
@@ -40,37 +42,39 @@
     higher score appear before another post with a lower score.
 
     \begin{definition}[Ideal Post Order]
-      Let $\mathcal{P}$ a list of posts. We say that $\mathcal{P}$ is in
+      Let $\postlist$ a list of posts. We say that $\postlist$ is in
       \emph{ideal order} and that the property
-      $\textsc{Ideal}\left(\mathcal{P}\right)$ holds if
+      $\textsc{Ideal}\left(\postlist\right)$ holds if
       \begin{equation*}
-        \forall i < j \in \left|\mathcal{P}\right|,
-        \mathrm{sc}\left(\mathcal{P}\left[i\right]\right) \geq
-        \mathrm{sc}\left(\mathcal{P}\left[j\right]\right) \enspace.
+        \forall i < j \in \left|\postlist\right|,
+        \mathrm{sc}\left(\postlist\left[i\right]\right) \geq
+        \mathrm{sc}\left(\postlist\left[j\right]\right) \enspace.
       \end{equation*}
     \end{definition}
 
     \begin{definition}[Player]
-      Let $N \in \mathbb{N}^{*}$. A player $u$ is defined by her unique
-      $\mathrm{id} \in \left[N\right]$, her Likeability Distribution $L \in
-      \mathcal{D} \left(\left[0, 1\right]^N\right)$ and her Strategy $S \in
-      \left\{H, G\right\} \times \mathbb{N}^* \times 2^{\left[N\right]}$. Let
-      the $i$th player be represented by the tuple $u_i = \left(i, L_i,
-      S_i\right)$. The tuple of players is defined as $\mathcal{U} = \left(u_1,
-      \dots, u_i, \dots, u_N\right)$.
+      Let $\playerlen \in \mathbb{N}^{*}$. A player $\player$ is defined by her
+      unique $\mathrm{id} \in \left[\playerlen\right]$, her Likeability
+      Distribution $L \in \mathcal{D} \left(\left[0, 1\right]^\playerlen\right)$
+      and her Strategy $S \in \left\{H, G\right\} \times \mathbb{N}^* \times
+      2^{\left[\playerlen\right]}$. Let the $i$th player be represented by the
+      tuple $u_i = \left(i, L_i, S_i\right)$. The tuple of players is defined as
+      $\mathcal{U} = \left(\player_1, \dots, \player_i, \dots,
+      \player_\playerlen\right)$.
 
-      We will now explain each field in $u_i$ in detail:
+      We will now explain each field in $\player_i$ in detail:
       \begin{itemize}
         \item \textbf{Likeability Distribution.} The Likeability Distribution
-        $L_i \in \mathcal{D}\left([0,1]^N\right)$ of $u_i$ is a distribution on
-        how likeable is the content produced by $u_i$ to the rest of the
-        players. The Likeability Distribution for the whole system is
-        $\mathcal{L} = \left(L_1, \dots, L_i, \dots, L_n\right)$.
+        $L_i \in \mathcal{D}\left([0,1]^\playerlen\right)$ of $u_i$ is a
+        distribution on how likeable is the content produced by $u_i$ to the
+        rest of the players. The Likeability Distribution for the whole system
+        is $\mathcal{L} = \left(L_1, \dots, L_i, \dots, L_n\right)$.
 
-        \item \textbf{Strategy.} The strategy of $u_i$ is defined as $S_i \in
-        \lbrace H, G \rbrace \times \mathbb{N}^* \times 2^{\left[N\right]}$,
-        where the first element is the player's core strategy, the second is her
-        attention span and the third is her voting ring.
+        \item \textbf{Strategy.} The strategy of $\player_i$ is defined as $S_i
+        \in \lbrace H, G \rbrace \times \mathbb{N}^* \times
+        2^{\left[\playerlen\right]}$, where the first element is the player's
+        core strategy, the second is her attention span and the third is her
+        voting ring.
         \begin{itemize}
           \item \textbf{Honest/Greedy.} $H$ corresponds to the $honest$ and $G$
           to the $greedy$ strategy. An $honest$ player $u_i$ would vote a post
@@ -93,20 +97,21 @@
           simultaneously. For the benefit of simplicity, we will assume that this
           number is constant throughought all players.\footnote{TODO: discuss}
 
-          \item \textbf{Voting Ring.}  If player $u_i$ is $honest$, her Voting
-          Ring is $R_i = \emptyset$. If $u_i$ is $greedy$, her Voting Ring is $R_i
-          \in 2^{\left[N\right]}$. A voting ring is defined as $R_i = \lbrace
-          g_1, \dots, g_j, \dots, g_n \rbrace$ where $g_j \in \mathcal{U}$ is the
-          $j$th member of the voting ring and $n$ is the size of the ring. Two
-          $greedy$ players will either have the same or disjoint voting rings
-          ($\forall i \neq j \in \left[N\right], R_i = R_j \vee \left(R_i \cap
-          R_j = \emptyset\right)$).
+          \item \textbf{Voting Ring.}  If player $\player_i$ is $honest$, her
+          Voting Ring is $R_i = \emptyset$. If $\player_i$ is $greedy$, her
+          Voting Ring is $R_i \in 2^{\left[\playerlen\right]}$. A voting ring is
+          defined as $R_i = \lbrace g_1, \dots, g_j, \dots, g_n \rbrace$ where
+          $g_j \in \mathcal{U}$ is the $j$th member of the voting ring and $n$
+          is the size of the ring. Two $greedy$ players will either have the
+          same or disjoint voting rings ($\forall i \neq j \in
+          \left[\playerlen\right], R_i = R_j \vee \left(R_i \cap R_j =
+          \emptyset\right)$).
         \end{itemize}
         The tuple of all strategies is defined as $\mathcal{S} = (S_1, \dots,
-        S_i, \dots, s_N)$.
+        S_i, \dots, s_\playerlen)$.
       \end{itemize}
       The set of players is defined as $\mathcal{U} = \left(u_1, \dots, u_i,
-      \dots, u_N\right)$.
+      \dots, u_\playerlen\right)$.
     \end{definition}
 
     \begin{definition}[Post-Voting System]
