@@ -53,13 +53,16 @@
     \end{definition}
 
     \begin{definition}[Post-Voting System]
-      A tuple $\pvs = \left(\gfunc, \honeststr\right)$ of two ITMs. The two ITMs
-      have to implement the following API:
+      A tuple $\pvs = \left(\gfunc, \honeststr\right)$ of two ITMs, parametrized
+      by \textsc{Init}, \textsc{Aux}, \textsc{HandleVote} and \textsc{Vote}. The
+      two ITMs have to implement the following API:
 
       $\gfunc$ is a global functionality that accepts two messages:
       \texttt{read}, which responds with the current list of posts and
       \texttt{vote}, which can take various arguments and can do whatever the
-      functionality wants.
+      functionality wants. Eventually, the functionality sends a message
+      (\texttt{output}, $\postlist$) to $\env$ and halts.\footnote{Alternatively
+      $\env$ decides when to stop, but seems dirtier}
 
       $\honeststr$ is a protocol that sends \texttt{read} and \texttt{vote}
       messages to $\gfunc$ whenever activated by $\env$.
