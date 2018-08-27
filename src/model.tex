@@ -53,8 +53,8 @@
     \end{definition}
 
     \begin{definition}[Post-Voting System]
-      A tuple $\left(\gfunc, \honeststr\right)$ of two ITMs. The two
-      ITMs have to implement the following API:
+      A tuple $\pvs = \left(\gfunc, \honeststr\right)$ of two ITMs. The two ITMs
+      have to implement the following API:
 
       $\gfunc$ is a global functionality that accepts two messages:
       \texttt{read}, which responds with the current list of posts and
@@ -117,9 +117,10 @@
     \end{algorithm}
 
     \begin{definition}[Convergence under honesty]
-      We say that a post-voting system $F$ $t$-\emph{converges under honesty}
-      if, for every valid input $\left(\mathcal{P}, \mathcal{U}\right)$ where
-      all players are honest, it is
+      We say that a post-voting system $\pvs = \left(\gfunc, \honeststr\right)$
+      $t$-\emph{converges under honesty} if, for every valid input
+      $\left(\mathcal{P}, \mathcal{U}\right)$ where all players are honest, it
+      is
       \begin{equation*}
         F\left(\mathcal{P}, \mathcal{U}\right)_{1..t} =
         \textsc{IdealOrder}\left(\mathcal{P}\right)_{1..t} \enspace.
