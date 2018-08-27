@@ -1,0 +1,61 @@
+\begin{definition}[Player]
+  Let $\playerlen \in \mathbb{N}^{*}$. A player $\player$ is defined by her
+  unique $\mathrm{id} \in \left[\playerlen\right]$, her Likeability
+  Distribution $L \in \mathcal{D} \left(\left[0, 1\right]^\playerlen\right)$
+  and her Strategy $S \in \left\{H, G\right\} \times \mathbb{N}^* \times
+  2^{\left[\playerlen\right]}$. Let the $i$th player be represented by the
+  tuple $u_i = \left(i, L_i, S_i\right)$. The tuple of players is defined as
+  $\mathcal{U} = \left(\player_1, \dots, \player_i, \dots,
+  \player_\playerlen\right)$.
+
+  We will now explain each field in $\player_i$ in detail:
+  \begin{itemize}
+    \item \textbf{Likeability Distribution.} The Likeability Distribution
+    $L_i \in \mathcal{D}\left([0,1]^\playerlen\right)$ of $u_i$ is a
+    distribution on how likeable is the content produced by $u_i$ to the
+    rest of the players. The Likeability Distribution for the whole system
+    is $\mathcal{L} = \left(L_1, \dots, L_i, \dots, L_n\right)$.
+
+    \item \textbf{Strategy.} The strategy of $\player_i$ is defined as $S_i
+    \in \lbrace H, G \rbrace \times \mathbb{N}^* \times
+    2^{\left[\playerlen\right]}$, where the first element is the player's
+    core strategy, the second is her attention span and the third is her
+    voting ring.
+    \begin{itemize}
+      \item \textbf{Honest/Greedy.} $H$ corresponds to the $honest$ and $G$
+      to the $greedy$ strategy. An $honest$ player $u_i$ would vote a post
+      $p$ according to its likeability towards herself, $l_{p, i}$, that is
+      to say she votes posts following her preferences. (For $honest$
+      players, the value of the vote is computed as $v_{H,i} = a \cdot
+      \mathcal{VP} \cdot l \cdot \mathcal{SP} + b$, where $l$ is drawn from
+      the Likeability distribution)\footnote{TODO: move to posts
+      section}\fnmsep\footnote{TODO: explain $a$, $b$}. In Steem terms, $l$
+      can be understood as the weight of a vote.
+
+      A $greedy$ player only votes for posts produced by users of its Voting
+      Ring. (The value of vote for a player if $u_i$ is $greedy$ is defined
+      as $v_{G,i} = a \cdot \mathcal{VP}_i \cdot
+      \mathcal{SP}_i$,\footnote{TODO: same} as in our model all $greedy$
+      votes are executed with full weight.)
+
+      \item \textbf{Attention Span.} This is a positive integer that
+      represents the number of posts a player can consider voting
+      simultaneously. For the benefit of simplicity, we will assume that this
+      number is constant throughought all players.\footnote{TODO: discuss}
+
+      \item \textbf{Voting Ring.}  If player $\player_i$ is $honest$, her
+      Voting Ring is $R_i = \emptyset$. If $\player_i$ is $greedy$, her
+      Voting Ring is $R_i \in 2^{\left[\playerlen\right]}$. A voting ring is
+      defined as $R_i = \lbrace g_1, \dots, g_j, \dots, g_n \rbrace$ where
+      $g_j \in \mathcal{U}$ is the $j$th member of the voting ring and $n$
+      is the size of the ring. Two $greedy$ players will either have the
+      same or disjoint voting rings ($\forall i \neq j \in
+      \left[\playerlen\right], R_i = R_j \vee \left(R_i \cap R_j =
+      \emptyset\right)$).
+    \end{itemize}
+    The tuple of all strategies is defined as $\mathcal{S} = (S_1, \dots,
+    S_i, \dots, s_\playerlen)$.
+  \end{itemize}
+  The set of players is defined as $\mathcal{U} = \left(u_1, \dots, u_i,
+  \dots, u_\playerlen\right)$.
+\end{definition}
