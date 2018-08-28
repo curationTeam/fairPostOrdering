@@ -69,8 +69,8 @@
     \end{definition}
 
     \begin{algorithm}[H]
-      \caption{$\gfunc\left(\textsc{Init}, \textsc{Aux},
-      \textsc{HandleVote}\right)\left(\postlist\right)$}
+      \caption{$\gfunc\left(\textsc{Init}^{\gfuncname}, \textsc{Aux},
+      \textsc{HandleVote}\right)\left(\postlist, \mathrm{initArgs}\right)$}
       \label{alg:gfunc}
       \begin{algorithmic}[1]
         \State Initialization:
@@ -81,7 +81,7 @@
           |\like_j|$)
           \State $\playerlen \gets |\like_1|$
           \State $\playerlist \gets \emptyset$
-          \State \textsc{Init}()
+          \State $\textsc{Init}^{\gfuncname}\left(\mathrm{initArgs}\right)$
         \EndIndent
         \State
         \State Upon receiving (\texttt{read}) from sender:
@@ -101,20 +101,22 @@
     \end{algorithm}
 
     \begin{algorithm}[H]
-      \caption{$\honeststr\left(\textsc{Init}, \textsc{Vote}\right)$}
+      \caption{$\honeststr\left(\textsc{Init}^{\honest},
+      \textsc{Vote}\right)\left(\mathrm{initArgs}\right)$}
       \label{alg:honest}
       \begin{algorithmic}[1]
         \State Initialization:
         \Indent
-          \State \textsc{Init}()
+          \State $\textsc{Init}^{\honest}\left(\mathrm{initArgs}\right)$
         \EndIndent
         \State
         \State Upon receiving (\texttt{activate}) from $\env$:
         \Indent
           \State Send (\texttt{read}) to $\gfunc$
           \State Wait for response (\texttt{posts}, $\postlist$, aux)
-          \State $\mathrm{args} \gets \textsc{Vote}\left(\mathrm{aux}\right)$
           \State Send (\texttt{vote}, args) to $\gfunc$
+          \State $\mathrm{args} \gets \textsc{Vote}\left(\postlist,
+          \mathrm{aux}\right)$
         \EndIndent
       \end{algorithmic}
     \end{algorithm}
