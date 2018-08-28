@@ -86,7 +86,8 @@
         \State
         \State Upon receiving (\texttt{read}) from sender:
         \Indent
-          \State Send (\texttt{posts}, $\postlist$, \textsc{Aux}(sender)) to sender
+          \State $\mathrm{aux} \gets \textsc{Aux}\left(sender\right)$
+          \State Send (\texttt{posts}, $\postlist$, aux) to sender
         \EndIndent
         \State
         \State Upon receiving (\texttt{vote}, args) from $\player_{\mathrm{pid}}$:
