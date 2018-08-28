@@ -1,0 +1,33 @@
+\begin{algorithm}[H]
+  \caption{$\gfunc\left(\textsc{Init}^{\gfuncname}, \textsc{Aux},
+  \textsc{HandleVote}\right)\left(\postlist, \mathrm{initArgs}\right)$}
+  \label{alg:gfunc}
+  \begin{algorithmic}[1]
+    \State Initialization:
+    \Indent
+      \State $\forall i \in |\postlist|,$ Parse $\postlist[i]$ as
+      $\left(\mathrm{creator}_i, \like_i\right)$
+      \State Assert($\forall i \neq j \in |\postlist|, |\like_i| =
+      |\like_j|$)
+      \State $\playerlen \gets |\like_1|$
+      \State $\playerlist \gets \emptyset$
+      \State $\textsc{Init}^{\gfuncname}\left(\mathrm{initArgs}\right)$
+    \EndIndent
+    \State
+    \State Upon receiving (\texttt{read}) from $\player_{\pid}$:
+    \Indent
+      \State $\mathrm{aux} \gets \textsc{Aux}\left(\player_{\pid}\right)$
+      \State Send (\texttt{posts}, $\postlist$, aux) to $\player_{\pid}$
+    \EndIndent
+    \State
+    \State Upon receiving (\texttt{vote}, ballot) from
+    $\player_{\mathrm{pid}}$:
+     \Indent
+       \State $\playerlist \gets \playerlist \cup \player_{\mathrm{pid}}$
+       \If{$|\playerlist| > \playerlen$}
+         \State Abort
+       \EndIf
+       \State \textsc{HandleVote}(ballot)
+     \EndIndent
+  \end{algorithmic}
+\end{algorithm}

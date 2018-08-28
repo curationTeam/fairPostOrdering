@@ -1,0 +1,33 @@
+\begin{algorithm}[H]
+  \caption{$\textsc{HandleVote}\left(\mathrm{ballot},
+  \player_{\pid}\right)$}
+  \label{alg:steem:handlevote}
+  \begin{algorithmic}[1]
+    \If{$\mathrm{lastVoted}_{\pid} \neq \round$} \Comment{One vote per
+    player per round}
+      \State $\votpowvec_{\pid} \gets \max{\lbrace \votpowvec_{\pid} + c
+      \cdot \left(\round - \mathrm{lastVoted}_{\pid}\right), 1 \rbrace}$
+      \If{$\mathrm{ballot} \neq \mathbf{null}$}
+        \State Parse ballot as $\left(\post, \mathrm{weight}\right)$
+        \State $\mathrm{score} \gets a \cdot \votpowvec_{\pid} \cdot
+        \stpowvec_{\pid} \cdot \mathrm{weight} + b$
+        \State $\votpowvec_{\pid} \gets \votpowvec_{\pid} - \left(a \cdot
+        \votpowvec_{\pid} \cdot \mathrm{weight} + b\right)$
+        \State $\mathrm{scores}_\post \gets \mathrm{scores}_\post +
+        \mathrm{score}$
+      \EndIf
+      \State $\mathrm{lastVoted}_{\pid} \gets \round$
+    \EndIf
+    \If{$\forall i \in \left[N\right] \mathrm{lastVoted}_i = \round$}
+    \Comment{round over}
+      \State $\postlist \gets \textsc{Order}\left(\postlist,
+      \mathrm{scores}\right)$ \Comment{order posts by votes}
+      \If{$\round = \rounds$}
+        \State Send $\left(\mathtt{output}, \postlist\right)$ to $\env$
+        \State Halt
+      \Else
+        \State $\round \gets \round + 1$
+      \EndIf
+    \EndIf
+  \end{algorithmic}
+\end{algorithm}

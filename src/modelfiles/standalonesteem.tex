@@ -1,0 +1,97 @@
+\subsection{Steem Execution}
+\begin{algorithm}
+  \caption{Each player creates one post}
+  \label{alg:postGen}
+  \begin{algorithmic}[1]
+  \Function{GeneratePosts}{$\mathcal{U}$}
+    \State $\mathcal{P} = \emptyset$ \Comment{List of posts}
+    \For{$u_i \in \mathcal{U}$}
+       \State $l \xleftarrow{r} L_i$
+         \Comment{Get likeability of posts}
+       \State $\mathcal{P} \leftarrow \mathcal{P} \Vert \left(i, l, 0\right)$
+         \Comment{Add post to list of Posts}
+    \EndFor
+    \State $\mathcal{P} \leftarrow \textsc{Shuffle}(\mathcal{P})$
+      \Comment{Shuffle posts to a random order}
+    \State \Return $\mathcal{P}$
+  \EndFunction
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}%[H]
+  \caption{Player votes for best of $k$ posts}
+  \label{alg:vote}
+  \begin{algorithmic}[1]
+  \Function{Vote}{$u_i, \mathcal{P}$}
+    \Switch{$S_i$}
+      \Case{$honest$}
+        \State $p_j \leftarrow \argmax\limits_{p \in \mathcal{P}_{1 ..
+          k}}{\lbrace l_{i, p}\rbrace}$
+        \State Parse $p_j$ as $\left(m, l_p, v\right)$
+        \State $v' \leftarrow v + a \cdot \mathrm{VP}_i \cdot l_{i, p} \cdot
+        \mathrm{SP}_i + b$
+        \State $\mathrm{VP}_i \gets \mathrm{VP}_i - \left(a \cdot
+        \mathrm{VP}_i \cdot l_{i, p} + b\right)$
+        \State $\mathcal{P} \leftarrow p_1 \Vert p_2 \Vert \dots \Vert
+        p_{j-1} \Vert \left(m, l_p, v'\right) \Vert p_{j+1} \Vert \dots \Vert
+        p_N$
+      \EndCase
+
+      \Case{$Greedy$}
+         \State
+           \Comment{If post belongs to voting ring and not reached min
+           VPower}
+         \If{$p \in s.R $ $\land $ $p.VPower > s.Min$}
+           \State $voteValue \leftarrow p.VPower \cdot weight \cdot sp$
+           \State $p \leftarrow p.votes +  voteValue$
+         \EndIf
+      \EndCase
+    \EndSwitch
+
+    \State \Return $\mathcal{P}$
+  \EndFunction
+  \end{algorithmic}
+\end{algorithm}
+TODOS\footnote{TODO: Improve argmax notation}\fnmsep\footnote{TODO: Write Greedy}
+
+\begin{algorithm}[H]
+  \caption{Players cast votes for $r$ rounds}
+  \label{alg:curation}
+  \begin{algorithmic}[1]
+  \Function{Curate}{$\mathcal{U}, \mathcal{P}, r$}
+    \For{$j = 1$ to $r$}
+      \Comment{$r$ voting rounds}
+      \For {$u_i \in \mathcal{U}$}
+        \If{\textsc{IsVoteRound}$\left(j, S_i, r, N\right)$}
+          \State $\mathcal{P} \leftarrow \textsc{Vote}\left(u_i,
+          \mathcal{P}\right)$
+            \Comment{Player $i$ votes zero or one posts}
+        \EndIf
+      \EndFor
+      \State $\mathcal{P} \leftarrow \textsc{Order}\left(\mathcal{P}\right)$
+        \Comment{Order posts by vote count after each round of votes}
+    \EndFor
+    \State \Return $\mathcal{P}$
+  \EndFunction
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+  \caption{Calculates whether voting in this round is optimal}
+  \label{alg:isvoteround}
+  \begin{algorithmic}[1]
+    \Function{IsVoteRound}{$j, S, r, N$}
+      \State 
+    \EndFunction
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+  \caption{Steem$\left(\mathcal{U}, \mathcal{P}, r\right)$}
+  \label{alg:main}
+  \begin{algorithmic}[1]
+  \State $\mathcal{P} \leftarrow \textsc{Curate}\left(\mathcal{U},
+  \mathcal{P}, r\right)$
+  \State \Return $\mathcal{P}$
+  \end{algorithmic}
+\end{algorithm}
