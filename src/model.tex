@@ -132,6 +132,116 @@
       holds.
     \end{definition}
 
+    \begin{definition}[Steem system]
+      The Steem system is the post voting system $\pvs$ with parameters
+      $\stpowvec \in {\mathbb{N}^*}^N, R \in \mathbb{N}^*, a, b, c \in
+      \mathbb{R}_{+}, \attspan \in \mathbb{N}^*$ and the following parametrizing
+      procedures:
+    \end{definition}
+
+    \begin{algorithm}[H]
+      \caption{$\textsc{Init}^{\gfunc}\left(\stpowvec, \rounds,
+      a, b, c\right)$}
+      \label{alg:steem:init:gfunc}
+      \begin{algorithmic}[1]
+        \State Store input parameters as constants
+        \State $\round \gets 1$
+        \State $\mathrm{lastVoted} \gets \underbrace{\left(0, \dots, 0\right)}_{N}$
+        \State $\votpowvec \gets \underbrace{\left(1, \dots, 1\right)}_{N}$
+        \State $\mathrm{scores} \gets \underbrace{\left(0, \dots,
+        0\right)}_{|\postlist|}$
+      \end{algorithmic}
+    \end{algorithm}
+
+    \begin{algorithm}[H]
+      \caption{$\textsc{Init}^{\honest}\left(\stpowvec, \attspan, \pid,
+      \rounds, a, b, c\right)$}
+      \label{alg:steem:init:honest}
+      \begin{algorithmic}[1]
+        \State Store input parameters as constants
+        \State $\mathrm{votedPosts} \gets \emptyset$
+      \end{algorithmic}
+    \end{algorithm}
+
+    \begin{algorithm}[H]
+      \caption{\textsc{Aux}}
+      \label{alg:steem:aux}
+      \begin{algorithmic}[1]
+        \State \Return \Comment{TODO: DISCUSS: Maybe should send votes?}
+      \end{algorithmic}
+    \end{algorithm}
+
+    \begin{algorithm}[H]
+      \caption{$\textsc{HandleVote}\left(\mathrm{ballot},
+      \player_{\pid}\right)$}
+      \label{alg:steem:handlevote}
+      \begin{algorithmic}[1]
+        \If{$\mathrm{lastVoted}_{\pid} \neq \round$} \Comment{One vote per
+        player per round}
+          \State $\votpowvec_{\pid} \gets \max{\lbrace \votpowvec_{\pid} + c
+          \cdot \left(\round - \mathrm{lastVoted}_{\pid}\right), 1 \rbrace}$
+          \If{$\mathrm{ballot} \neq \mathbf{null}$}
+            \State Parse ballot as $\left(\post, \mathrm{weight}\right)$
+            \State $\mathrm{score} \gets a \cdot \votpowvec_{\pid} \cdot
+            \stpowvec_{\pid} \cdot \mathrm{weight} + b$
+            \State $\votpowvec_{\pid} \gets \votpowvec_{\pid} - \left(a \cdot
+            \votpowvec_{\pid} \cdot \mathrm{weight} + b\right)$
+            \State $\mathrm{scores}_\post \gets \mathrm{scores}_\post +
+            \mathrm{score}$
+          \EndIf
+          \State $\mathrm{lastVoted}_{\pid} \gets \round$
+        \EndIf
+        \If{$\forall i \in \left[N\right] \mathrm{lastVoted}_i = \round$}
+        \Comment{round over}
+          \State $\postlist \gets \textsc{Order}\left(\postlist,
+          \mathrm{scores}\right)$ \Comment{order posts by votes}
+          \If{$\round = \rounds$}
+            \State Send $\left(\mathtt{output}, \postlist\right)$ to $\env$
+            \State Halt
+          \Else
+            \State $\round \gets \round + 1$
+          \EndIf
+        \EndIf
+      \end{algorithmic}
+    \end{algorithm}
+
+    \begin{algorithm}[H]
+      \caption{$\textsc{Vote}\left(\postlist\right)$}
+      \label{alg:steem:vote}
+      \begin{algorithmic}[1]
+        \If{$\textsc{VoteThisRound}\left(\round, \rounds\right) = \mathrm{yes}$}
+          \State TODO: DISCUSS NOTATION: add attSpan, votedPosts to inputs?
+          \State CONT: but complex for $\honeststr$
+          \State $\mathrm{top} \gets \textsc{ChooseTopPosts}\left(\attspan,
+          \postlist, \mathrm{votedPosts}\right)$
+          \State $p \gets \argmax\limits_{\left(i, l\right) \in
+          \mathrm{top}}{\lbrace l \rbrace}$
+          \State $\mathrm{votedPosts} \gets \mathrm{votedPosts} \: \cup p$
+          \State \Return $\left(p, l_{\pid}\right)$
+        \Else
+          \State \Return \textbf{null}
+        \EndIf
+        \State
+        \Function{ChooseTopPosts}{$\attspan, \postlist, \mathrm{votedPosts}$}
+          \State $\result \gets \emptyset$
+          \State $\mathrm{idx} \gets 1$
+          \While{$|\result| < \attspan \And \mathrm{idx} \leq |\postlist|$}
+            \If{$\postlist\left[\mathrm{idx}\right] \notin \mathrm{votedPosts}$}
+            \Comment{One vote per post per player}
+              \State $\result \gets \result \cup \lbrace
+              \postlist\left[\mathrm{idx}\right] \rbrace$
+            \EndIf
+            \State $\mathrm{idx} \gets \mathrm{idx} + 1$
+          \EndWhile
+          \State \Return $\result$
+        \EndFunction
+        \State
+        \Function{VoteThisRound}{$\round, \rounds$}
+          \State TODO
+        \EndFunction
+      \end{algorithmic}
+    \end{algorithm}
+
     \begin{theorem}
       The Steem system $t$-converges under honesty, assuming the following
       conditions on $N, P, \mathcal{SP}, v, att\_span, a, b, c$
