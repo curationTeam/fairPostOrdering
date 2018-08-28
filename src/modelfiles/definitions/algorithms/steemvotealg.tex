@@ -1,0 +1,36 @@
+\begin{algorithm}[H]
+  \caption{$\textsc{Vote}\left(\postlist\right)$}
+  \label{alg:steem:vote}
+  \begin{algorithmic}[1]
+    \If{$\textsc{VoteThisRound}\left(\round, \rounds\right) = \mathrm{yes}$}
+      \State TODO: DISCUSS NOTATION: add attSpan, votedPosts to inputs?
+      \State CONT: but complex for $\honeststr$
+      \State $\mathrm{top} \gets \textsc{ChooseTopPosts}\left(\attspan,
+      \postlist, \mathrm{votedPosts}\right)$
+      \State $p \gets \argmax\limits_{\left(i, l\right) \in
+      \mathrm{top}}{\lbrace l \rbrace}$
+      \State $\mathrm{votedPosts} \gets \mathrm{votedPosts} \: \cup p$
+      \State \Return $\left(p, l_{\pid}\right)$
+    \Else
+      \State \Return \textbf{null}
+    \EndIf
+    \State
+    \Function{ChooseTopPosts}{$\attspan, \postlist, \mathrm{votedPosts}$}
+      \State $\result \gets \emptyset$
+      \State $\mathrm{idx} \gets 1$
+      \While{$|\result| < \attspan \And \mathrm{idx} \leq |\postlist|$}
+        \If{$\postlist\left[\mathrm{idx}\right] \notin \mathrm{votedPosts}$}
+        \Comment{One vote per post per player}
+          \State $\result \gets \result \cup \lbrace
+          \postlist\left[\mathrm{idx}\right] \rbrace$
+        \EndIf
+        \State $\mathrm{idx} \gets \mathrm{idx} + 1$
+      \EndWhile
+      \State \Return $\result$
+    \EndFunction
+    \State
+    \Function{VoteThisRound}{$\round, \rounds$}
+      \State TODO
+    \EndFunction
+  \end{algorithmic}
+\end{algorithm}
