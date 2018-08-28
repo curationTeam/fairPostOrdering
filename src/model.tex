@@ -90,13 +90,14 @@
           \State Send (\texttt{posts}, $\postlist$, aux) to $\player_{\pid}$
         \EndIndent
         \State
-        \State Upon receiving (\texttt{vote}, args) from $\player_{\mathrm{pid}}$:
+        \State Upon receiving (\texttt{vote}, ballot) from
+        $\player_{\mathrm{pid}}$:
          \Indent
            \State $\playerlist \gets \playerlist \cup \player_{\mathrm{pid}}$
            \If{$|\playerlist| > \playerlen$}
              \State Abort
            \EndIf
-           \State \textsc{HandleVote}(args)
+           \State \textsc{HandleVote}(ballot)
          \EndIndent
       \end{algorithmic}
     \end{algorithm}
@@ -115,9 +116,9 @@
         \Indent
           \State Send (\texttt{read}) to $\gfunc$
           \State Wait for response (\texttt{posts}, $\postlist$, aux)
-          \State Send (\texttt{vote}, args) to $\gfunc$
-          \State $\mathrm{args} \gets \textsc{Vote}\left(\postlist,
+          \State $\mathrm{ballot} \gets \textsc{Vote}\left(\postlist,
           \mathrm{aux}\right)$
+          \State Send (\texttt{vote}, ballot) to $\gfunc$
         \EndIndent
       \end{algorithmic}
     \end{algorithm}
