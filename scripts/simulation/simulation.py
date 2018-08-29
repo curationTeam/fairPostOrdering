@@ -20,7 +20,7 @@ class Simulation:
 
     In Steem:
 
-    regen_time --> the regeneration per round is given by 3/(5*24*60*60) = 6.94*10-6
+    regen_time --> the regeneration per round is given by 3 / (5*24*60*60)
     rounds ------> the number of 3 seconds rounds in one weeks is 201600
     a ----------->  1/200
     b ----------->  1
