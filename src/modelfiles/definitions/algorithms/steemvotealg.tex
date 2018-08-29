@@ -29,8 +29,13 @@
       \State \Return $\result$
     \EndFunction
     \State
-    \Function{VoteThisRound}{$\round, \rounds$}
-      \State TODO
+    \Function{VoteThisRound}{$\round, \rounds, |\postlist|$}
+      \State Let choices be a vector of length $\rounds$, with each element in
+      $\left\{0, 1\right\}$. The vector choices is such that, if the player
+      votes only on the rounds $\rounds$ when $\mathrm{choices}_\round = 1$ and
+      the weight of all votes is 1, then the total player's ``influence'' will
+      be maximized.
+      \State \Return $\mathrm{choices}_\round$
     \EndFunction
   \end{algorithmic}
 \end{algorithm}
