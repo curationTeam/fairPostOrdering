@@ -1,7 +1,7 @@
 all: contentCuration.pdf
 
 #.ONESHELL:
-contentCuration.pdf: src/*
+contentCuration.pdf: $(shell find src/ *)
 	if [ -e dot2tex ]; then rm -r dot2tex; fi
 	mkdir dot2tex;
 	export TEXINPUTS=.:./src//:; \
