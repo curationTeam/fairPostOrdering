@@ -26,8 +26,8 @@ class Simulation:
     b ----------->  1
     ''' 
 
-    def __init__(self, rounds, noProfiles, a, b, regen_time, att_span):
-
+    def __init__(self, spvec, rounds, noProfiles, a, b, regen_time, att_span):
+        self.spvec = spvec
         self.rounds = rounds
         self.profile = ("honest", "greedy", "user")
         self.noProfiles = noProfiles
@@ -38,6 +38,7 @@ class Simulation:
 
         assert type(noProfiles) == tuple
         assert len(noProfiles) == len(self.profile)
+        assert len(spvec) == sum(noProfiles)
         assert rounds > 0
         assert att_span > 0
         for noProfile in noProfiles:
@@ -65,7 +66,8 @@ class Simulation:
                 # Add a player (id, quality_range, strategy_profile, sp)
                 mean = random.uniform(0, 1)
                 std = 0.1
-                players.append(Player(index, mean, std, self.profile[profile_index], 1, self.att_span))
+                players.append(Player(index, mean, std,
+                self.profile[profile_index], self.spvec[index], self.att_span))
                 index += 1
 
             profile_index += 1
