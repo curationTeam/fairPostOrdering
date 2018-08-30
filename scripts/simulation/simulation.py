@@ -15,25 +15,25 @@ class Simulation:
 
 
     voting_power usage per vote           -->    VP' = VP - (a*VP*w + b)
-    voting_power regeneration per round   -->    VP' = min (VP + regen_time, 1)
+    voting_power regeneration per round   -->    VP' = min (VP + regen, 1)
     attention span --> att_span
 
     In Steem:
 
-    regen_time --> the regeneration per round is given by 3 / (5*24*60*60)
+    regen -------> the regeneration per round is given by 3 / (5*24*60*60)
     rounds ------> the number of 3 seconds rounds in one weeks is 201600
     a ----------->  1/200
     b ----------->  1
-    ''' 
+    '''
 
-    def __init__(self, spvec, rounds, noProfiles, a, b, regen_time, att_span):
+    def __init__(self, spvec, rounds, noProfiles, a, b, regen, att_span):
         self.spvec = spvec
         self.rounds = rounds
         self.profile = ("honest", "greedy", "user")
         self.noProfiles = noProfiles
         self.a = a
         self.b = b
-        self.regen_time = regen_time
+        self.regen = regen
         self.att_span = att_span
 
         assert type(noProfiles) == tuple
@@ -63,7 +63,6 @@ class Simulation:
         for noProfile in self.noProfiles:
             # Create noProfile players of profile_index and profile = ["honest", "greedy", "user"]
             for _i in range(0, noProfile):
-                # Add a player (id, quality_range, strategy_profile, sp)
                 mean = random.uniform(0, 1)
                 std = 0.1
                 players.append(Player(index, mean, std, self.profile[profile_index],
@@ -87,15 +86,13 @@ class Simulation:
 
         random.shuffle(posts) # randomize initial order of post ranking
         initial_order_posts = self.display_list(posts)
-        print('Initial order of posts:', initial_order_posts)
+        #print('Initial order of posts:', initial_order_posts)
 
         return posts
 
 
     def execute(self, players, posts):
-
         for _round in range(0, self.rounds):
-            
             for player in players:
                 post = player.vote(posts)
                 #print(post)
@@ -122,7 +119,6 @@ class Simulation:
     def display_list(self, posts):
         return [p.author_id for p in posts]
 
-
     # Sort lists of posts by quality
     def sort_by_quality(self, posts):
         return sorted(posts, key=lambda x: x.quality, reverse = True)
@@ -136,8 +132,7 @@ class Simulation:
         print('Spearman:', stats.spearmanr(quality_sorted, order_posts)[0])
         print('KendallTau:', stats.kendalltau(quality_sorted, order_posts)[0])
 
-
-    #Calculate t-similarity and spearman correlation coefficient
+    # Calculate t-similarity and spearman correlation coefficient
     def results(self, posts):
         t_similar = 0
         order_posts = self.display_list(posts)
