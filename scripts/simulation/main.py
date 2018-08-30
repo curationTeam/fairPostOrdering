@@ -54,7 +54,10 @@ def main():
                 append_results(rounds, j, t_similar_list, t_similar,
                                spearman_list, spearman, kendall_tau_list, kendall_tau)
             break
+        if i % 500 == 0:
+          print(i, "of", noRound, "done")
 
+    sim.print_result(posts)
     plot(rounds, t_similar_list, "t_similarity")
     plot(rounds, spearman_list, "spearman")
     plot(rounds, kendall_tau_list, "kendall_tau")
