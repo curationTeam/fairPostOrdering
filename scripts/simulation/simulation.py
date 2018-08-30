@@ -26,14 +26,7 @@ class Simulation:
     '''
 
     def __init__(self, spvec, rounds, noProfiles, a, b, regen, att_span):
-        self.spvec = spvec
-        self.rounds = rounds
         self.profile = ("honest", "greedy", "user")
-        self.noProfiles = noProfiles
-        self.a = a
-        self.b = b
-        self.regen = regen
-        self.att_span = att_span
 
         assert type(noProfiles) == tuple
         assert len(noProfiles) == len(self.profile)
@@ -43,6 +36,14 @@ class Simulation:
         for noProfile in noProfiles:
             assert type(noProfile) == int
             assert noProfile >= 0
+
+        self.spvec = spvec
+        self.rounds = rounds
+        self.noProfiles = noProfiles
+        self.a = a
+        self.b = b
+        self.regen = regen
+        self.att_span = att_span
 
     # Reseed and initialize players and posts
     def init_setup(self, seed):
