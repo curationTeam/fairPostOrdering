@@ -52,6 +52,9 @@ class Player:
     def spend_vp(self, weight):
         self.vp = max(self.vp - (self.a * self.vp * weight + self.b), 0)
 
+    def calculate_vote_score(self, weight):
+        return self.a * self.vp * self.sp * weight + self.b
+
     def regenerate_vp(self):
         self.vp = min(self.vp + self.regen, 1) # TODO: Define regen in terms of rounds
 
@@ -73,6 +76,8 @@ class Player:
         """
         #Only vote if voting power greater or equal than minimum voting power of the strategy
         if self.vp >= self.strategy.min_vp:
-            return self.strategy.vote(posts, self.attention)
-        else:
-            return False
+            post, weight = self.strategy.vote(posts, self.attention)
+            if post:
+                post.votes_received += self.calculate_vote_score(weight)
+                post.voters.add(self.id)
+                self.spend_vp(weight)

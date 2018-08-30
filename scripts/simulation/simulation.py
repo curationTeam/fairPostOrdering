@@ -94,26 +94,11 @@ class Simulation:
     def execute(self, players, posts):
         for _round in range(0, self.rounds):
             for player in players:
-                post = player.vote(posts)
-                #print(post)
-                if post != False: #Check if the player actually voted for something
-                    player, posts = self.execute_vote(player, post, posts)
                 player.regenerate_vp() # TODO: We have to define "regen" in terms of the rounds
+                player.vote(posts)
 
             posts.sort(key = lambda x: x.votes_received, reverse = True)
-
-        self.print_result(posts) 
-
         return players, posts
-
-    # TODO: score calculation should happen in the strategy/player method
-    def execute_vote(self,player, post, posts):
-        # Calculate vote as the product of player sp, player current vp and likability(weight)
-        weight = post.likability[player.id]
-        post.votes_received += (self.a *  player.vp * weight + self.b) * player.sp
-        post.voters.append(player.id)
-        player.spend_vp(self.a, weight, self.b) # Decrease voting power after vote
-        return player, posts
 
     # Return a list with the author_id of the posts
     def display_list(self, posts):
