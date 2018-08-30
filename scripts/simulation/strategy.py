@@ -32,15 +32,15 @@ class Strategy:
 
             if len(short_list) > 0:
                 favorite_post = max(short_list, key=lambda x: x.likability[self.id])
-                return favorite_post
-
-            else: return False
+                return favorite_post, favorite_post.likability[self.id]
+            else:
+                return False, False
 
         elif self.type_strategy == "greedy": #WIP---------
             for post in posts:
-                if(post.author_id == self.id and self.id not in post.voters):
-                    return post
-            return False
+                if (post.author_id == self.id and self.id not in post.voters):
+                    return post, 1
+            return False, False
 
     def get_short_list(self, posts, attention):
         """
