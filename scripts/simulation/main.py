@@ -12,9 +12,9 @@ def plot(x, y, kind):
     plt.plot(x, y)
     plt.xlabel("Rounds")
     plt.ylabel(kind)
-    plt.show()
     name = "figures/" + str(x[-1]) + "_" + kind + ".png"
     plt.savefig(name)
+    plt.show()
 
 def all_votes_submitted(players, posts):
     all_votes = True
