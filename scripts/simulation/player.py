@@ -67,7 +67,20 @@ class Player:
         post = Post(self.id, self.quality, players)
         return post
 
-    def vote(self, posts):
+    def isVoteRound(self, r, R, posts):
+        """
+        Vote on (almost) evenly spaced slots so as
+        to regen a lot and vote for all the posts
+        """
+        if r == 1:
+            return True
+        q = (R - 1) / (len(posts) - 1)
+        mod = (r - 1) % q
+        if round(mod) == round(q):
+            return True
+        return False
+
+    def vote(self, r, R, posts):
         """
         Player votes for a post from a list of posts only if her Voting Power is greater than the Minimum
         Voting Power defined by her Strategy.
@@ -75,7 +88,7 @@ class Player:
         post(Post) - post to be voted by the player (False if the player does not vote for any post)
         """
         #Only vote if voting power greater or equal than minimum voting power of the strategy
-        if self.vp >= self.strategy.min_vp:
+        if self.isVoteRound(r, R, posts):
             post, weight = self.strategy.vote(posts, self.attention)
             if post:
                 post.votes_received += self.calculate_vote_score(weight)
