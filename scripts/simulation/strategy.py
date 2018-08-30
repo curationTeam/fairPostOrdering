@@ -46,14 +46,12 @@ class Strategy:
         Returns:
         list(posts): a list of posts of len == attention
         """
-        number_posts = 0
         short_list = []
 
         for post in posts:
-            if (self.id not in post.voters and attention > number_posts):
+            if (self.id not in post.voters and attention > len(short_list)):
                 short_list.append(post)
-                number_posts += 1
-            if (attention == number_posts):
+            if (attention == len(short_list)):
                 break
 
         return short_list
