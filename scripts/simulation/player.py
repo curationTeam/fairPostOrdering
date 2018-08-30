@@ -1,3 +1,4 @@
+from math import floor
 from post import Post
 from strategy import Strategy
 
@@ -48,16 +49,18 @@ class Player:
     def regenerate_vp(self):
         self.vp = min(self.vp + self.regen, 1) # TODO: Define regen in terms of rounds
 
-    def isVoteRound(self, r, R, posts):
+    def isVoteRound(self, r, R, noPost):
         """
         Vote on (almost) evenly spaced slots so as
         to regen a lot and vote for all the posts
         """
-        if r == 1:
+        if (self.vp == 1):
+          return True
+        if r == 0 or r == (R - 1):
             return True
-        q = (R - 1) / (len(posts) - 1)
-        mod = (r - 1) % q
-        if round(mod) == round(q):
+        q = (R - 1) / (noPost - 1)
+        mod = r % q
+        if floor(mod) == 0:
             return True
         return False
 
@@ -68,8 +71,7 @@ class Player:
         Return:
         post(Post) - post to be voted by the player (False if the player does not vote for any post)
         """
-        #Only vote if voting power greater or equal than minimum voting power of the strategy
-        if self.isVoteRound(r, R, posts):
+        if self.isVoteRound(r, R, len(posts)):
             post, weight = self.strategy.vote(posts, self.attention)
             if post:
                 post.real_score += self.calculate_vote_score(weight)

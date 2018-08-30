@@ -41,14 +41,14 @@ def main():
     sim = Simulation(sp, noRound, noProfiles, a, b, regen_time, att_span)
     players, posts = sim.init_setup(seed)
     gen = sim.execute(players, posts)
-    for i in range(1, noRound):
+    for i in range(0, noRound):
         players, posts = next(gen)
         t_similar, spearman, kendall_tau = sim.results(posts)
 
         append_results(rounds, i, t_similar_list, t_similar, spearman_list,
                        spearman, kendall_tau_list, kendall_tau)
         if all_votes_submitted(players, posts): # next simulations will be the same
-            for j in range(i-1, noRound):
+            for j in range(i, noRound):
                 append_results(rounds, j, t_similar_list, t_similar,
                                spearman_list, spearman, kendall_tau_list, kendall_tau)
             break
