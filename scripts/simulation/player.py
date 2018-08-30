@@ -12,7 +12,7 @@ class Player:
         attention(int) - Number of posts that the player can view in a round.
     """
 
-    def __init__(self, id, quality_mean, quality_sd, type, sp, attention):
+    def __init__(self, id, quality_mean, quality_sd, type, sp, attention, a, b, regen):
         self.id = id
         # TODO: use a function that returns a tuple of N numbers in [0, 1]
         #       instead of mean and standard deviation for quality
@@ -21,6 +21,9 @@ class Player:
         self.sp = sp
         self.vp = 1
         self.attention = attention
+        self.a = a
+        self.b = b
+        self.regen = regen
 
     def set_strategy(self, strategy):
         """
@@ -46,11 +49,11 @@ class Player:
         """
         self.quality = [quality_mean, quality_sd]
 
-    def spend_vp(self, a, weight, b):
-        self.vp = max(self.vp - (a * self.vp * weight + b), 0)
+    def spend_vp(self, weight):
+        self.vp = max(self.vp - (self.a * self.vp * weight + self.b), 0)
 
-    def regenerate_vp(self, c):
-        self.vp = min(self.vp + c, 1) # TODO: We have to define c in terms of the rounds
+    def regenerate_vp(self):
+        self.vp = min(self.vp + self.regen, 1) # TODO: Define regen in terms of rounds
 
     def create_post(self, quality, players):
         """

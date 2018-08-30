@@ -66,8 +66,8 @@ class Simulation:
                 # Add a player (id, quality_range, strategy_profile, sp)
                 mean = random.uniform(0, 1)
                 std = 0.1
-                players.append(Player(index, mean, std,
-                self.profile[profile_index], self.spvec[index], self.att_span))
+                players.append(Player(index, mean, std, self.profile[profile_index],
+                self.spvec[index], self.att_span, self.a, self.b, self.regen))
                 index += 1
 
             profile_index += 1
@@ -97,11 +97,11 @@ class Simulation:
         for _round in range(0, self.rounds):
             
             for player in players:
-                player.regenerate_vp(self.regen_time) # TODO: We have to define "regen" in terms of the rounds
                 post = player.vote(posts)
                 #print(post)
                 if post != False: #Check if the player actually voted for something
                     player, posts = self.execute_vote(player, post, posts)
+                player.regenerate_vp() # TODO: We have to define "regen" in terms of the rounds
 
             posts.sort(key = lambda x: x.votes_received, reverse = True)
 
