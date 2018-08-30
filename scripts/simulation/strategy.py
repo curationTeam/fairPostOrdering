@@ -17,7 +17,6 @@ class Strategy:
     def __init__(self, type_strategy, id):
         self.type_strategy = type_strategy
         self.id = id
-        self.min_vp = 1
 
     def vote(self, posts, attention):
         """

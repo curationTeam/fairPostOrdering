@@ -91,10 +91,10 @@ class Simulation:
 
 
     def execute(self, players, posts):
-        for _round in range(0, self.rounds):
+        for r in range(0, self.rounds):
             for player in players:
                 player.regenerate_vp() # TODO: We have to define "regen" in terms of the rounds
-                player.vote(posts)
+                player.vote(r, self.rounds, posts)
 
             posts.sort(key = lambda x: x.votes_received, reverse = True)
             yield players, posts
