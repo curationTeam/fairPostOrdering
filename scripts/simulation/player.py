@@ -6,17 +6,13 @@ class Player:
     Player class which determines the properties of a player.
     A player is determined by:
         id(int) - id of the player
-        quality(int, int) - Mean and st deviation of the quality of the posts created by the player
         strategy(Strategy) - Strategy followed by the player
         vp(int) - Current Voting Power that the player has.
         attention(int) - Number of posts that the player can view in a round.
     """
 
-    def __init__(self, id, quality_mean, quality_sd, type, sp, attention, a, b, regen):
+    def __init__(self, id, type, sp, attention, a, b, regen):
         self.id = id
-        # TODO: use a function that returns a tuple of N numbers in [0, 1]
-        #       instead of mean and standard deviation for quality
-        self.quality = [quality_mean, quality_sd]
         self.strategy = Strategy(type, id)
         self.sp = sp
         self.vp = 1
@@ -43,12 +39,6 @@ class Player:
         """
         self.vp = vp
 
-    def set_quality(self, quality_mean, quality_sd):
-        """
-        Set quality of "writing posts" of the player.
-        """
-        self.quality = [quality_mean, quality_sd]
-
     def spend_vp(self, weight):
         self.vp = max(self.vp - (self.a * self.vp * weight + self.b), 0)
 
@@ -57,15 +47,6 @@ class Player:
 
     def regenerate_vp(self):
         self.vp = min(self.vp + self.regen, 1) # TODO: Define regen in terms of rounds
-
-    def create_post(self, quality, players):
-        """
-        Player creates a Post given its quality parameters.
-        Return:
-        post(Post) - Post created by the player
-        """
-        post = Post(self.id, self.quality, players)
-        return post
 
     def isVoteRound(self, r, R, posts):
         """
