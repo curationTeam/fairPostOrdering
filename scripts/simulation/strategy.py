@@ -13,7 +13,6 @@ class Strategy:
     min_vp(int) - It is the minimum voting power threshold the player is willing to reach.
     """
 
-    # TODO: attention should be renamed att_span, changed to player property and set in __init__()
     def __init__(self, type_strategy, id):
         self.type_strategy = type_strategy
         self.id = id
@@ -45,7 +44,7 @@ class Strategy:
         """
         Retrieves the k-top list of unvoted posts of the player, where k is defined by the attention parameter.
         Returns:
-        list(posts): a list of posts of len ~ attention
+        list(posts): a list of posts of len == attention
         """
         number_posts = 0
         short_list = []

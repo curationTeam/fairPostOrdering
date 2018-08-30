@@ -6,16 +6,16 @@ class Post:
     It's defined by:
     author_id(int) - id of the player who created the post.
     likability(list(int)) - determines how much each player likes (in [0, 1]) a post
-    quality(int) - average of the likability of a post (needed to give the ideal ordering)
-    votes_received(float) - value of all received votes
+    ideal_score(int) - average of the likability of a post (needed to give the ideal ordering)
+    real_score(float) - value of all received votes
     voters(list(int)) - ids of player who have already voted the post
     """
 
     def __init__(self, player_id, quality, players):
         self.author_id = player_id
         self.likability = self.get_likability(quality, players)
-        self.quality = sum(self.likability) / len(self.likability)
-        self.votes_received = 0
+        self.ideal_score = sum(self.likability) / len(self.likability)
+        self.real_score = 0
         self.voters = set()
 
     def get_likability(self, quality, players):
@@ -46,5 +46,5 @@ class Post:
         return str(self.author_id)
 
     def __repr__(self):
-        return "Post(author = %r, quality = %r, votes = %r)" % \
-          (self.author_id, self.quality, self.votes_received)
+        return "Post(author = %r, ideal score = %r, real score = %r)" % \
+          (self.author_id, self.ideal_score, self.real_score)
