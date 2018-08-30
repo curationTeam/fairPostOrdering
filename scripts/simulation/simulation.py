@@ -45,14 +45,26 @@ class Simulation:
         self.regen = regen
         self.att_span = att_span
 
+    def get_random_likabilities(self):
+        return [[random.random() for _i in range(0, sum(self.noProfiles))]
+               for _j in range(0, self.noProfiles[0] + self.noProfiles[1])]
+
     # Reseed and initialize players and posts
     def init_setup(self, seed):
         random.seed(seed) # reseed the prng
         players = self.init_players()
-        posts = self.init_posts(players)
-
+        posts = self.create_posts(self.get_random_likabilities())
         return players, posts
 
+    def create_posts(self, likability_matrix):
+        assert len(likability_matrix) == self.noProfiles[0] + self.noProfiles[1]
+        for likability in likability_matrix:
+          assert len(likability) == sum(self.noProfiles)
+
+        posts = [Post(i, likability_matrix[i])
+                 for i in range(0, len(likability_matrix))]
+        random.shuffle(posts) # randomize initial order of post ranking
+        return posts
 
     # Initialize players
     def init_players(self):
@@ -63,9 +75,7 @@ class Simulation:
         for noProfile in self.noProfiles:
             # Create noProfile players of self.profile[profile_index]
             for _i in range(0, noProfile):
-                mean = random.uniform(0, 1)
-                std = 0.1
-                players.append(Player(index, mean, std, self.profile[profile_index],
+                players.append(Player(index, self.profile[profile_index],
                 self.spvec[index], self.att_span, self.a, self.b, self.regen))
                 index += 1
             profile_index += 1
@@ -81,9 +91,6 @@ class Simulation:
                 assert (str(player.strategy) == "honest" or str(player.strategy) == "greedy")
                 post = player.create_post(player.quality, players_ids)
                 posts.append(post)
-
-        initial_order_posts = self.display_list(posts)
-        #print('Initial order of posts:', initial_order_posts)
 
         return posts
 
