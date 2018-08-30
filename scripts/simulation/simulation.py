@@ -1,6 +1,5 @@
 from scipy import stats
 import random
-import matplotlib.pyplot as plt
 
 from strategy import Strategy
 from player import Player
@@ -98,7 +97,7 @@ class Simulation:
                 player.vote(posts)
 
             posts.sort(key = lambda x: x.votes_received, reverse = True)
-        return players, posts
+            yield players, posts
 
     # Return a list with the author_id of the posts
     def display_list(self, posts):
@@ -132,10 +131,3 @@ class Simulation:
 
         return t_similar, spearman, kendall_tau
 
-
-    def plot (self, x, y):
-        
-        plt.plot(x,y)
-        plt.xlabel("Rounds")
-        plt.ylabel("t-similarity")
-        plt.show()
