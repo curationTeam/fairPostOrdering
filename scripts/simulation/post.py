@@ -16,7 +16,7 @@ class Post:
         self.likability = self.get_likability(quality, players)
         self.quality = sum(self.likability) / len(self.likability)
         self.votes_received = 0
-        self.voters = []
+        self.voters = set()
 
     def get_likability(self, quality, players):
         """

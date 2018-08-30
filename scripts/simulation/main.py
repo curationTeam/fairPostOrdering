@@ -16,6 +16,14 @@ def plot(x, y, kind):
     name = "figures/" + str(x[-1]) + "_" + kind + ".png"
     plt.savefig(name)
 
+def all_votes_submitted(players, posts):
+    all_votes = True
+    for post in posts:
+        if len(post.voters) != len(players): # TODO: incompatible with greedy
+            all_votes = False
+            break
+    return all_votes
+
 def append_results(rounds, i, t_similar_list, t_similar, spearman_list,
                    spearman, kendall_tau_list, kendall_tau):
     rounds.append(i)
@@ -39,6 +47,11 @@ def main():
 
         append_results(rounds, i, t_similar_list, t_similar, spearman_list,
                        spearman, kendall_tau_list, kendall_tau)
+        if all_votes_submitted(players, posts): # next simulations will be the same
+            for j in range(i-1, noRound):
+                append_results(rounds, j, t_similar_list, t_similar,
+                               spearman_list, spearman, kendall_tau_list, kendall_tau)
+            break
 
     plot(rounds, t_similar_list, "t_similarity")
     plot(rounds, spearman_list, "spearman")
