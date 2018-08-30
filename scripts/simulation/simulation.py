@@ -106,6 +106,9 @@ class Simulation:
 
     # Return a list with the author_id of the posts
     def display_list(self, posts):
+        return [(p.ideal_score, len(p.voters)) for p in posts]
+
+    def name_list(self, posts):
         return [p.author_id for p in posts]
 
     # Sort lists of posts by ideal score
@@ -115,17 +118,20 @@ class Simulation:
     # Print results of execution
     def print_result(self, posts):
         order_posts = self.display_list(posts)
-        quality_sorted = self.display_list(self.sort_by_quality(posts))
+        ideal_score_sorted = self.display_list(self.sort_by_ideal_score(posts))
         print('Final ranking of posts:', order_posts)
-        print('Quality sorted:', quality_sorted)
-        print('Spearman:', stats.spearmanr(quality_sorted, order_posts)[0])
-        print('KendallTau:', stats.kendalltau(quality_sorted, order_posts)[0])
+        print('Quality sorted:', ideal_score_sorted)
+
+        ideal_score_sorted = self.name_list(self.sort_by_ideal_score(posts))
+        order_posts = self.name_list(posts)
+        print('Spearman:', stats.spearmanr(ideal_score_sorted, order_posts)[0])
+        print('KendallTau:', stats.kendalltau(ideal_score_sorted, order_posts)[0])
 
     # Calculate t-similarity and spearman correlation coefficient
     def results(self, posts):
         t_similar = 0
-        order_posts = self.display_list(posts)
-        sorted_by_ideal_order = self.display_list(self.sort_by_ideal_score(posts))
+        order_posts = self.name_list(posts)
+        sorted_by_ideal_order = self.name_list(self.sort_by_ideal_score(posts))
         spearman = stats.spearmanr(sorted_by_ideal_order, order_posts)[0]
         kendall_tau = stats.kendalltau(sorted_by_ideal_order, order_posts)[0]
 
