@@ -46,8 +46,8 @@ class Simulation:
         self.att_span = att_span
 
     def get_random_likabilities(self):
-        return [[random.random() for _i in range(0, sum(self.noProfiles))]
-               for _j in range(0, self.noProfiles[0] + self.noProfiles[1])]
+        return [[random.betavariate((i+j+2)/(self.rounds/5000), (i*i+2*j*j*j/3+1)/(self.rounds/5)) for i in range(0, sum(self.noProfiles))]
+               for j in range(0, self.noProfiles[0] + self.noProfiles[1])]
 
     # Reseed and initialize players and posts
     def init_setup(self, seed):

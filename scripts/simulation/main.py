@@ -2,12 +2,14 @@ import random
 from simulation import Simulation
 import matplotlib.pyplot as plt
 
-sp = (1,) * (100+10)
-noProfiles = (100, 0, 10)
-a = 1/200
-b = 0.01
-regen_time = 3 / (5*24*60*60)
-att_span = 5
+noProfiles = (200, 0, 100)
+sp = (1,) * sum(noProfiles)
+a = 5/200
+b = 0.1
+regen_time = 3 / (5*24*60) # as in Steem
+att_span = 10
+noRound = 50000
+
 def plot(x, y, kind):
     plt.plot(x, y)
     plt.xlabel("Rounds")
