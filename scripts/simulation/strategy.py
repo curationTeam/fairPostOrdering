@@ -31,7 +31,6 @@ class Strategy:
             short_list = self.get_short_list(posts, attention)
 
             if len(short_list) > 0:
-
                 favorite_post = max(short_list, key=lambda x: x.likability[self.id])
                 return favorite_post
 
