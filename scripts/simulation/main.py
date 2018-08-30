@@ -16,10 +16,18 @@ def plot(x, y, kind):
     name = "figures/" + str(x[-1]) + "_" + kind + ".png"
     plt.savefig(name)
 
+def append_results(rounds, i, t_similar_list, t_similar, spearman_list,
+                   spearman, kendall_tau_list, kendall_tau):
+    rounds.append(i)
+    t_similar_list.append(t_similar)
+    spearman_list.append(spearman)
+    kendall_tau_list.append(kendall_tau)
 
 def main():
     seed = random.randint(0, 1000)
     t_similar_list = []
+    spearman_list = []
+    kendall_tau_list = []
     rounds = []
 
     sim = Simulation(sp, noRound, noProfiles, a, b, regen_time, att_span)
@@ -29,8 +37,8 @@ def main():
         players, posts = next(gen)
         t_similar, spearman, kendall_tau = sim.results(posts)
 
-        rounds.append(i)
-        t_similar_list.append(t_similar)
+        append_results(rounds, i, t_similar_list, t_similar, spearman_list,
+                       spearman, kendall_tau_list, kendall_tau)
 
     plot(rounds, t_similar_list, "t_similarity")
     plot(rounds, spearman_list, "spearman")
