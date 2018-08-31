@@ -1,7 +1,7 @@
 \begin{definition}[Post-Voting System]
-  A tuple $\pvs = \left(\gfunc, \honeststr\right)$ of two ITMs, parametrized
-  by \textsc{Init}, \textsc{Aux}, \textsc{HandleVote} and \textsc{Vote}. The
-  two ITMs have to implement the following API:
+  A tuple $\pvs = \left(\gfunc, \honeststr, \playerlen\right)$ of two ITMs,
+  parametrized by \textsc{Init}, \textsc{Aux}, \textsc{HandleVote} and
+  \textsc{Vote}. The two ITMs have to implement the following API:
 
   $\gfunc$ is a global functionality that accepts two messages:
   \texttt{read}, which responds with the current list of posts and
