@@ -7,8 +7,7 @@
     \Indent
       \State $\forall i \in |\postlist|,$ Parse $\postlist[i]$ as
       $\left(\mathrm{creator}_i, \like_i\right)$
-      \State Assert($\forall i \neq j \in |\postlist|, |\like_i| =
-      |\like_j|$)
+      \State Assert($\forall i \in |\postlist|, |\like_i| = \playerlen$)
       \State $\playerlen \gets |\like_1|$
       \State $\playerlist \gets \emptyset$
       \State $\textsc{Init}^{\gfuncname}\left(\mathrm{initArgs}\right)$
