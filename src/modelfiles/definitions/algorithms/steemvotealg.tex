@@ -3,14 +3,13 @@
   \label{alg:steem:vote}
   \begin{algorithmic}[1]
     \If{$\textsc{VoteThisRound}\left(\round, \rounds\right) = \mathrm{yes}$}
-      \State TODO: DISCUSS NOTATION: add attSpan, votedPosts to inputs?
-      \State CONT: but complex for $\honeststr$
       \State $\mathrm{top} \gets \textsc{ChooseTopPosts}\left(\attspan,
       \postlist, \mathrm{votedPosts}\right)$
-      \State $p \gets \argmax\limits_{\left(i, l\right) \in
-      \mathrm{top}}{\lbrace l \rbrace}$
-      \State $\mathrm{votedPosts} \gets \mathrm{votedPosts} \: \cup p$
-      \State \Return $\left(p, l_{\pid}\right)$
+      \State $\left(i, l\right) \gets \argmax\limits_{\left(i, l\right) \in
+      \mathrm{top}}{\lbrace l_{\pid} \rbrace}$
+      \State $\mathrm{votedPosts} \gets \mathrm{votedPosts} \: \cup \left(i,
+      l\right)$
+      \State \Return $\left(\left(i, l\right), l_{\pid}\right)$
     \Else
       \State \Return \textbf{null}
     \EndIf
