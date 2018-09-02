@@ -1,5 +1,5 @@
 \begin{algorithm}[H]
-  \caption{$\gfunc\left(\textsc{Init}^{\gfuncname}, \textsc{Aux},
+  \caption{$\gfunc\left(\textsc{Init}, \textsc{Aux},
   \textsc{HandleVote}\right)\left(\postlist, \mathrm{initArgs}\right)$}
   \label{alg:gfunc}
   \begin{algorithmic}[1]
@@ -10,7 +10,7 @@
       \State Assert($\forall i \in |\postlist|, |\like_i| = \playerlen$)
       \State $\playerlen \gets |\like_1|$
       \State $\playerlist \gets \emptyset$
-      \State $\textsc{Init}^{\gfuncname}\left(\mathrm{initArgs}\right)$
+      \State $\textsc{Init}\left(\mathrm{initArgs}\right)$
     \EndIndent
     \State
     \State Upon receiving (\texttt{read}) from $\player_{\pid}$:

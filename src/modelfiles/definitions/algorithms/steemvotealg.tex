@@ -1,7 +1,8 @@
 \begin{algorithm}[H]
-  \caption{$\textsc{Vote}\left(\postlist\right)$}
+  \caption{$\textsc{Vote}\left(\postlist, \mathrm{aux}\right)$}
   \label{alg:steem:vote}
   \begin{algorithmic}[1]
+    \State Store aux contents as constants
     \If{$\textsc{VoteThisRound}\left(\round, \rounds\right) = \mathrm{yes}$}
       \State $\mathrm{top} \gets \textsc{ChooseTopPosts}\left(\attspan,
       \postlist, \mathrm{votedPosts}\right)$

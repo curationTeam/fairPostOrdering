@@ -1,13 +1,7 @@
 \begin{algorithm}[H]
-  \caption{$\honeststr\left(\textsc{Init}^{\honest},
-  \textsc{Vote}\right)\left(\mathrm{initArgs}\right)$}
+  \caption{$\honeststr\left(\textsc{Vote}\right)$}
   \label{alg:honest}
   \begin{algorithmic}[1]
-    \State Initialization:
-    \Indent
-      \State $\textsc{Init}^{\honest}\left(\mathrm{initArgs}\right)$
-    \EndIndent
-    \State
     \State Upon receiving (\texttt{activate}) from $\env$:
     \Indent
       \State Send (\texttt{read}) to $\gfunc$
