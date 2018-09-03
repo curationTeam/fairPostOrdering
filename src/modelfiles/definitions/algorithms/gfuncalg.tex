@@ -18,10 +18,6 @@
     \State Upon receiving (\texttt{vote}, ballot) from
     $\player_{\mathrm{pid}}$:
      \Indent
-       \State $\playerlist \gets \playerlist \cup \player_{\mathrm{pid}}$
-       \If{$|\playerlist| > \playerlen$}
-         \State Abort
-       \EndIf
        \State \textsc{HandleVote}(ballot)
      \EndIndent
   \end{algorithmic}
