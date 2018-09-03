@@ -1,0 +1,20 @@
+\begin{definition}[Execution Pattern]
+  \label{model:def:execpat}
+  Let $\playerlen, \rounds \in \mathbb{N}^*$.
+  \begin{equation*}
+    \execpat_{\playerlen, \rounds} = \left\{\left(\mathtt{act}_{\pid_1}, \dots,
+    \mathtt{act}_{\pid_{\playerlen \rounds}}\right) : \forall i \in
+    \left[\rounds\right], \forall k \in
+    \left[\playerlen\right], \exists j \in \left[\playerlen\right]: \pid_{(i -
+    1) \playerlen + j} = k\right\} \enspace,
+  \end{equation*}
+  i.e. activation messages are grouped in $\rounds$ rounds and within each round
+  each player is \texttt{activate}d exactly once. The order of activations is
+  not fixed.
+
+  Let Environment $\env$ that sends messages $\mathrm{msgs} =
+  \left(\mathtt{act}_{\pid_1}, \dots, \mathtt{act}_{\pid_n}\right)$
+  sequentially. We say that $\env$ respects $\execpat_{\playerlen, \rounds}$ if
+  $\mathrm{msgs} \in \execpat_{\playerlen, \rounds}$. (Note: this implies that
+  $n = \playerlen \rounds$.)
+\end{definition}
