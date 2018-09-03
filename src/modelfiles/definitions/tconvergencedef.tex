@@ -1,11 +1,12 @@
-\begin{definition}[$\left(\playerlen, \rounds, t\right)$-convergence under
-honesty]
+\begin{definition}[$\left(\playerlen, \rounds, \postlen, t\right)$-convergence
+under honesty]
   We say that a post-voting system $\pvs = \left(\textsc{Init}, \textsc{Aux},
   \textsc{HandleVote}, \textsc{Vote}\right)$ $\left(\playerlen, \rounds,
-  t\right)$-\emph{converges under honesty} (or \emph{$t$-converges under honesty
-  for $\playerlen$ players and $\rounds$ rounds}) if, for every valid input
-  $\postlist$, for every $\env$ that respects $\execpat_{\playerlen, \rounds}$
-  and given that all protocols execute $\honeststr$, it holds that after $\env$
-  completes its execution pattern, $\gfunc$ contains a post list $\postlist$
-  such that $\textsc{Ideal}^t\left(\postlist\right)$ is true.
+  \postlen, t\right)$-\emph{converges under honesty} (or \emph{$t$-converges
+  under honesty for $\playerlen$ players, $\rounds$ rounds and $\postlen$
+  posts}) if, for every input $\postlist$ such that $|\postlist| = \postlen$,
+  for every $\env$ that respects $\execpat_{\playerlen, \rounds}$ and given that
+  all protocols execute $\honeststr$, it holds that after $\env$ completes its
+  execution pattern, $\gfunc$ contains a post list $\postlist$ such that
+  $\textsc{Ideal}^t\left(\postlist\right)$ is true.
 \end{definition}
