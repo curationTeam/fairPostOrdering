@@ -3,7 +3,7 @@
   \label{alg:steem:vote}
   \begin{algorithmic}[1]
     \State Store aux contents as constants
-    \If{$\textsc{VoteThisRound}\left(\round, \rounds\right) = \mathrm{yes}$}
+    \If{$\textsc{VoteThisRound}\left(\round\right) = \mathrm{yes}$}
       \State $\mathrm{top} \gets \textsc{ChooseTopPosts}\left(\attspan,
       \postlist, \mathrm{votedPosts}\right)$
       \State $\left(i, l\right) \gets \argmax\limits_{\left(i, l\right) \in
@@ -29,7 +29,7 @@
       \State \Return $\result$
     \EndFunction
     \State
-    \Function{VoteThisRound}{$\round, \rounds, |\postlist|$}
+    \Function{VoteThisRound}{$\round, |\postlist|$}
       \State Let choices be a vector of length $\rounds$, with each element in
       $\left\{0, 1\right\}$. The vector choices is such that, if the player
       votes only on the rounds $\rounds$ when $\mathrm{choices}_\round = 1$ and
