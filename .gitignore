@@ -9,3 +9,4 @@ __pycache__
 *.lot 
 *.bbl 
 *.blg
+src/contentCuration.pdf
