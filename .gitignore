@@ -1,3 +1,11 @@
 *.swp
 *.swo
 __pycache__
+*.log
+*.aux
+*.out
+*.toc 
+*.lof 
+*.lot 
+*.bbl 
+*.blg
