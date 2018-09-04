@@ -1,0 +1,14 @@
+\begin{algorithm}[H]
+  \caption{$\honeststr\left(\textsc{Vote}\right)$}
+  \label{alg:honest}
+  \begin{algorithmic}[1]
+    \State Upon receiving (\texttt{activate}) from $\env$:
+    \Indent
+      \State Send (\texttt{read}) to $\gfunc$
+      \State Wait for response (\texttt{posts}, $\postlist$, aux)
+      \State $\mathrm{ballot} \gets \textsc{Vote}\left(\postlist,
+      \mathrm{aux}\right)$
+      \State Send (\texttt{vote}, ballot) to $\gfunc$
+    \EndIndent
+  \end{algorithmic}
+\end{algorithm}

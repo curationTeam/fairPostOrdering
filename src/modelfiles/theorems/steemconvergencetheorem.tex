@@ -1,0 +1,30 @@
+\begin{theorem}
+  The Steem system $\left(\playerlen, \rounds, \postlen, t\right)$-converges if
+  and only if $\stpowvec$ is constant and $\rounds - 1 \geq \left(\postlen -
+  1\right) \ceil*{\frac{a + b}{\regen}}$.
+\end{theorem}
+
+  \paragraph{Discussion}
+    \begin{itemize}
+      \item $\stpowvec$ has to be constant, i.e. all players should have the
+      same money. Otherwise let $\postlist = \left(\left(1, \left(a_1, \dots,
+      a_\playerlen\right)\right), \left(2, \left(b_1, \dots,
+      b_\playerlen\right)\right)\right)$ such that the following linear
+      constraints are simultaneously feasible:
+      \begin{gather*}
+        \sum\limits_{i=1}^\playerlen a_i > \sum\limits_{i=1}^\playerlen b_i \\
+        \sum\limits_{i=1}^\playerlen \stpow_i a_i < \sum\limits_{i=1}^\playerlen
+        \stpow_i  b_i \\
+      \end{gather*}
+      I think that's always possible if $\stpow$ is not constant.
+      \item If players have attention span smaller than the full list and do not
+      have the rounds to vote for every post, make a $\postlist$ with the best
+      post at the end and it will stay there.
+      \item If players must vote without full voting power but have the time to
+      vote for all posts, we again place the good posts at the end. Players will
+      vote for them with little voting power and they will not rise to the top.
+      \item For $|\postlist|$-convergence, we need every player to vote for all
+      posts with full voting power, i.e. $\rounds - 1 \geq \left(|\postlist| -
+      1\right) \ceil*{\frac{a + b}{\regen}}$. But we can simply send a huge
+      $\postlist$.
+    \end{itemize}

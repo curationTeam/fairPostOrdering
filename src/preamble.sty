@@ -22,6 +22,41 @@
 \usepackage{hyperref}
 \usepackage{import}
 
+% Macros for symbols
+\newcommand{\gfunc}{\mathcal{G}_{\mathrm{Feed}}}
+\newcommand{\gfuncname}{\mathrm{Feed}}
+\newcommand{\honeststr}{\Pi_{\mathrm{honest}}}
+\newcommand{\honest}{\mathrm{honest}}
+\newcommand{\post}{p}
+\newcommand{\player}{u}
+\newcommand{\like}{l}
+\newcommand{\postlist}{\mathcal{P}}
+\newcommand{\playerlist}{\mathcal{U}}
+\newcommand{\postlen}{M}
+\newcommand{\playerlen}{N}
+\newcommand{\env}{\mathcal{E}}
+\newcommand{\pvs}{\mathcal{S}}
+\newcommand{\stpowvec}{\mathrm{\textbf{SP}}}
+\newcommand{\votpowvec}{\mathrm{\textbf{VP}}}
+\newcommand{\stpow}{\mathrm{SP}}
+\newcommand{\votpow}{\mathrm{VP}}
+\newcommand{\rounds}{R}
+\newcommand{\round}{r}
+\newcommand{\attspan}{\mathrm{attSpan}}
+\newcommand{\pid}{\mathrm{pid}}
+\newcommand{\result}{\mathrm{res}}
+\newcommand{\regen}{\mathrm{regen}}
+\newcommand{\execpat}{\mathrm{ExecPat}}
+
+% ceil and floor macros
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+% Indentation for algorithmic
+\algdef{SE}[SUBALG]{Indent}{EndIndent}{}{\algorithmicend\ }%
+\algtext*{Indent}
+\algtext*{EndIndent}
+
 % Commands for algorithmic
 \algnewcommand\algorithmicswitch{\textbf{switch}}
 \algnewcommand\algorithmiccase{\textbf{case}}

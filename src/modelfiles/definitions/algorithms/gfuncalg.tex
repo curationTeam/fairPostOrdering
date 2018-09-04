@@ -1,0 +1,24 @@
+\begin{algorithm}[H]
+  \caption{$\gfunc\left(\textsc{Init}, \textsc{Aux},
+  \textsc{HandleVote}\right)\left(\postlist, \mathrm{initArgs}\right)$}
+  \label{alg:gfunc}
+  \begin{algorithmic}[1]
+    \State Initialization:
+    \Indent
+      \State $\playerlist \gets \emptyset$
+      \State $\textsc{Init}\left(\mathrm{initArgs}\right)$
+    \EndIndent
+    \State
+    \State Upon receiving (\texttt{read}) from $\player_{\pid}$:
+    \Indent
+      \State $\mathrm{aux} \gets \textsc{Aux}\left(\player_{\pid}\right)$
+      \State Send (\texttt{posts}, $\postlist$, aux) to $\player_{\pid}$
+    \EndIndent
+    \State
+    \State Upon receiving (\texttt{vote}, ballot) from
+    $\player_{\mathrm{pid}}$:
+     \Indent
+       \State \textsc{HandleVote}(ballot)
+     \EndIndent
+  \end{algorithmic}
+\end{algorithm}

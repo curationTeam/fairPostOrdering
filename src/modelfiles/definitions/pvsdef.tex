@@ -1,0 +1,15 @@
+\begin{definition}[Post-Voting System]
+  \label{model:def:pvs}
+  A tuple $\pvs = \left(\textsc{Init}, \textsc{Aux}, \textsc{HandleVote},
+  \textsc{Vote}\right)$ of four algorithms. The four algorithms parametrize the
+  following two ITMs:
+
+  $\gfunc$ is a global functionality that accepts two messages: \texttt{read},
+  which responds with the current list of posts and \texttt{vote}, which can
+  take various arguments and does whatever is defined in \textsc{HandleVote}.
+
+  $\honeststr$ is a protocol that sends \texttt{read} and \texttt{vote}
+  messages to $\gfunc$ whenever it receives (\texttt{activate}) from $\env$.
+\end{definition}
+\subimport{./algorithms}{gfuncalg.tex}
+\subimport{./algorithms}{honeststralg.tex}

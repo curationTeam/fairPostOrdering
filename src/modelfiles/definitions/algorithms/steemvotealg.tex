@@ -1,0 +1,43 @@
+\begin{algorithm}[H]
+  \caption{$\textsc{Vote}\left(\postlist, \mathrm{aux}\right)$}
+  \label{alg:steem:vote}
+  \begin{algorithmic}[1]
+    \State Store aux contents as constants
+    \If{$\textsc{VoteThisRound}\left(\round\right) = \mathrm{yes}$}
+      \State $\mathrm{top} \gets \textsc{ChooseTopPosts}\left(\attspan,
+      \postlist, \mathrm{votedPosts}\right)$
+      \State $\left(i, l\right) \gets \argmax\limits_{\left(i, l\right) \in
+      \mathrm{top}}{\lbrace l_{\pid} \rbrace}$
+      \State $\mathrm{votedPosts} \gets \mathrm{votedPosts} \: \cup \left(i,
+      l\right)$
+      \State \Return $\left(\left(i, l\right), l_{\pid}\right)$
+    \Else
+      \State \Return \textbf{null}
+    \EndIf
+    \State
+    \Function{ChooseTopPosts}{$\attspan, \postlist, \mathrm{votedPosts}$}
+      \State $\result \gets \emptyset$
+      \State $\mathrm{idx} \gets 1$
+      \While{$|\result| < \attspan \And \mathrm{idx} \leq |\postlist|$}
+        \If{$\postlist\left[\mathrm{idx}\right] \notin \mathrm{votedPosts}$}
+        \Comment{One vote per post per player}
+          \State $\result \gets \result \cup \lbrace
+          \postlist\left[\mathrm{idx}\right] \rbrace$
+        \EndIf
+        \State $\mathrm{idx} \gets \mathrm{idx} + 1$
+      \EndWhile
+      \State \Return $\result$
+    \EndFunction
+    \State
+    \Function{VoteThisRound}{$\round, |\postlist|$}
+      \State Let choices be a vector of length $\rounds$, with each element in
+      $\left\{0, 1\right\}$. The vector choices is such that, if the player
+      votes only on the rounds $\rounds$ when $\mathrm{choices}_\round = 1$ and
+      the weight of all votes is 1, then the total player's ``influence'' will
+      be maximized.
+      \State Or simply allow voting when either voting power is full or in
+      evenly spread out moments. (This strategy may actually achieve the above.)
+      \State \Return $\mathrm{choices}_\round$
+    \EndFunction
+  \end{algorithmic}
+\end{algorithm}
