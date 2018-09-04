@@ -10,3 +10,4 @@ __pycache__
 *.bbl 
 *.blg
 src/contentCuration.pdf
+.vscode
