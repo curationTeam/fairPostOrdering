@@ -1,6 +1,38 @@
 \begin{proof}
   \begin{itemize}
-    \item ($\Leftarrow$)
+    \item ($\Leftarrow$) Let $\forall i \in \left[\playerlen\right], \stpowvec_i
+    = c, \rounds - 1 \geq \left(\postlen - 1\right)\ceil*{\frac{a+b}{\regen}}$
+    and player $u_{\pid}$. In this case and according to \textsc{VoteThisRound},
+    $u_{\pid}$ will vote in rounds $\round \in \voterounds = \left\{\round \in
+    \left[\rounds\right] : \floor*{\left(\round - 1\right) \mod \frac{\rounds -
+    1}{\postlen - 1}} = 0\right\}$. Let $\left(\round_1, \dots,
+    \round_\postlen\right)$ be the successive rounds when $u_{\pid}$ votes ($r_1
+    \in \voterounds, \forall i \in \left[|\voterounds|\right] \setminus
+    \left\{1\right\}, r_i \in \voterounds \wedge r_i > r_{i - 1}$). It holds
+    that:
+    \begin{enumerate}
+      \item $\forall i \in \left[|\voterounds|\right] \setminus
+      \left\{1\right\}, r_i \in \left\{r_{i - 1} + \floor*{\frac{\rounds -
+      1}{\postlen - 1}}, r_{i - 1} + \ceil*{\frac{\rounds - 1}{\postlen -
+      1}}\right\}$
+      \item $\rounds - 1 \geq \left(\postlen -
+      1\right)\ceil*{\frac{a+b}{\regen}} \Rightarrow \frac{\rounds - 1}{\postlen
+      - 1} \geq \ceil*{\frac{a+b}{\regen}} \overset{\text{rhs
+      integer}}{\Rightarrow} \floor*{\frac{\rounds - 1}{\postlen - 1}} \geq
+      \ceil*{\frac{a+b}{\regen}}$
+    \end{enumerate}
+    From (1) and (2) we have that $\forall i \in \left[\rounds - 1\right],
+    r_{i+1} - r_i \geq \ceil*{\frac{a+b}{\regen}}$. Thus $\votpowvec_{\pid, r_{i
+    + 1}} \geq \votpowvec_{\pid, r_i} + \regen\ceil*{\frac{a+b}{\regen}}
+    \Rightarrow \votpowvec_{\pid, r_{i + 1}} \geq \votpowvec_{\pid, r_i} + a +
+    b$. But $\votpowvec_{\pid, 1} = 1$ and $\forall i \in
+    \left[\voterounds\right] \setminus \left\{1\right\}, \votpowvec_{\pid, r_i
+    + 1} \geq \votpowvec_{\pid, r_i} - a - b$, thus $\forall i \in
+    \left[\voterounds\right], \votpowvec_{\pid, r_i} = 1$. This in turn means
+    that at the end of the execution, $\forall \post = \left(i, l\right) \in \postlist,
+    \mathrm{scores}_{p} = c\left(\playerlen b + a \sum\limits_{\pid \in
+    \left[\playerlen\right]} l_{\pid}\right)$, thus all posts will be ordered
+    according to their ideal scores.
     \item ($\stpowvec$ variable $\Rightarrow$ no convergence)
     \item (inequality doesn't hold $\Rightarrow$ no convergence)
   \end{itemize}
