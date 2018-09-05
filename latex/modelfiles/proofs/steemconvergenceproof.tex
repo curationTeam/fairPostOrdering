@@ -1,15 +1,15 @@
 \begin{proof}
   \begin{itemize}
-    \item ($\Leftarrow$) Let $\forall i \in \left[\playerlen\right], \stpowvec_i
-    = c, \rounds - 1 \geq \left(\postlen - 1\right)\ceil*{\frac{a+b}{\regen}}$
-    and player $u_{\pid}$. In this case and according to \textsc{VoteThisRound},
-    $u_{\pid}$ will vote in rounds $\round \in \voterounds = \left\{\round \in
-    \left[\rounds\right] : \floor*{\left(\round - 1\right) \mod \frac{\rounds -
-    1}{\postlen - 1}} = 0\right\}$. Let $\left(\round_1, \dots,
-    \round_\postlen\right)$ be the successive rounds when $u_{\pid}$ votes ($r_1
-    \in \voterounds, \forall i \in \left[|\voterounds|\right] \setminus
-    \left\{1\right\}, r_i \in \voterounds \wedge r_i > r_{i - 1}$). It holds
-    that:
+    \item ($\Leftarrow$) Let $\rounds - 1 \geq \left(\postlen -
+    1\right)\ceil*{\frac{a+b}{\regen}}$, $\pid \in \left[\playerlen\right]$ and
+    $\forall i \in \left[\playerlen\right], \stpowvec_i = c$. In this case and
+    according to \textsc{VoteThisRound}, $u_{\pid}$ will vote in rounds $\round
+    \in \voterounds = \left\{\round \in \left[\rounds\right] :
+    \floor*{\left(\round - 1\right) \mod \frac{\rounds - 1}{\postlen - 1}} =
+    0\right\}$. Let $\left(\round_1, \dots, \round_\postlen\right)$ be the
+    successive rounds when $u_{\pid}$ votes ($r_1 \in \voterounds, \forall i \in
+    \left[|\voterounds|\right] \setminus \left\{1\right\}, r_i \in \voterounds
+    \wedge r_i > r_{i - 1}$). It holds that:
     \begin{enumerate}
       \item $\forall i \in \left[|\voterounds|\right] \setminus
       \left\{1\right\}, r_i \in \left\{r_{i - 1} + \floor*{\frac{\rounds -
