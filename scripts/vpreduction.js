@@ -18,7 +18,7 @@ class Exec {
 
   voteRounds() {
     for (let i = 1; i <= this.R; i++)
-      if (this.vtr(i))
+      if (this.isVoteRound(i))
         console.log(i)
   }
 
@@ -26,7 +26,7 @@ class Exec {
     for (let i = 1; i <= this.R; i++) {
       this.vp = Math.min(this.vp + this.regen, 1)
       console.log(`Voting power is ${this.vp} on round ${i}.`)
-      if (this.vtr(i)) {
+      if (this.isVoteRound(i)) {
         console.log(`voted on ${i}!`)
         const cost = (this.a*this.vp + this.b)
         this.vp = Math.max(this.vp - cost, 0)
