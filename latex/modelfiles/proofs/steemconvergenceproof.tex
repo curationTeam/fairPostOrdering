@@ -1,39 +1,53 @@
 \begin{proof}
   \begin{itemize}
-    \item ($\Leftarrow$) Let $\rounds - 1 \geq \left(\postlen -
-    1\right)\ceil*{\frac{a+b}{\regen}}$, $\pid \in \left[\playerlen\right]$ and
-    $\forall i \in \left[\playerlen\right], \stpowvec_i = c$. In this case and
-    according to \textsc{VoteThisRound}, $u_{\pid}$ will vote in rounds $\round
-    \in \voterounds = \left\{\round \in \left[\rounds\right] :
-    \floor*{\left(\round - 1\right) \mod \frac{\rounds - 1}{\postlen - 1}} =
-    0\right\}$. Let $\left(\round_1, \dots, \round_\postlen\right)$ be the
-    successive rounds when $u_{\pid}$ votes ($r_1 \in \voterounds, \forall i \in
-    \left[|\voterounds|\right] \setminus \left\{1\right\}, r_i \in \voterounds
-    \wedge r_i > r_{i - 1}$). It holds that:
-    \begin{enumerate}
-      \item $\forall i \in \left[|\voterounds|\right] \setminus
-      \left\{1\right\}, r_i \in \left\{r_{i - 1} + \floor*{\frac{\rounds -
-      1}{\postlen - 1}}, r_{i - 1} + \ceil*{\frac{\rounds - 1}{\postlen -
-      1}}\right\}$
-
-      \item $\rounds - 1 \geq \left(\postlen -
-      1\right)\ceil*{\frac{a+b}{\regen}} \Rightarrow \frac{\rounds - 1}{\postlen
-      - 1} \geq \ceil*{\frac{a+b}{\regen}} \overset{\text{rhs
-      integer}}{\Rightarrow} \floor*{\frac{\rounds - 1}{\postlen - 1}} \geq
-      \ceil*{\frac{a+b}{\regen}}$
-    \end{enumerate}
-    From (1) and (2) we have that $\forall i \in \left[\rounds - 1\right],
-    r_{i+1} - r_i \geq \ceil*{\frac{a+b}{\regen}}$. Thus $\votpowvec_{\pid, r_{i
-    + 1}} \geq \votpowvec_{\pid, r_i} + \regen\ceil*{\frac{a+b}{\regen}}
-    \Rightarrow \votpowvec_{\pid, r_{i + 1}} \geq \votpowvec_{\pid, r_i} + a +
-    b$. But $\votpowvec_{\pid, 1} = 1$ and $\forall i \in
-    \left[\voterounds\right] \setminus \left\{1\right\}, \votpowvec_{\pid, r_i
-    + 1} \geq \votpowvec_{\pid, r_i} - a - b$, thus $\forall i \in
-    \left[\voterounds\right], \votpowvec_{\pid, r_i} = 1$. This in turn means
-    that at the end of the execution, $\forall \post = \left(i, l\right) \in \postlist,
-    \mathrm{scores}_{p} = c\left(\playerlen b + a \sum\limits_{\pid \in
-    \left[\playerlen\right]} l_{\pid}\right)$, thus all posts will be ordered
-    according to their ideal scores.
+    \item ($\Leftarrow$) Suppose that
+    \begin{gather}
+      \label{conv:proof:rev}
+      \rounds - 1 \geq \left(\postlen - 1\right)\ceil*{\frac{a+b}{\regen}} \\
+      \text{and } \forall i \in \left[\playerlen\right], \stpowvec_i = c
+      \enspace. \nonumber
+    \end{gather}
+    Let $\pid \in \left[\playerlen\right]$. In this case it is $\rounds \geq
+    \postlen$ and according to \textsc{VoteThisRound} in
+    Algorithm~\ref{alg:steem:vote}, $u_{\pid}$ votes non-null in rounds
+    $\left(\round_1, \dots, \round_\postlen\right)$ with $r_i = \floor*{\left(i
+    - 1\right)\frac{\rounds - 1}{\postlen - 1}} + 1$. Observe that:
+    \begin{gather}
+      \label{conv:proof:integer}
+      \left(\ref{conv:proof:rev}\right) \Rightarrow \frac{\rounds - 1}{\postlen
+      - 1} \geq \ceil*{\frac{a+b}{\regen}}
+      \underset{\text{integer}}{\overset{\text{rhs}}{\Rightarrow}}
+      \floor*{\frac{\rounds - 1}{\postlen - 1}} \geq \ceil*{\frac{a+b}{\regen}}
+      \enspace, \\
+      \label{conv:proof:step}
+      \forall i \in \left[\postlen\right] \setminus \left\{1\right\}, r_i
+      \in \left\{r_{i - 1} + \floor*{\frac{\rounds - 1}{\postlen - 1}}, r_{i -
+      1} + \ceil*{\frac{\rounds - 1}{\postlen - 1}}\right\} \enspace.
+    \end{gather}
+    From (\ref{conv:proof:integer}) and (\ref{conv:proof:step}) we have that
+    $\forall i \in \left[\postlen - 1\right], r_{i+1} - r_i \geq
+    \ceil*{\frac{a+b}{\regen}}$. Thus, according to \textsc{HandleVote}
+    (Algorithm~\ref{alg:steem:handlevote},
+    line~\ref{alg:steem:handlevote:regen}) and keeping in mind that in each
+    round every player sends exactly one vote (real or null) according to
+    $\execpat_{\playerlen, \rounds}$, we have that
+    \begin{gather}
+      \votpowvec_{\pid, r_{i + 1}} \geq \votpowvec_{\pid, r_i} +
+      \regen\left(\ceil*{\frac{a+b}{\regen}} - 1\right) \Rightarrow \nonumber \\
+      \label{conv:proof:vp}
+      \votpowvec_{\pid, r_{i + 1}} \geq \votpowvec_{\pid, r_i} + a + b - \regen
+      \enspace.
+    \end{gather}
+    But $\votpowvec_{\pid, 1} = 1$ (Algorithm~\ref{alg:steem:init},
+    line~\ref{alg:steem:init:vp}) and $\forall i \in \left[\postlen\right]
+    \setminus \left\{1\right\}, \votpowvec_{\pid, r_i + 1} \geq
+    \votpowvec_{\pid, r_i}\left(1 - a\right) - b$ (Algorithm~\ref{alg:steem:handlevote},
+    lines~\ref{alg:steem:handlevote:cost:start}-\ref{alg:steem:handlevote:cost:end}),
+    thus $\forall i \in \left[\voterounds\right], \votpowvec_{\pid, r_i} = 1$.
+    This in turn means that at the end of the execution, $\forall \post =
+    \left(i, l\right) \in \postlist, \mathrm{scores}_{p} = c\left(\playerlen b +
+    a \sum\limits_{\pid \in \left[\playerlen\right]} l_{\pid}\right)$, thus all
+    posts will be ordered according to their ideal scores.
 
     \item ($\stpowvec$ variable $\Rightarrow$ no convergence) Let $\postlist =
     \left(\left(1, \left(a_1, \dots, a_\playerlen\right)\right), \left(2,
