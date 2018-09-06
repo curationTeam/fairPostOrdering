@@ -30,9 +30,11 @@
     \EndFunction
     \State
     \Function{VoteThisRound}{$\round, |\postlist|$}
-      \If{$\floor*{\left(\round - 1\right) \mod \frac{\rounds - 1}{|\postlist| -
-      1}} = 0$} \Comment{TODO: if Discussion above is accepted, change
-      $|\postlist|$ to $\postlen$ and don't input $|\postlist|$.}
+      \If{$\rounds < |\postlist|$}
+        \State \Return yes
+      \ElsIf{$\floor*{\left(\round - 1\right) \mod \frac{\rounds -
+      1}{|\postlist| - 1}} = 0$} \Comment{TODO: if Discussion above is accepted,
+      change $|\postlist|$ to $\postlen$ and don't input $|\postlist|$.}
         \State \Return yes
       \Else
         \State \Return no
