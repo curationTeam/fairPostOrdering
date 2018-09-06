@@ -5,6 +5,8 @@
   \begin{algorithmic}[1]
     \If{$\mathrm{lastVoted}_{\pid} \neq \round$} \Comment{One vote per
     player per round}
+      \State $\votpowvec_{\pid, r} \gets \votpowvec_{\pid}$ \Comment{For
+      proofs}
       \State $\votpowvec_{\pid} \gets \max{\lbrace \votpowvec_{\pid} + \regen
       \cdot \left(\round - \mathrm{lastVoted}_{\pid}\right), 1 \rbrace}$
       \Comment{TODO: Remove $\left(\round - \mathrm{lastVoted}_{\pid}\right)$?}
@@ -13,6 +15,7 @@
         \State Parse ballot as $\left(\post, \mathrm{weight}\right)$
         \State $\mathrm{cost} \gets a \cdot \votpowvec_{\pid} \cdot
         \mathrm{weight} + b$
+        \label{alg:steem:handlevote:cost:start}
         \If{$\votpowvec_{\pid} - \mathrm{cost} \geq 0$}
           \State $\mathrm{score} \gets \mathrm{cost} \cdot \stpowvec_{\pid}$
           \State $\votpowvec_{\pid} \gets \votpowvec_{\pid} - \mathrm{cost}$
@@ -21,6 +24,7 @@
           \stpowvec_{\pid}$
           \State $\votpowvec_{\pid} \gets 0$
         \EndIf
+        \label{alg:steem:handlevote:cost:end}
         \State $\mathrm{scores}_\post \gets \mathrm{scores}_\post +
         \mathrm{score}$
       \EndIf
