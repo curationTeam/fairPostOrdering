@@ -28,12 +28,7 @@
     \Comment{round over}
       \State $\postlist \gets \textsc{Order}\left(\postlist,
       \mathrm{scores}\right)$ \Comment{order posts by votes}
-      \If{$\round = \rounds$}
-        \State Send $\left(\mathtt{output}, \postlist\right)$ to $\env$
-        \State Halt
-      \Else
-        \State $\round \gets \round + 1$
-      \EndIf
     \EndIf
+      \State $\round \gets \round + 1$
   \end{algorithmic}
 \end{algorithm}
