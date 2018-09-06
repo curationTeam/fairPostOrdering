@@ -7,6 +7,8 @@
     player per round}
       \State $\votpowvec_{\pid} \gets \max{\lbrace \votpowvec_{\pid} + \regen
       \cdot \left(\round - \mathrm{lastVoted}_{\pid}\right), 1 \rbrace}$
+      \Comment{TODO: Remove $\left(\round - \mathrm{lastVoted}_{\pid}\right)$?}
+      \label{alg:steem:handlevote:regen}
       \If{$\mathrm{ballot} \neq \mathbf{null}$}
         \State Parse ballot as $\left(\post, \mathrm{weight}\right)$
         \State $\mathrm{cost} \gets a \cdot \votpowvec_{\pid} \cdot
@@ -24,11 +26,12 @@
       \EndIf
       \State $\mathrm{lastVoted}_{\pid} \gets \round$
     \EndIf
-    \If{$\forall i \in \left[N\right] \mathrm{lastVoted}_i = \round$}
+    \If{$\forall i \in \left[N\right], \mathrm{lastVoted}_i = \round$}
     \Comment{round over}
       \State $\postlist \gets \textsc{Order}\left(\postlist,
       \mathrm{scores}\right)$ \Comment{order posts by votes}
-    \EndIf
       \State $\round \gets \round + 1$
+    \EndIf \Comment{TODO: count rounds? simplify with set of voted and check of
+    length?}
   \end{algorithmic}
 \end{algorithm}
