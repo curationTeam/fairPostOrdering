@@ -26,28 +26,42 @@
     \end{gather}
     From (\ref{conv:proof:integer}) and (\ref{conv:proof:step}) we have that
     $\forall i \in \left[\postlen - 1\right], r_{i+1} - r_i \geq
-    \ceil*{\frac{a+b}{\regen}}$. Thus, according to \textsc{HandleVote}
-    (Algorithm~\ref{alg:steem:handlevote},
-    line~\ref{alg:steem:handlevote:regen}) and keeping in mind that in each
-    round every player sends exactly one vote (real or null) according to
-    $\execpat_{\playerlen, \rounds}$, we have that
-    \begin{gather}
-      \votpowvec_{\pid, r_{i + 1}} \geq \votpowvec_{\pid, r_i} +
-      \regen\left(\ceil*{\frac{a+b}{\regen}} - 1\right) \Rightarrow \nonumber \\
-      \label{conv:proof:vp}
-      \votpowvec_{\pid, r_{i + 1}} \geq \votpowvec_{\pid, r_i} + a + b - \regen
-      \enspace.
-    \end{gather}
-    But $\votpowvec_{\pid, 1} = 1$ (Algorithm~\ref{alg:steem:init},
-    line~\ref{alg:steem:init:vp}) and $\forall i \in \left[\postlen\right]
-    \setminus \left\{1\right\}, \votpowvec_{\pid, r_i + 1} \geq
-    \votpowvec_{\pid, r_i}\left(1 - a\right) - b$ (Algorithm~\ref{alg:steem:handlevote},
-    lines~\ref{alg:steem:handlevote:cost:start}-\ref{alg:steem:handlevote:cost:end}),
-    thus $\forall i \in \left[\voterounds\right], \votpowvec_{\pid, r_i} = 1$.
-    This in turn means that at the end of the execution, $\forall \post =
-    \left(i, l\right) \in \postlist, \mathrm{scores}_{p} = c\left(\playerlen b +
-    a \sum\limits_{\pid \in \left[\playerlen\right]} l_{\pid}\right)$, thus all
-    posts will be ordered according to their ideal scores.
+    \ceil*{\frac{a+b}{\regen}}$. We will now prove by induction that $\forall i
+    \in \left[\postlen\right], \votpowvec_{\pid, r_i} = 1$.
+    \begin{itemize}
+      \item For $i = 1, \votpowvec_{\pid, 1} = 1$ by
+      (Algorithm~\ref{alg:steem:init}, line~\ref{alg:steem:init:vp}).  \item Let
+      $\votpowvec_{\pid, r_i} = 1$. Until $r_{i + 1}$, a single non-null vote is
+      cast by $u_\pid$, which reduces $\votpowvec_{\pid}$ by at most $a + b$
+      (Algorithm~\ref{alg:steem:handlevote},
+      line~\ref{alg:steem:handlevote:cost:start}) and at least $\ceil*{\frac{a +
+      b}{\regen}}$ regenerations, each of which replenishes $\votpowvec_{\pid}$
+      by $\regen$. Thus
+      \begin{equation*}
+        \votpowvec_{\pid, r_{i + 1}} \geq \min{\left\{\votpowvec_{\pid, r_i} - a
+        - b + \regen\ceil*{\frac{a + b}{\regen}}, 1\right\}} \geq 1 \enspace.
+      \end{equation*}
+      But $\votpowvec_{\pid}$ cannot exceed 1
+      (line~\ref{alg:steem:handlevote:regen}), thus $\votpowvec_{\pid, r_{i +
+      1}} = 1$.
+    \end{itemize}
+    Since the above holds for every $\pid \in \left[\playerlen\right]$, we have
+    that at the end of the execution, all votes have been cast with full voting
+    power, thus $\forall \post = \left(i, \like\right) \in \postlist_\rounds,
+    \mathrm{scores}_{p} = c\left(\playerlen b + a \sum\limits_{\pid =
+    1}^\playerlen \like_{\pid}\right)$ and the posts in $\postlist_R$ are sorted
+    by decreasing score (Algorithm~\ref{alg:steem:handlevote},
+    line~\ref{alg:steem:handlevote:order}). We observe that
+    \begin{gather*}
+      \forall p_1 = \left(j^1, \like^1\right) \neq p_2 = \left(j^2,
+      \like^2\right) \in \postlist_R, \idsc{p_1} > \idsc{p_2} \Rightarrow \\
+      \sum\limits_{i = 1}^\playerlen \like^1_i > \sum\limits_{i = 1}^\playerlen
+      \like^2_i \Rightarrow c\left(\playerlen b + a \sum\limits_{i =
+      1}^\playerlen \like^1_i\right) > c\left(\playerlen b + a \sum\limits_{i =
+      1}^\playerlen \like^2_i\right) \enspace.
+    \end{gather*}
+    Thus all posts will be ordered according to their ideal scores; put
+    otherwise, $\textsc{IdealScore}^M\left(\postlist_\rounds\right)$ holds.
 
     \item ($\stpowvec$ variable $\Rightarrow$ no convergence) Let $\postlist =
     \left(\left(1, \left(a_1, \dots, a_\playerlen\right)\right), \left(2,
