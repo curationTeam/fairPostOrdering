@@ -25,7 +25,7 @@ class Simulation:
     b ----------->  1
     '''
 
-    def __init__(self, spvec, rounds, noProfiles, a, b, regen, att_span):
+    def __init__(self, spvec, rounds, noProfiles, a, b, regen, att_span, lik_mat = []):
         self.profile = ("honest", "greedy", "user")
 
         assert type(noProfiles) == tuple
@@ -44,6 +44,7 @@ class Simulation:
         self.b = b
         self.regen = regen
         self.att_span = att_span
+        self.lik_mat = lik_mat
 
     def get_random_likabilities(self):
         return [[random.betavariate((i+j+2)/(self.rounds/5000), (i*i+2*j*j*j/3+1)/(self.rounds/5)) for i in range(0, sum(self.noProfiles))]
@@ -53,7 +54,10 @@ class Simulation:
     def init_setup(self, seed):
         random.seed(seed) # reseed the prng
         players = self.init_players()
-        posts = self.create_posts(self.get_random_likabilities())
+        if (self.lik_mat):
+          posts = self.create_posts(self.lik_mat)
+        else:
+          posts = self.create_posts(self.get_random_likabilities())
         return players, posts
 
     def create_posts(self, likability_matrix):

@@ -28,6 +28,7 @@
     $\forall i \in \left[\postlen - 1\right], r_{i+1} - r_i \geq
     \ceil*{\frac{a+b}{\regen}}$. We will now prove by induction that $\forall i
     \in \left[\postlen\right], \votpowvec_{\pid, r_i} = 1$.
+
     \begin{itemize}
       \item For $i = 1, \votpowvec_{\pid, 1} = 1$ by
       (Algorithm~\ref{alg:steem:init}, line~\ref{alg:steem:init:vp}).  \item Let
@@ -74,14 +75,22 @@
     \end{gather*}
     I think that's always possible if $\stpow$ is not constant.
 
-    \item (inequality doesn't hold $\Rightarrow$ no convergence) Consider
-    $\rounds - 1 < \left(\postlen - 1\right)\ceil*{\frac{a+b}{\regen}}, \forall
-    i \in \left[\playerlen\right], \stpowvec_i = c$. Then bullet (1) from the
+    \item (inequality doesn't hold $\Rightarrow$ no convergence) Suppose that
+    \begin{gather}
+      \label{conv:proof:fewrounds}
+      \rounds - 1 < \left(\postlen - 1\right)\ceil*{\frac{a+b}{\regen}} \\
+      \label{conv:proof:lowattspan}
+      \text{and } \attspan < \postlen \\
+      \text{and } \forall i \in \left[\playerlen\right], \stpowvec_i = c
+      \enspace. \nonumber
+    \end{gather}
+ Then bullet (1) from the
     previous holds, but (2) becomes $\floor*{\frac{\rounds - 1}{\postlen - 1}}
     \geq \ceil*{\frac{a+b}{\regen}}$. Thus $\votpowvec_{\pid, r_{i + 1}} <
     \votpowvec_{\pid, r_i} + a + b$ and $\forall i \in \left[\voterounds\right]
     \setminus \left\{1\right\}, \votpowvec_{\pid, r_i} < 1$. Let $\epsilon_i = 1
     - \votpowvec_{\pid, r_i}$ and $\epsilon > 0$.
+
     \begin{itemize}
       \item If $\rounds < \postlen$, then the last $\postlen - \rounds$ posts of
       $\postlist$ will not be voted by any player. This in turn means that a
