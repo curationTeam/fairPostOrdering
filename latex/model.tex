@@ -1,12 +1,12 @@
 \section{Model}
-  \subimport{./modelfiles}{notation.tex}
+  \subimport{./modelfiles/}{notation.tex}
   \subsection{Properties of Post Voting Systems}
     A post voting system has the objective to arrange the posts according to the
     preferences of the participants. The ideal order is defined based on the
     likeability matrix for the posts.
 
-    \subimport{./modelfiles/definitions}{postdef.tex}
-    \subimport{./modelfiles/definitions}{idealpostscoredef.tex}
+    \subimport{./modelfiles/definitions/}{postdef.tex}
+    \subimport{./modelfiles/definitions/}{idealpostscoredef.tex}
 
     The ideal score of a post is a single number that represents its overall
     worth to the community. By using simple summation, we assume that the
@@ -15,17 +15,17 @@
     that a post with higher ideal score appear before another post with a lower
     score.
 
-    \subimport{./modelfiles/definitions}{idealorderdef.tex}
-    \subimport{./modelfiles/definitions}{pvsdef.tex}
-    \subimport{./modelfiles/definitions}{actmsg.tex}
-    \subimport{./modelfiles/definitions}{execpat.tex}
-    \subimport{./modelfiles/definitions}{tconvergencedef.tex}
+    \subimport{./modelfiles/definitions/}{idealorderdef.tex}
+    \subimport{./modelfiles/definitions/}{pvsdef.tex}
+    \subimport{./modelfiles/definitions/}{actmsg.tex}
+    \subimport{./modelfiles/definitions/}{execpat.tex}
+    \subimport{./modelfiles/definitions/}{tconvergencedef.tex}
     TODO: Discuss: Is $\rounds$ missing from Steem system? Maybe add "Let
     $\playerlen, \rounds \in \mathbb{N}^*$, ..., controlled by an Environment
     that respects $\execpat_{\playerlen, \rounds}$ and the following ...".
-    \subimport{./modelfiles/definitions}{steemdef.tex}
-    \subimport{./modelfiles/theorems}{steemconvergencetheorem.tex}
-    \subimport{./modelfiles/proofs}{steemconvergenceproof.tex}
+    \subimport{./modelfiles/definitions/}{steemdef.tex}
+    \subimport{./modelfiles/theorems/}{steemconvergencetheorem.tex}
+    \subimport{./modelfiles/proofs/}{steemconvergenceproof.tex}
 
     The above result is tight.
     If the conditions are violated the above theorem is not true.
