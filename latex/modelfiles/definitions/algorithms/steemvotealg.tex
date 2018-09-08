@@ -6,8 +6,8 @@
     \If{$\textsc{VoteThisRound}\left(\round\right) = \mathrm{yes}$}
       \State $\mathrm{top} \gets \textsc{ChooseTopPosts}\left(\attspan,
       \postlist, \mathrm{votedPosts}\right)$
-      \State $\left(i, l\right) \gets \argmax\limits_{\left(i, l\right) \in
-      \mathrm{top}}{\lbrace l_{\pid} \rbrace}$
+      \State $\left(i, l\right) \gets \argmax\limits_{\left(i,
+      l\right) \in \mathrm{top}}{\lbrace l_{\pid} \rbrace}[1]$
       \State $\mathrm{votedPosts} \gets \mathrm{votedPosts} \: \cup \left(i,
       l\right)$
       \State \Return $\left(\left(i, l\right), l_{\pid}\right)$
