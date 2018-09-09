@@ -79,46 +79,84 @@
     \begin{gather}
       \label{conv:proof:fewrounds}
       \rounds - 1 < \left(\postlen - 1\right)\ceil*{\frac{a+b}{\regen}} \\
-      \label{conv:proof:lowattspan}
-      \text{and } \attspan < \postlen \\
       \text{and } \forall i \in \left[\playerlen\right], \stpowvec_i = c
       \enspace. \nonumber
     \end{gather}
- Then bullet (1) from the
-    previous holds, but (2) becomes $\floor*{\frac{\rounds - 1}{\postlen - 1}}
-    \geq \ceil*{\frac{a+b}{\regen}}$. Thus $\votpowvec_{\pid, r_{i + 1}} <
-    \votpowvec_{\pid, r_i} + a + b$ and $\forall i \in \left[\voterounds\right]
-    \setminus \left\{1\right\}, \votpowvec_{\pid, r_i} < 1$. Let $\epsilon_i = 1
-    - \votpowvec_{\pid, r_i}$ and $\epsilon > 0$.
+    Let $\postlist = \left[\left(1, \underbrace{\left(0.5, \dots,
+    0.5\right)}_{\playerlen}\right), \dots, \left(1, \underbrace{\left(0.5,
+    \dots, 0.5\right)}_{\playerlen}\right),\left(1, \underbrace{\left(0.5,
+    \dots, 0.5, 0.5+\epsilon\right)}_{\playerlen}\right),\right]$. Observe that
+    $\forall i \in \left[\postlen - 1\right], \idsc{\postlist\left[i\right]} =
+    0.5\playerlen < 0.5\playerlen + \epsilon =
+    \idsc{\postlist\left[\postlen\right]}$, thus $\forall \postlist'$ that
+    contains the same posts as $\postlist$ and
+    $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is
+    $\postlist'\left[1\right] = \postlist\left[\postlen\right]$.
 
     \begin{itemize}
-      \item If $\rounds < \postlen$, then the last $\postlen - \rounds$ posts of
-      $\postlist$ will not be voted by any player. This in turn means that a
-      $\postlist$ such that $\forall \left(i, l\right) \in
-      \postlist\left[1..\rounds\right], l = \left(0.5, \dots, 0.5\right)$ and
-      $\forall \left(i, l\right) \in \postlist\left[\rounds +
-      1..\postlen\right], l = \left(1, \dots, 1\right)$, the Steem system does
-      not $\left(\playerlen, \round, \postlen, 1\right)$-converge.
+      \item $\rounds < \postlen \wedge \attspan < \postlen$ \\
+      At the end of the execution all players will have voted for
+      $\postlist\left[1\right]$ in the first round, and thus
+      $\mathrm{scores}_{\postlist\left[1\right]} = \playerlen c \left(0.5a +
+      b\right)$. On the other hand, $\postlist\left[\postlen\right]$ will have
+      been voted by at most $u_\playerlen$ with voting power $\votpow \leq 1 -
+      \left(0.5a + b\right) + \regen$, thus \\
+      $\mathrm{scores}_{\postlist\left[\postlen\right]} \leq c \left(\left(1 -
+      \left(0.5a + b\right) + \regen\right)\left(0.5 + \epsilon\right)a +
+      b\right) \overset{\regen < b}{<} c\left(\left(0.5 + \epsilon\right)a +
+      b\right)$. Thus $\mathrm{scores}_{\postlist\left[1\right]} >
+      \mathrm{scores}_{\postlist\left[\postlen\right]} \Leftrightarrow \left(N
+      - 1\right)\left(0.5 + \frac{b}{a}\right) > \epsilon$. TODO: choose
+      $\epsilon$ and show non-convergence
 
-      \item If $\post_\mathrm{bad} = \left(i, l_\mathrm{bad}\right) =
-      \postlist\left[1\right]$ with $l_\mathrm{bad} = \left(1 -
-      \epsilon_\postlen + \epsilon, \dots, 1 - \epsilon_\postlen +
-      \epsilon\right)$, $\post_\mathrm{good} = \left(i, l_\mathrm{good}\right) =
-      \postlist\left[\postlen\right]$ with $l_\mathrm{good} = \left(1, \dots,
-      1\right)$ and there exists no other post $\post \in \postlist$ such that
-      $\idsc{p} \geq \idsc{\post_\mathrm{good}}$, then $\forall \postlist':
-      \postlist'$ contains the same posts as $\postlist$ and
-      $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is
-      $\postlist'\left[1\right] = \post_\mathrm{good}$. However, after the
-      execution the score of $\post_\mathrm{bad}$ will be $\mathrm{sc}_{bad} =
-      \playerlen c \left(a \left(1 - \epsilon_\postlen + \epsilon\right) +
-      b\right)$, whereas the score of $\post_\mathrm{good}$ will be
-      $\mathrm{sc}_{good} = \playerlen c \left(a \left(1 -
-      \epsilon_\postlen\right) + b\right) < \mathrm{sc}_{bad}$, thus the Steem
-      system does not $\left(\playerlen, \round, \postlen, 1\right)$-converge.
+      \item $\rounds < \postlen \wedge \attspan = \postlen$ \\
+      At the end of the execution, all players except for $u_\playerlen$ will
+      have voted for $\postlist\left[1\right]$ in the first round, and thus
+      $\mathrm{scores}_{\postlist\left[1\right]} \geq \left(\playerlen -
+      1\right) c \left(0.5a + b\right)$. On the other hand,
+      $\postlist\left[\postlen\right]$ will have been voted by exactly
+      $u_\playerlen$ and this vote will have been cast on the first round, thus
+      $\mathrm{scores}_{\postlist\left[\postlen\right]} = c\left(\left(0.5 +
+      \epsilon\right)a + b\right)$. Thus
+      $\mathrm{scores}_{\postlist\left[1\right]} >
+      \mathrm{scores}_{\postlist\left[\postlen\right]} \Leftrightarrow \left(N
+      - 2\right)\left(0.5 + \frac{b}{a}\right) > \epsilon$. TODO: choose
+      $\epsilon$ and show non-convergence
+
+      \item $\rounds \geq \postlen \wedge \attspan < \postlen$ \\
+      In this case, all players vote for all posts.  At the end of the execution
+      all players will have voted for $\postlist\left[1\right]$ in the first
+      round, and thus $\mathrm{scores}_{\postlist\left[1\right]} = \playerlen c
+      \left(0.5a + b\right)$. As far as $\postlist\left[\postlen\right]$ is
+      concerned, we first observe that the distance between to voting rounds is
+      $\ceil*{\frac{\rounds - 1}{\postlen - 1}}$ at most: $\forall i \in
+      \left[M - 1\right], r_{i+1} - r_i \leq \ceil*{\frac{\rounds - 1}{\postlen
+      - 1}}$. Thus the voting power of all players will be at most
+      $\regen\floor*{\frac{\rounds - 1}{\postlen - 1}}$ before voting for the
+      last post. We deduce that
+      $\mathrm{scores}_{\postlist\left[\postlen\right]}$
+      
+      will have
+      been voted by all players except for $u_{\playerlen}$ with voting power at
+      most
+
+      \item $\rounds \geq \postlen \wedge \attspan = \postlen$ \\
     \end{itemize}
-    We place the
-    good posts at the end. Players will vote for them with little voting power
-    and they will not rise to the top.
+
+    On the other hand,
+    \begin{itemize}
+      \item Let $\attspan < M$.
+      \begin{itemize}
+        \item If $R < M$, then
+      \end{itemize}
+      the first post $\postlist\left[1\right]$ is voted
+      by all players at round 1 and its score becomes $\playerlen c \left(0.5a +
+      b\right)$. Given~(\ref{conv:proof:fewrounds}), all subsequent votes are
+      cast with voting power strictly less than 1, thus the last post will have
+      a score of $\left(\playerlen - 1\right) c \left(0.5a? + b\right) + c
+      \left(\left(0.5 + \epsilon\right)a? + b\right)$ at the end of the
+      execution.
+      \item If $\attspan = M$,
+    \end{itemize}
   \end{itemize}
 \end{proof}
