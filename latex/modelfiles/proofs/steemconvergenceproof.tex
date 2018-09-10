@@ -82,18 +82,54 @@
       \text{and } \forall i \in \left[\playerlen\right], \stpowvec_i = c
       \enspace. \nonumber
     \end{gather}
-    Let $\postlist = \left[\left(1, \underbrace{\left(0.5, \dots,
-    0.5\right)}_{\playerlen}\right), \dots, \left(1, \underbrace{\left(0.5,
-    \dots, 0.5\right)}_{\playerlen}\right),\left(1, \underbrace{\left(0.5,
-    \dots, 0.5, 0.5+\epsilon\right)}_{\playerlen}\right),\right]$. Observe that
-    $\forall i \in \left[\postlen - 1\right], \idsc{\postlist\left[i\right]} =
-    0.5\playerlen < 0.5\playerlen + \epsilon =
-    \idsc{\postlist\left[\postlen\right]}$, thus $\forall \postlist'$ that
-    contains the same posts as $\postlist$ and
+    Let $\postlist = \left[\left(1, \underbrace{\left(1, 0.5 + \epsilon, 0,
+    \dots, 0\right)}_{\playerlen}\right), \left(1, \underbrace{\left(0, 0.5, 0,
+    \dots, 0\right)}_{\playerlen}\right), \left(1, \underbrace{\left(0, \dots,
+    0\right)}_{\playerlen}\right), \dots, \left(1, \underbrace{\left(0, \dots,
+    0\right)}_{\playerlen}\right), \right]$. Observe that
+    $\idsc{\postlist\left[1\right]} = 1, \idsc{\postlist\left[2\right]} = 1 +
+    \epsilon$ and $\forall i \in \left[\postlen\right] \setminus \left\{1,
+    2\right\}, \idsc{\postlist\left[i\right]} = 0$, thus $\forall \postlist'$
+    that contains the same posts as $\postlist$ and
     $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is
-    $\postlist'\left[1\right] = \postlist\left[\postlen\right]$.
+    $\postlist'\left[1\right] = \postlist\left[2\right]$.
 
     \begin{itemize}
+      \item $\rounds = 1, \attspan = 1$ \\
+      In the first round, $u_1$ casts a vote of weight 1 and the rest of the
+      players cast a vote of weight 0 for $\postlist\left[1\right]$, thus at the
+      end of the execution, $\mathrm{scores}_1 = c \left(a + b\right) +
+      \left(\playerlen - 1\right) c b$. No other votes are cast, thus
+      $\mathrm{scores}_2 = 0$. Thus at the end of the execution
+      $\mathrm{scores}_1 > \mathrm{scores}_2$.
+
+      \item $\rounds = 1, \attspan > 1$ \\
+      In the first round, $u_1$ casts a vote of weight 1 for
+      $\postlist\left[1\right]$, $u_2$ casts a vote of weight 0.5 for
+      $\postlist\left[2\right]$ and all other players cast a vote of weight 0
+      for $\postlist\left[1\right]$. No other votes are cast. Thus at the end of
+      the execution, $\mathrm{scores}_1 = c\left(a + b\right) + \left(\playerlen
+      - 2\right) c b$ and $\mathrm{scores}_2 = c\left(0.5a + b\right)$. We
+      deduce that $\mathrm{scores}_1 > \mathrm{scores}_2$.
+
+      \item $\rounds > 1, \attspan = 1$ \\
+      In the first round, the votes are identical to the previous case. As we
+      saw in eq.~(\ref{conv:proof:step}), the next vote will be cast not earlier
+      than round $\ceil*{\frac{\rounds - 1}{\postlen - 1}}$ and not later than
+      round $\ceil*{\frac{\rounds - 1}{\postlen - 1}} + 1$, thus
+      $\ceil*{\frac{\rounds - 1}{\postlen - 1}} \leq \round_2 \leq
+      \ceil*{\frac{\rounds - 1}{\postlen - 1}} + 1 \Rightarrow \votpowvecreg_{1,
+      \round_2} \leq \min{\left\{1 - a - b + \regen\ceil*{\frac{\rounds -
+      1}{\postlen - 1}}, 1\right\}}$
+
+      \item $\rounds > 1, \attspan > 1$ \\
+    \end{itemize}
+    In every case, $\postlist_\rounds$ is ordered in descending post score
+    (Algorithm~\ref{alg:steem:handlevote},
+    line~\ref{alg:steem:handlevote:order}), thus
+    $\postlist_\rounds\left[1\right] \neq \postlist\left[2\right]$ and the
+    property $\mathrm{Ideal}^1\left(\postlist_\rounds\right)$ does not hold.
+      \begin{itemize}
       \item $\rounds < \postlen \wedge \attspan < \postlen$ \\
       At the end of the execution all players will have voted for
       $\postlist\left[1\right]$ in the first round, and thus
