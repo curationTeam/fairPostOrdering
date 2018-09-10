@@ -44,7 +44,7 @@ class Player:
         self.vp = max(self.vp - (self.a * self.vp * weight + self.b), 0)
 
     def calculate_vote_score(self, weight):
-        return self.a * self.vp * self.sp * weight + self.b
+        return self.sp * (self.a * self.vp * weight + self.b)
 
     def regenerate_vp(self):
         self.vp = min(self.vp + self.regen, 1) # TODO: Define regen in terms of rounds
