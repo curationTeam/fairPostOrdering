@@ -25,11 +25,12 @@ class Exec {
   votingPowerSequence() {
     for (let i = 1; i <= this.R; i++) {
       this.vp = Math.min(this.vp + this.regen, 1)
-      console.log(`Voting power is ${this.vp} on round ${i}.`)
+      console.log(`Voting power is ${this.vp} on round ${i} after regen.`)
       if (this.isVoteRound(i)) {
-        console.log(`voted on ${i}!`)
+        if (this.vp < 1) console.log("ATTENTION: VOTING WITHOUT FULL VOTING POWER!")
         const cost = (this.a*this.vp + this.b)
         this.vp = Math.max(this.vp - cost, 0)
+        console.log(`voted on ${i}! vp is ${this.vp} after vote.`)
       }
     }
   }
