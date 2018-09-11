@@ -82,11 +82,35 @@
       \text{and } \forall i \in \left[\playerlen\right], \stpowvec_i = c
       \enspace. \nonumber
     \end{gather}
+    If $\rounds < \postlen$ things are easier TODO: prove this.
+
+    Assume $\rounds \geq \postlen$. In this case, all posts receive a vote by
+    all players. Consider $\postlist = 1^{\postlen \times \playerlen}, \pid \in
+    \left[\playerlen\right]$. Let $i \in \left[\postlen\right]
+    :\left(\votpowvecreg_{\pid, r_i} < 1 \wedge \nexists i' < i:
+    \votpowvecreg_{\pid, r_{i'}} < 1\right)$, i.e. $i$ is the first round in
+    which $u_\pid$ votes with less than full voting power. (Such a round exists
+    because of eq.~(\ref{conv:proof:fewrounds}). TODO: prove this) For now
+    assume $2 | N$. Let $0 < \gamma < 1$,
+    \begin{gather*}
+      \postlist = \left[\left(1, \left(1, \dots, 1, \gamma - \epsilon, \dots,
+      \gamma - \epsilon\right)\right) \text{ N/2 players full, N/2 less},
+      \dots,\right. \\
+      \left.\left(1, \left(1, \dots, 1, \gamma - \epsilon, \dots, \gamma -
+      \epsilon\right)\right) \text{ i-1 times}, \left(1, \left(\gamma, \dots,
+      \gamma, 1, \dots, 1\right)\right)\right.\\
+      \left.\text{ N/2 players less, N/2 full},
+      \left(1, \left(0, \dots, 0\right)\right), \dots, \left(1, \left(0, \dots,
+      0\right)\right)\right]
+    \end{gather*}
+
+    ---------------------- Attempt 2
+
     Let $\postlist = \left[\left(1, \underbrace{\left(1, 0.5 + \epsilon, 0,
     \dots, 0\right)}_{\playerlen}\right), \left(1, \underbrace{\left(0, 0.5, 0,
     \dots, 0\right)}_{\playerlen}\right), \left(1, \underbrace{\left(0, \dots,
     0\right)}_{\playerlen}\right), \dots, \left(1, \underbrace{\left(0, \dots,
-    0\right)}_{\playerlen}\right), \right]$. Observe that
+    0\right)}_{\playerlen}\right)\right]$. Observe that
     $\idsc{\postlist\left[1\right]} = 1, \idsc{\postlist\left[2\right]} = 1 +
     \epsilon$ and $\forall i \in \left[\postlen\right] \setminus \left\{1,
     2\right\}, \idsc{\postlist\left[i\right]} = 0$, thus $\forall \postlist'$
@@ -129,7 +153,10 @@
     line~\ref{alg:steem:handlevote:order}), thus
     $\postlist_\rounds\left[1\right] \neq \postlist\left[2\right]$ and the
     property $\mathrm{Ideal}^1\left(\postlist_\rounds\right)$ does not hold.
-      \begin{itemize}
+
+    ---------------------------- Attempt 1
+
+    \begin{itemize}
       \item $\rounds < \postlen \wedge \attspan < \postlen$ \\
       At the end of the execution all players will have voted for
       $\postlist\left[1\right]$ in the first round, and thus
