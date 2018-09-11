@@ -3,7 +3,7 @@
   \label{alg:steem:vote}
   \begin{algorithmic}[1]
     \State Store aux contents as constants
-    \If{$\textsc{VoteThisRound}\left(\round\right) = \mathrm{yes}$}
+    \If{$\textsc{VoteThisRound}\left(\round, |\postlist|\right) = \mathrm{yes}$}
       \State $\mathrm{top} \gets \textsc{ChooseTopPosts}\left(\attspan,
       \postlist, \mathrm{votedPosts}\right)$
       \State $\left(i, l\right) \gets \argmax\limits_{\left(i,
@@ -33,8 +33,7 @@
       \If{$\rounds < |\postlist|$}
         \State \Return yes
       \ElsIf{$\floor*{\left(\round - 1\right) \mod \frac{\rounds -
-      1}{|\postlist| - 1}} = 0$} \Comment{TODO: if Discussion above is accepted,
-      change $|\postlist|$ to $\postlen$ and don't input $|\postlist|$.}
+      1}{|\postlist| - 1}} = 0$}
         \State \Return yes
       \Else
         \State \Return no
