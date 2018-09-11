@@ -12,7 +12,7 @@ class Player:
         attention(int) - Number of posts that the player can view in a round.
     """
 
-    def __init__(self, id, type, sp, attention, a, b, regen):
+    def __init__(self, id, type, sp, attention, a, b, regen, rounds, noPost):
         self.id = id
         self.strategy = Strategy(type, id)
         self.sp = sp
@@ -21,6 +21,7 @@ class Player:
         self.a = a
         self.b = b
         self.regen = regen
+        self.voteRounds = self.buildVoteRounds(rounds, noPost)
 
     def set_strategy(self, strategy):
         """
@@ -49,29 +50,28 @@ class Player:
     def regenerate_vp(self):
         self.vp = min(self.vp + self.regen, 1) # TODO: Define regen in terms of rounds
 
-    def isVoteRound(self, r, R, noPost):
-        """
-        Vote on (almost) evenly spaced slots so as
-        to regen a lot and vote for all the posts
-        """
-        if (self.vp == 1):
-          return True
-        if r == 0 or r == (R - 1):
-            return True
-        q = (R - 1) / (noPost - 1)
-        mod = r % q
-        if floor(mod) == 0:
-            return True
-        return False
+    def buildVoteRounds(self, R, noPost):
+        voteRounds = set()
+        for i in range(0, R):
+            voteRound = floor(i * (R - 1) / (noPost - 1))
+            if voteRound > R:
+                break
+            voteRounds.add(voteRound)
+        return voteRounds
 
-    def vote(self, r, R, posts):
+    def isVoteRound(self, r, voteRounds):
+        if self.vp == 1:
+            return True
+        return r in voteRounds
+
+    def vote(self, r, posts):
         """
         Player votes for a post from a list of posts only if her Voting Power is greater than the Minimum
         Voting Power defined by her Strategy.
         Return:
         post(Post) - post to be voted by the player (False if the player does not vote for any post)
         """
-        if self.isVoteRound(r, R, len(posts)):
+        if self.isVoteRound(r, self.voteRounds):
             post, weight = self.strategy.vote(posts, self.attention)
             if post:
                 post.real_score += self.calculate_vote_score(weight)
