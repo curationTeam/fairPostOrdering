@@ -94,12 +94,24 @@
     \end{equation*}
     i.e. $i$ is the first round in which $u_\pid$ votes with less than full
     voting power. Since the first round is a voting round and the voting power
-    of all players is full, it is $i \geq 2$. (Such a round exists because of
-    eq.~(\ref{conv:proof:fewrounds}). TODO: prove this) Since all players follow
-    the same voting pattern, the voting power of all players in each round is
-    the same. Let $\mathrm{reducedVP} = \votpowvecreg_{1, \round_i}$. For now
-    assume $2 | N$ and $\attspan < i \vee i > 2$. Let $0 < \gamma < 1$ and $0 <
-    \epsilon < \gamma\left(1 - \mathrm{reducedVP}\right)$.
+    of all players is full, it is $i \geq 2$. Such a round exists for the
+    following reason:
+
+    If $\nexists i \in \left[\postlen\right] :\left(\votpowvecreg_{\pid,
+    \round_i} < 1 \wedge \nexists i' < i: \votpowvecreg_{\pid, \round_{i'}} <
+    1\right)$, then $\forall i \in \left[\postlen\right], \votpowvecreg_{\pid,
+    \round_i} = 1 \Rightarrow \forall i \in \left[\postlen\right] \setminus
+    \left\{1\right\}, \round_i \geq \round_{i - 1} + \ceil*{\frac{a +
+    b}{\regen}}$ to have enough rounds to replenish the voting power after a
+    full-weight, full-voting power vote. Thus $\round_\postlen \geq 1 +
+    \left(\postlen - 1\right)\ceil*{\frac{a + b}{\regen}} > \rounds$,
+    contradiction.
+
+    Since all players follow the same voting pattern, the voting power of all
+    players in each round is the same. Let $\mathrm{reducedVP} =
+    \votpowvecreg_{1, \round_i}$. For now assume $2 | N$ and $\attspan < i \vee
+    i > 2$. TODO: prove rest. Let $0 < \gamma < 1$ and $0 < \epsilon <
+    \gamma\left(1 - \mathrm{reducedVP}\right)$.
     \begin{gather*}
       \mathrm{weakPost} = \left(1, \left(\underbrace{1, \dots,
       1}_{\playerlen/2}, \underbrace{\gamma - \epsilon, \dots, \gamma -
