@@ -108,11 +108,11 @@
     contradiction.
 
     Since all players follow the same voting pattern, the voting power of all
-    players in each round is the same. Let $\mathrm{reducedVP} =
+    players in each round is the same. Let $\rvp =
     \votpowvecreg_{1, \round_i}$. For now assume $2 | N$ and $\attspan < i \vee
     i > 2$. TODO: prove rest. Let $0 < \gamma < 1$ and $0 < \epsilon <
     \gamma\frac{\playerlen - 3}{\playerlen - 1}\left(1 -
-    \mathrm{reducedVP}\right)$.
+    \rvp\right)$.
     \begin{gather*}
       \mathrm{weakPost} = \left(1, \left(\underbrace{1, \dots,
       1}_{\playerlen/2}, \underbrace{\gamma - \epsilon, \dots, \gamma -
@@ -173,7 +173,7 @@
     their voting power after regeneration is exactly the same as in the case of
     $\postlist^1: \forall \pid \in
     \left[\frac{\playerlen}{2}\right], \votpowvecreg_{\pid, \round_i} =
-    \mathrm{reducedVP}$.
+    \rvp$.
 
     We observe that the first $\frac{\playerlen}{2}$ players vote for all weak
     posts with full voting power. As for the last $\frac{\playerlen}{2}$
@@ -190,17 +190,17 @@
     b\right)\right)$.
 
     On the other hand, at the end of the execution the strong post has been
-    voted by the first $\frac{\playerlen}{2}$ players with $\mathrm{reducedVP}$
+    voted by the first $\frac{\playerlen}{2}$ players with $\rvp$
     voting power and by the last $\frac{\playerlen}{2}$ players with at most
     full voting power, thus its final score will be at most
     $\mathrm{sc}_{\rounds}\left(\postlist\left[i\right]\right) \leq
-    c\left(\frac{\playerlen}{2}\left(\mathrm{reducedVP} \cdot \gamma a +
+    c\left(\frac{\playerlen}{2}\left(\rvp \cdot \gamma a +
     b\right) + \frac{\playerlen}{2}\left(a + b\right)\right)$. It is
     \begin{gather*}
-      \epsilon < \gamma\left(1 - \mathrm{reducedVP}\right) \Rightarrow \\
+      \epsilon < \gamma\left(1 - \rvp\right) \Rightarrow \\
       c\left(\frac{\playerlen}{2}\left(a + b\right) +
       \frac{\playerlen}{2}\left(\left(\gamma - \epsilon\right) a +
-      b\right)\right) < c\left(\frac{\playerlen}{2}\left(\mathrm{reducedVP}
+      b\right)\right) < c\left(\frac{\playerlen}{2}\left(\rvp
       \cdot \gamma a + \frac{\playerlen}{2}\left(a + b\right)\right)\right)
       \Rightarrow \\
       \mathrm{sc}_{\rounds}\left(\postlist\left[i\right]\right) <
@@ -220,20 +220,20 @@
 
     \begin{gather*}
       \mathrm{sc}_{\rounds}\left(\postlist\left[i\right]\right) \leq
-      c\left(\frac{\playerlen - 1}{2}\left(\mathrm{reducedVP} \cdot \gamma a +
+      c\left(\frac{\playerlen - 1}{2}\left(\rvp \cdot \gamma a +
       b\right) + \frac{\playerlen - 1}{2}\left(a + b\right) + \gamma a + b\right)
       \enspace, \\
       \mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) \geq
       c\left(\frac{\playerlen - 1}{2}\left(a + b\right) + \frac{\playerlen -
       1}{2}\left(\left(\gamma - \epsilon\right) a + b\right) +
-      \mathrm{reducedVP} \cdot \gamma a + b\right) \enspace.
+      \rvp \cdot \gamma a + b\right) \enspace.
     \end{gather*}
 
     For the strong post to have strictly lower score than the first weak one, it
     must hold that
     \begin{equation*}
       \epsilon < \gamma\frac{\playerlen - 3}{\playerlen - 1}\left(1 -
-      \mathrm{reducedVP}\right) \enspace.
+      \rvp\right) \enspace.
     \end{equation*}
   \end{itemize}
 \end{proof}
