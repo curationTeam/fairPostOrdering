@@ -85,26 +85,119 @@
     If $\rounds < \postlen$ things are easier TODO: prove this.
 
     Assume $\rounds \geq \postlen$. In this case, all posts receive a vote by
-    all players. Consider $\postlist = 1^{\postlen \times \playerlen}, \pid \in
-    \left[\playerlen\right]$. Let $i \in \left[\postlen\right]
-    :\left(\votpowvecreg_{\pid, r_i} < 1 \wedge \nexists i' < i:
-    \votpowvecreg_{\pid, r_{i'}} < 1\right)$, i.e. $i$ is the first round in
-    which $u_\pid$ votes with less than full voting power. (Such a round exists
-    because of eq.~(\ref{conv:proof:fewrounds}). TODO: prove this) For now
-    assume $2 | N$. Let $0 < \gamma < 1$,
+    all players. Consider $\postlist^1 = 1^{\postlen \times \playerlen}$ and
+    $\pid \in \left[\playerlen\right]$. Let
+    \begin{equation*}
+      i \in \left[\postlen\right] :\left(\votpowvecreg_{\pid, \round_i} < 1
+      \wedge \nexists i' < i: \votpowvecreg_{\pid, \round_{i'}} < 1\right)
+      \enspace,
+    \end{equation*}
+    i.e. $i$ is the first round in which $u_\pid$ votes with less than full
+    voting power. Since the first round is a voting round and the voting power
+    of all players is full, it is $i \geq 2$. (Such a round exists because of
+    eq.~(\ref{conv:proof:fewrounds}). TODO: prove this) Since all players follow
+    the same voting pattern, the voting power of all players in each round is
+    the same. Let $\mathrm{reducedVP} = \votpowvecreg_{1, \round_i}$. For now
+    assume $2 | N$ and $\attspan < i \vee i > 2$. Let $0 < \gamma < 1$ and $0 <
+    \epsilon < \gamma\left(1 - \mathrm{reducedVP}\right)$.
     \begin{gather*}
-      \postlist = \left[\left(1, \left(1, \dots, 1, \gamma - \epsilon, \dots,
-      \gamma - \epsilon\right)\right) \text{ N/2 players full, N/2 less},
-      \dots,\right. \\
-      \left.\left(1, \left(1, \dots, 1, \gamma - \epsilon, \dots, \gamma -
-      \epsilon\right)\right) \text{ i-1 times}, \left(1, \left(\gamma, \dots,
-      \gamma, 1, \dots, 1\right)\right)\right.\\
-      \left.\text{ N/2 players less, N/2 full},
-      \left(1, \left(0, \dots, 0\right)\right), \dots, \left(1, \left(0, \dots,
-      0\right)\right)\right]
+      \mathrm{weakPost} = \left(1, \left(\underbrace{1, \dots,
+      1}_{\playerlen/2}, \underbrace{\gamma - \epsilon, \dots, \gamma -
+      \epsilon}_{\playerlen/2}\right)\right) \enspace, \\
+      \mathrm{strongPost} = \left(1, \left(\underbrace{\gamma, \dots,
+      \gamma}_{\playerlen/2}, \underbrace{1, \dots,
+      1}_{\playerlen/2}\right)\right) \enspace, \\
+      \mathrm{nullPost} = \left(1, \left(\underbrace{0, \dots,
+      0}_{\playerlen}\right)\right) \enspace, \\
+      \postlist = \left[\underbrace{\mathrm{weakPost}, \dots,
+      \mathrm{weakPost}}_{i - 1}, \mathrm{strongPost},
+      \underbrace{\mathrm{nullPost}, \dots, \mathrm{nullPost}}_{\postlen -
+      i}\right] \enspace.
     \end{gather*}
 
-    ---------------------- Attempt 2
+    First of all, it is $\forall j \in \left[i - 1\right],
+    \idsc{\postlist\left[j\right]} = \frac{\playerlen}{2}\left(1 + \gamma -
+    \epsilon\right) < \frac{\playerlen}{2}\left(1 + \gamma\right) =
+    \idsc{\postlist\left[i\right]}$ and $\forall j \in \left\{i + 1, \dots,
+    \postlen\right\}, \idsc{\postlist\left[j\right]} = 0 <
+    \idsc{\postlist\left[i\right]}$, thus the strong post has strictly the
+    highest ideal score of all posts and as a result, $\forall \postlist'$ that
+    contains the same posts as $\postlist$ and
+    $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is
+    $\postlist'\left[1\right] = \postlist\left[i\right]$.
+
+    We observe that all players like both weak and strong posts more than null
+    posts, thus no player will vote for a null post unless her attention span
+    contains only null posts. This can happen in two cases: First, if the player
+    has not yet voted for all non-null posts, but the first $\attspan$ posts of
+    the list, excluding already voted posts, are null posts. Second, if the
+    player has already voted for all non-null posts. For a null post to rank
+    higher than a non-null one, it must be true that there exists one player
+    that has cast the first vote for the null post. However, since the null
+    posts are initially at the bottom of the list and it is impossible for a
+    post to improve its ranking before it is voted, we deduce that this first
+    vote can be cast only after the voter has voted for all non-null posts. We
+    deduce that all players vote for all non-null posts before voting for any
+    null post.
+
+    We will now see that the first $\frac{\playerlen}{2}$ players vote first for
+    all weak posts and then for the strong post. These players like the weak
+    posts more than the strong post. As we saw, they will not vote any null
+    post before voting for all non-null ones. If $\attspan > 1$ they vote for
+    the strong post only when all other posts in their attention span are null
+    ones and thus they will have voted for all weak posts already. If $\attspan
+    = 1$ and since no post can increase its position before being voted, the
+    strong post will become ``visible'' for all players only once they have
+    voted for all weak posts. Thus in both cases the first
+    $\frac{\playerlen}{2}$ players vote for the strong post only after they have
+    voted for all weak posts first.
+
+    The two previous results combined prove that the first
+    $\frac{\playerlen}{2}$ players vote for the strong post in round $\round_i$
+    exactly. We also observe that these players have experienced the exact same
+    voting power reduction and regeneration as in the case of $\postlist^1$
+    since they voted only for posts with likeability 1, thus in round $\round_i$
+    their voting power after regeneration is exactly the same as in the case of
+    $\postlist^1: \forall \pid \in
+    \left[\frac{\playerlen}{2}\right], \votpowvecreg_{\pid, \round_i} =
+    \mathrm{reducedVP}$.
+
+    We observe that the first $\frac{\playerlen}{2}$ players vote for all weak
+    posts with full voting power. As for the last $\frac{\playerlen}{2}$
+    players, we observe that, if $\attspan < i$, they all vote for the first
+    weak post of the list in the first round, and thus with full voting power. If
+    $\attspan \geq i$ and $i > 2$, they vote for the strong post in the first
+    round and for the first weak post in $r_2$ with full voting power. Thus in
+    all cases the last $\frac{\playerlen}{2}$ players vote for the first weak
+    post with full voting power. Therefore, the score of the first weak post at
+    the end of the execution is
+    $\mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) =
+    c\left(\frac{\playerlen}{2}\left(a + b\right) +
+    \frac{\playerlen}{2}\left(\left(\gamma - \epsilon\right) a +
+    b\right)\right)$.
+
+    On the other hand, at the end of the execution the strong post has been
+    voted by the first $\frac{\playerlen}{2}$ players with $\mathrm{reducedVP}$
+    voting power and by the last $\frac{\playerlen}{2}$ players with at most
+    full voting power, thus its final score will be at most
+    $\mathrm{sc}_{\rounds}\left(\postlist\left[i\right]\right) \leq
+    c\left(\frac{\playerlen}{2}\left(\mathrm{reducedVP} \cdot \gamma a +
+    b\right) + \frac{\playerlen}{2}\left(a + b\right)\right)$. It is
+    \begin{gather*}
+      \epsilon < \gamma\left(1 - \mathrm{reducedVP}\right) \Rightarrow \\
+      c\left(\frac{\playerlen}{2}\left(a + b\right) +
+      \frac{\playerlen}{2}\left(\left(\gamma - \epsilon\right) a +
+      b\right)\right) < c\left(\frac{\playerlen}{2}\left(\mathrm{reducedVP}
+      \cdot \gamma a + \frac{\playerlen}{2}\left(a + b\right)\right)\right)
+      \Rightarrow \\
+      \mathrm{sc}_{\rounds}\left(\postlist\left[i\right]\right) <
+      \mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) \enspace.
+    \end{gather*}
+
+    Thus $\postlist_{\rounds}\left[1\right] \neq \postlist\left[i\right]$ and
+    $\mathrm{Ideal}^1\left(\postlist_{\rounds}\right)$ does not hold.
+
+    ----------------------- Attempt 2
 
     Let $\postlist = \left[\left(1, \underbrace{\left(1, 0.5 + \epsilon, 0,
     \dots, 0\right)}_{\playerlen}\right), \left(1, \underbrace{\left(0, 0.5, 0,
@@ -154,7 +247,7 @@
     $\postlist_\rounds\left[1\right] \neq \postlist\left[2\right]$ and the
     property $\mathrm{Ideal}^1\left(\postlist_\rounds\right)$ does not hold.
 
-    ---------------------------- Attempt 1
+    ----------------------------- Attempt 1
 
     \begin{itemize}
       \item $\rounds < \postlen \wedge \attspan < \postlen$ \\
