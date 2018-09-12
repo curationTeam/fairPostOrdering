@@ -3,6 +3,8 @@
   \label{alg:steem:vote}
   \begin{algorithmic}[1]
     \State Store aux contents as constants
+    \State $\mathrm{voteRounds} \gets \textsc{VoteRounds}\left(\rounds,
+    |\postlist|\right)$
     \If{$\textsc{VoteThisRound}\left(\round, |\postlist|\right) = \mathrm{yes}$}
       \State $\mathrm{top} \gets \textsc{ChooseTopPosts}\left(\attspan,
       \postlist, \mathrm{votedPosts}\right)$
@@ -29,15 +31,26 @@
       \State \Return $\result$
     \EndFunction
     \State
-    \Function{VoteThisRound}{$\round, |\postlist|$}
-      \If{$\rounds < |\postlist|$}
+    \Function{VoteThisRound}{$\round, \postlen$}
+      \If{$\rounds < \postlen$}
         \State \Return yes
-      \ElsIf{$\floor*{\left(\round - 1\right) \mod \frac{\rounds -
-      1}{|\postlist| - 1}} = 0$}
+      \ElsIf{$\round \in \mathrm{voteRounds}$}
         \State \Return yes
+      %\ElsIf{$\floor*{\left(\round - 1\right) \mod \frac{\rounds -
+      %1}{|\postlist| - 1}} = 0$}
+      %  \State \Return yes
       \Else
         \State \Return no
       \EndIf
+    \EndFunction
+    \State
+    \Function{VoteRounds}{$\rounds, \postlen$}
+      \State $\mathrm{voteRounds} \gets \emptyset$
+      \For{$i = 1$ to $\postlen$}
+        \State $\mathrm{voteRounds} \gets \mathrm{voteRounds} \cup \left\{1 +
+        \floor*{\left(i - 1\right)\frac{\rounds - 1}{\postlen - 1}}\right\}$
+      \EndFor
+      \State \Return voteRounds
     \EndFunction
   \end{algorithmic}
 \end{algorithm}
