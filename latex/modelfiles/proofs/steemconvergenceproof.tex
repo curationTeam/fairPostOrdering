@@ -31,10 +31,10 @@
 
     \begin{itemize}
       \item For $i = 1, \votpowvec_{\pid, 1} = 1$ by
-      (Algorithm~\ref{alg:steem:init}, line~\ref{alg:steem:init:vp}).  \item Let
-      $\votpowvec_{\pid, r_i} = 1$. Until $r_{i + 1}$, a single non-null vote is
-      cast by $u_\pid$, which reduces $\votpowvec_{\pid}$ by at most $a + b$
-      (Algorithm~\ref{alg:steem:handlevote},
+      (Algorithm~\ref{alg:steem:init}, line~\ref{alg:steem:init:vp}).
+      \item Let $\votpowvec_{\pid, r_i} = 1$. Until $r_{i + 1}$, a single
+      non-null vote is cast by $u_\pid$, which reduces $\votpowvec_{\pid}$ by at
+      most $a + b$ (Algorithm~\ref{alg:steem:handlevote},
       line~\ref{alg:steem:handlevote:cost:start}) and at least $\ceil*{\frac{a +
       b}{\regen}}$ regenerations, each of which replenishes $\votpowvec_{\pid}$
       by $\regen$. Thus
