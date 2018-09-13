@@ -82,7 +82,49 @@
       \text{and } \forall i \in \left[\playerlen\right], \stpowvec_i = c
       \enspace. \nonumber
     \end{gather}
-    If $\rounds < \postlen$ things are easier TODO: prove this.
+    If $\rounds < \postlen$, we consider two cases:
+    \begin{itemize}
+      \item \begin{equation}
+        \label{conv:proof:smallattspanrounds}
+        \attspan + \rounds \leq \postlen
+      \end{equation}
+      In this case, no player can ever vote for the last post, as we will show
+      now. Let $\pid \in \playerlen, i \in \left[\rounds\right]$ and $v_i$ the
+      index of the last post that has ever been in $\player_\pid$'s attention
+      span until the end of round $i$. It is $v_1 = \attspan$ and $\forall
+      i \in \left[\rounds\right] \setminus \left\{1\right\}, v_i = v_{i - 1} +
+      1$, since in every round $\player_\pid$ votes for a single post and the
+      first unvoted post of the list is added to their attention span. Note
+      that, since this mechanism is the same for all players, the same unvoted
+      post is added to all players' attention span at every round. Thus
+      $v_\rounds = \attspan + \rounds - 1
+      \overset{\left(\ref{conv:proof:smallattspanrounds}\right)}{<} \postlen$.
+      We deduce that $\player_\pid$ never has the chance to vote for the last
+      post.
+
+      The above observation naturally leads us to the following counterexample:
+      Let
+      \begin{gather*}
+        \strongpost = \left(1, \left(\underbrace{1, \dots,
+        1}_{\playerlen}\right)\right) \\
+        \nullpost = \left(1, \left(\underbrace{0, \dots,
+        0}_{\playerlen}\right)\right) \\
+        \postlist = \left[\underbrace{\nullpost, \dots, \nullpost}_{\postlen -
+        1}, \strongpost\right]
+      \end{gather*}
+
+      $\forall i \in \left[\postlen - 1\right],$ it is
+      $\idsc{\postlist\left[\postlen\right]} >
+      \idsc{\postlist\left[\postlen\right]}$, thus $\forall \postlist'$ that
+      contain the same posts as $\postlist$ and
+      $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is
+      $\postlist'\left[1\right] = \postlist\left[\postlen\right]$. However,
+      since the last post is not voted by any player and the first post is voted
+      by at least one player, it is
+      $\mathrm{sc}_\rounds\left(\postlist\left[1\right]\right) >
+      \mathrm{sc}_\rounds\left(\postlist\left[\postlen\right]\right)$, thus
+      $\textsc{Ideal}^1\left(\postlist_\rounds\right)$ does not hold.
+    \end{itemize}
 
     Assume $\rounds \geq \postlen$. In this case, all posts receive a vote by
     all players. Consider $\postlist^1 = 1^{\postlen \times \playerlen}$ and
