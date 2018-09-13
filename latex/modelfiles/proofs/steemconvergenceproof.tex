@@ -114,17 +114,16 @@
     \gamma\frac{\playerlen - 3}{\playerlen - 1}\left(1 -
     \rvp\right)$.
     \begin{gather*}
-      \mathrm{weakPost} = \left(1, \left(\underbrace{1, \dots,
-      1}_{\playerlen/2}, \underbrace{\gamma - \epsilon, \dots, \gamma -
+      \weakpost = \left(1, \left(\underbrace{1, \dots, 1}_{\playerlen/2},
+      \underbrace{\gamma - \epsilon, \dots, \gamma -
       \epsilon}_{\playerlen/2}\right)\right) \enspace, \\
-      \mathrm{strongPost} = \left(1, \left(\underbrace{\gamma, \dots,
+      \strongpost = \left(1, \left(\underbrace{\gamma, \dots,
       \gamma}_{\playerlen/2}, \underbrace{1, \dots,
       1}_{\playerlen/2}\right)\right) \enspace, \\
-      \mathrm{nullPost} = \left(1, \left(\underbrace{0, \dots,
+      \nullpost = \left(1, \left(\underbrace{0, \dots,
       0}_{\playerlen}\right)\right) \enspace, \\
-      \postlist = \left[\underbrace{\mathrm{weakPost}, \dots,
-      \mathrm{weakPost}}_{i - 1}, \mathrm{strongPost},
-      \underbrace{\mathrm{nullPost}, \dots, \mathrm{nullPost}}_{\postlen -
+      \postlist = \left[\underbrace{\weakpost, \dots, \weakpost}_{i - 1},
+      \strongpost, \underbrace{\nullpost, \dots, \nullpost}_{\postlen -
       i}\right] \enspace.
     \end{gather*}
 
