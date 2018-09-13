@@ -65,9 +65,10 @@
     otherwise, $\textsc{IdealScore}^M\left(\postlist_\rounds\right)$ holds.
 
     \item ($\stpowvec$ variable $\Rightarrow$ no convergence) Let $\postlist =
-    \left(\left(1, \left(a_1, \dots, a_\playerlen\right)\right), \left(2,
-    \left(b_1, \dots, b_\playerlen\right)\right)\right)$ such that the following
-    linear constraints are simultaneously feasible:
+    \left[\left(1, \left(a_1, \dots, a_\playerlen\right)\right), \left(1,
+    \left(b_1, \dots, b_\playerlen\right)\right), \left(1, \left(0, \dots,
+    0\right)\right), \dots, \left(1, \left(0, \dots, 0\right)\right)\right]$
+    such that the following linear constraints are simultaneously feasible:
     \begin{gather*}
       \sum\limits_{i=1}^\playerlen a_i > \sum\limits_{i=1}^\playerlen b_i \\
       \sum\limits_{i=1}^\playerlen \stpow_i a_i < \sum\limits_{i=1}^\playerlen
