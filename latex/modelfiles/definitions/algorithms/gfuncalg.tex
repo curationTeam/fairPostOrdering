@@ -5,11 +5,12 @@
   \begin{algorithmic}[1]
     \State Initialization:
     \Indent
-      \State $\playerlist \gets \emptyset$
+      \State $\playerlist \gets \emptyset$ \Comment{Set of players}
       \State $\textsc{Init}\left(\mathrm{initArgs}\right)$
     \EndIndent
     \State
     \State Upon receiving (\texttt{read}) from $\player_{\pid}$:
+    \State $\playerlist \gets \playerlist \cup \left\{\player_{\pid}\right\}$
     \Indent
       \State $\mathrm{aux} \gets \textsc{Aux}\left(\player_{\pid}\right)$
       \State Send (\texttt{posts}, $\postlist$, aux) to $\player_{\pid}$

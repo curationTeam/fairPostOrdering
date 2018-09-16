@@ -4,11 +4,12 @@ import matplotlib.pyplot as plt
 
 seed = random.randint(0, 1000)
 
-sim = Simulation((1,1), 3, (2,0,0), 0.02, 0.1, 0.3, 2, [[0.4, 1], [0.5, 0.8]])
+noPlayer = 341
+rounds = 523
+sim = Simulation((1,) * noPlayer, rounds, (noPlayer,0,0), 0.5, 0.5, 0.5, 3)
 players, posts = sim.init_setup(seed)
 gen = sim.execute(players, posts)
 
-players, posts = next(gen)
-print(posts)
-players, posts = next(gen)
-print(posts)
+for _i in range(0, rounds):
+    players, posts = next(gen)
+    print(posts)

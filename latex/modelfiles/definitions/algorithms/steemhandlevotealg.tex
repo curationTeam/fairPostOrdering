@@ -10,6 +10,8 @@
       \State $\votpowvec_{\pid} \gets \max{\lbrace \votpowvec_{\pid} + \regen
       \cdot \left(\round - \mathrm{lastVoted}_{\pid}\right), 1 \rbrace}$
       \Comment{TODO: Remove $\left(\round - \mathrm{lastVoted}_{\pid}\right)$?}
+      \State $\votpowvecreg_{\pid, r} \gets \votpowvec_{\pid}$ \Comment{For
+      proofs}
       \label{alg:steem:handlevote:regen}
       \If{$\mathrm{ballot} \neq \mathbf{null}$}
         \State Parse ballot as $\left(\post, \mathrm{weight}\right)$

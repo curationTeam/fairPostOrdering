@@ -31,10 +31,10 @@
 
     \begin{itemize}
       \item For $i = 1, \votpowvec_{\pid, 1} = 1$ by
-      (Algorithm~\ref{alg:steem:init}, line~\ref{alg:steem:init:vp}).  \item Let
-      $\votpowvec_{\pid, r_i} = 1$. Until $r_{i + 1}$, a single non-null vote is
-      cast by $u_\pid$, which reduces $\votpowvec_{\pid}$ by at most $a + b$
-      (Algorithm~\ref{alg:steem:handlevote},
+      (Algorithm~\ref{alg:steem:init}, line~\ref{alg:steem:init:vp}).
+      \item Let $\votpowvec_{\pid, r_i} = 1$. Until $r_{i + 1}$, a single
+      non-null vote is cast by $u_\pid$, which reduces $\votpowvec_{\pid}$ by at
+      most $a + b$ (Algorithm~\ref{alg:steem:handlevote},
       line~\ref{alg:steem:handlevote:cost:start}) and at least $\ceil*{\frac{a +
       b}{\regen}}$ regenerations, each of which replenishes $\votpowvec_{\pid}$
       by $\regen$. Thus
@@ -65,9 +65,10 @@
     otherwise, $\textsc{IdealScore}^M\left(\postlist_\rounds\right)$ holds.
 
     \item ($\stpowvec$ variable $\Rightarrow$ no convergence) Let $\postlist =
-    \left(\left(1, \left(a_1, \dots, a_\playerlen\right)\right), \left(2,
-    \left(b_1, \dots, b_\playerlen\right)\right)\right)$ such that the following
-    linear constraints are simultaneously feasible:
+    \left[\left(1, \left(a_1, \dots, a_\playerlen\right)\right), \left(1,
+    \left(b_1, \dots, b_\playerlen\right)\right), \left(1, \left(0, \dots,
+    0\right)\right), \dots, \left(1, \left(0, \dots, 0\right)\right)\right]$
+    such that the following linear constraints are simultaneously feasible:
     \begin{gather*}
       \sum\limits_{i=1}^\playerlen a_i > \sum\limits_{i=1}^\playerlen b_i \\
       \sum\limits_{i=1}^\playerlen \stpow_i a_i < \sum\limits_{i=1}^\playerlen
@@ -79,46 +80,205 @@
     \begin{gather}
       \label{conv:proof:fewrounds}
       \rounds - 1 < \left(\postlen - 1\right)\ceil*{\frac{a+b}{\regen}} \\
-      \label{conv:proof:lowattspan}
-      \text{and } \attspan < \postlen \\
       \text{and } \forall i \in \left[\playerlen\right], \stpowvec_i = c
       \enspace. \nonumber
     \end{gather}
- Then bullet (1) from the
-    previous holds, but (2) becomes $\floor*{\frac{\rounds - 1}{\postlen - 1}}
-    \geq \ceil*{\frac{a+b}{\regen}}$. Thus $\votpowvec_{\pid, r_{i + 1}} <
-    \votpowvec_{\pid, r_i} + a + b$ and $\forall i \in \left[\voterounds\right]
-    \setminus \left\{1\right\}, \votpowvec_{\pid, r_i} < 1$. Let $\epsilon_i = 1
-    - \votpowvec_{\pid, r_i}$ and $\epsilon > 0$.
-
+    If $\rounds < \postlen$, we consider two cases:
     \begin{itemize}
-      \item If $\rounds < \postlen$, then the last $\postlen - \rounds$ posts of
-      $\postlist$ will not be voted by any player. This in turn means that a
-      $\postlist$ such that $\forall \left(i, l\right) \in
-      \postlist\left[1..\rounds\right], l = \left(0.5, \dots, 0.5\right)$ and
-      $\forall \left(i, l\right) \in \postlist\left[\rounds +
-      1..\postlen\right], l = \left(1, \dots, 1\right)$, the Steem system does
-      not $\left(\playerlen, \round, \postlen, 1\right)$-converge.
+      \item \begin{equation}
+        \label{conv:proof:smallattspanrounds}
+        \attspan + \rounds \leq \postlen
+      \end{equation}
+      In this case, no player can ever vote for the last post, as we will show
+      now. Let $\pid \in \playerlen, i \in \left[\rounds\right]$ and $v_i$ the
+      index of the last post that has ever been in $\player_\pid$'s attention
+      span until the end of round $i$. It is $v_1 = \attspan$ and $\forall
+      i \in \left[\rounds\right] \setminus \left\{1\right\}, v_i = v_{i - 1} +
+      1$, since in every round $\player_\pid$ votes for a single post and the
+      first unvoted post of the list is added to their attention span. Note
+      that, since this mechanism is the same for all players, the same unvoted
+      post is added to all players' attention span at every round. Thus
+      $v_\rounds = \attspan + \rounds - 1
+      \overset{\left(\ref{conv:proof:smallattspanrounds}\right)}{<} \postlen$.
+      We deduce that $\player_\pid$ never has the chance to vote for the last
+      post.
 
-      \item If $\post_\mathrm{bad} = \left(i, l_\mathrm{bad}\right) =
-      \postlist\left[1\right]$ with $l_\mathrm{bad} = \left(1 -
-      \epsilon_\postlen + \epsilon, \dots, 1 - \epsilon_\postlen +
-      \epsilon\right)$, $\post_\mathrm{good} = \left(i, l_\mathrm{good}\right) =
-      \postlist\left[\postlen\right]$ with $l_\mathrm{good} = \left(1, \dots,
-      1\right)$ and there exists no other post $\post \in \postlist$ such that
-      $\idsc{p} \geq \idsc{\post_\mathrm{good}}$, then $\forall \postlist':
-      \postlist'$ contains the same posts as $\postlist$ and
+      The above observation naturally leads us to the following counterexample:
+      Let
+      \begin{gather*}
+        \strongpost = \left(1, \left(\underbrace{1, \dots,
+        1}_{\playerlen}\right)\right) \\
+        \nullpost = \left(1, \left(\underbrace{0, \dots,
+        0}_{\playerlen}\right)\right) \\
+        \postlist = \left[\underbrace{\nullpost, \dots, \nullpost}_{\postlen -
+        1}, \strongpost\right]
+      \end{gather*}
+
+      $\forall i \in \left[\postlen - 1\right],$ it is
+      $\idsc{\postlist\left[\postlen\right]} >
+      \idsc{\postlist\left[\postlen\right]}$, thus $\forall \postlist'$ that
+      contain the same posts as $\postlist$ and
       $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is
-      $\postlist'\left[1\right] = \post_\mathrm{good}$. However, after the
-      execution the score of $\post_\mathrm{bad}$ will be $\mathrm{sc}_{bad} =
-      \playerlen c \left(a \left(1 - \epsilon_\postlen + \epsilon\right) +
-      b\right)$, whereas the score of $\post_\mathrm{good}$ will be
-      $\mathrm{sc}_{good} = \playerlen c \left(a \left(1 -
-      \epsilon_\postlen\right) + b\right) < \mathrm{sc}_{bad}$, thus the Steem
-      system does not $\left(\playerlen, \round, \postlen, 1\right)$-converge.
+      $\postlist'\left[1\right] = \postlist\left[\postlen\right]$. However,
+      since the last post is not voted by any player and the first post is voted
+      by at least one player, it is
+      $\mathrm{sc}_\rounds\left(\postlist\left[1\right]\right) >
+      \mathrm{sc}_\rounds\left(\postlist\left[\postlen\right]\right)$, thus
+      $\textsc{Ideal}^1\left(\postlist_\rounds\right)$ does not hold.
+
+      \item $\attspan + \rounds > \postlen$ \\
+      TODO
     \end{itemize}
-    We place the
-    good posts at the end. Players will vote for them with little voting power
-    and they will not rise to the top.
+
+    Assume $\rounds \geq \postlen$. In this case, all posts receive a vote by
+    all players. Consider $\postlist^1 = 1^{\postlen \times \playerlen}$ and
+    $\pid \in \left[\playerlen\right]$. Let
+    \begin{equation*}
+      i \in \left[\postlen\right] :\left(\votpowvecreg_{\pid, \round_i} < 1
+      \wedge \nexists i' < i: \votpowvecreg_{\pid, \round_{i'}} < 1\right)
+      \enspace,
+    \end{equation*}
+    i.e. $i$ is the first round in which $u_\pid$ votes with less than full
+    voting power. Since the first round is a voting round and the voting power
+    of all players is full, it is $i \geq 2$. Such a round exists for the
+    following reason:
+
+    If $\nexists i \in \left[\postlen\right] :\left(\votpowvecreg_{\pid,
+    \round_i} < 1 \wedge \nexists i' < i: \votpowvecreg_{\pid, \round_{i'}} <
+    1\right)$, then $\forall i \in \left[\postlen\right], \votpowvecreg_{\pid,
+    \round_i} = 1 \Rightarrow \forall i \in \left[\postlen\right] \setminus
+    \left\{1\right\}, \round_i \geq \round_{i - 1} + \ceil*{\frac{a +
+    b}{\regen}}$ to have enough rounds to replenish the voting power after a
+    full-weight, full-voting power vote. Thus $\round_\postlen \geq 1 +
+    \left(\postlen - 1\right)\ceil*{\frac{a + b}{\regen}} > \rounds$,
+    contradiction.
+
+    Since all players follow the same voting pattern, the voting power of all
+    players in each round is the same. Let $\rvp =
+    \votpowvecreg_{1, \round_i}$. For now assume $2 | N$ and $\attspan < i \vee
+    i > 2$. TODO: prove rest. Let $0 < \gamma < 1$ and $0 < \epsilon <
+    \gamma\frac{\playerlen - 3}{\playerlen - 1}\left(1 -
+    \rvp\right)$.
+    \begin{gather*}
+      \weakpost = \left(1, \left(\underbrace{1, \dots, 1}_{\playerlen/2},
+      \underbrace{\gamma - \epsilon, \dots, \gamma -
+      \epsilon}_{\playerlen/2}\right)\right) \enspace, \\
+      \strongpost = \left(1, \left(\underbrace{\gamma, \dots,
+      \gamma}_{\playerlen/2}, \underbrace{1, \dots,
+      1}_{\playerlen/2}\right)\right) \enspace, \\
+      \nullpost = \left(1, \left(\underbrace{0, \dots,
+      0}_{\playerlen}\right)\right) \enspace, \\
+      \postlist = \left[\underbrace{\weakpost, \dots, \weakpost}_{i - 1},
+      \strongpost, \underbrace{\nullpost, \dots, \nullpost}_{\postlen -
+      i}\right] \enspace.
+    \end{gather*}
+
+    First of all, it is $\forall j \in \left[i - 1\right],
+    \idsc{\postlist\left[j\right]} = \frac{\playerlen}{2}\left(1 + \gamma -
+    \epsilon\right) < \frac{\playerlen}{2}\left(1 + \gamma\right) =
+    \idsc{\postlist\left[i\right]}$ and $\forall j \in \left\{i + 1, \dots,
+    \postlen\right\}, \idsc{\postlist\left[j\right]} = 0 <
+    \idsc{\postlist\left[i\right]}$, thus the strong post has strictly the
+    highest ideal score of all posts and as a result, $\forall \postlist'$ that
+    contains the same posts as $\postlist$ and
+    $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is
+    $\postlist'\left[1\right] = \postlist\left[i\right]$.
+
+    We observe that all players like both weak and strong posts more than null
+    posts, thus no player will vote for a null post unless her attention span
+    contains only null posts. This can happen in two cases: First, if the player
+    has not yet voted for all non-null posts, but the first $\attspan$ posts of
+    the list, excluding already voted posts, are null posts. Second, if the
+    player has already voted for all non-null posts. For a null post to rank
+    higher than a non-null one, it must be true that there exists one player
+    that has cast the first vote for the null post. However, since the null
+    posts are initially at the bottom of the list and it is impossible for a
+    post to improve its ranking before it is voted, we deduce that this first
+    vote can be cast only after the voter has voted for all non-null posts. We
+    deduce that all players vote for all non-null posts before voting for any
+    null post.
+
+    We will now see that the first $\frac{\playerlen}{2}$ players vote first for
+    all weak posts and then for the strong post. These players like the weak
+    posts more than the strong post. As we saw, they will not vote any null
+    post before voting for all non-null ones. If $\attspan > 1$ they vote for
+    the strong post only when all other posts in their attention span are null
+    ones and thus they will have voted for all weak posts already. If $\attspan
+    = 1$ and since no post can increase its position before being voted, the
+    strong post will become ``visible'' for all players only once they have
+    voted for all weak posts. Thus in both cases the first
+    $\frac{\playerlen}{2}$ players vote for the strong post only after they have
+    voted for all weak posts first.
+
+    The two previous results combined prove that the first
+    $\frac{\playerlen}{2}$ players vote for the strong post in round $\round_i$
+    exactly. We also observe that these players have experienced the exact same
+    voting power reduction and regeneration as in the case of $\postlist^1$
+    since they voted only for posts with likeability 1, thus in round $\round_i$
+    their voting power after regeneration is exactly the same as in the case of
+    $\postlist^1: \forall \pid \in
+    \left[\frac{\playerlen}{2}\right], \votpowvecreg_{\pid, \round_i} =
+    \rvp$.
+
+    We observe that the first $\frac{\playerlen}{2}$ players vote for all weak
+    posts with full voting power. As for the last $\frac{\playerlen}{2}$
+    players, we observe that, if $\attspan < i$, they all vote for the first
+    weak post of the list in the first round, and thus with full voting power. If
+    $\attspan \geq i$ and $i > 2$, they vote for the strong post in the first
+    round and for the first weak post in $r_2$ with full voting power. Thus in
+    all cases the last $\frac{\playerlen}{2}$ players vote for the first weak
+    post with full voting power. Therefore, the score of the first weak post at
+    the end of the execution is
+    $\mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) =
+    c\left(\frac{\playerlen}{2}\left(a + b\right) +
+    \frac{\playerlen}{2}\left(\left(\gamma - \epsilon\right) a +
+    b\right)\right)$.
+
+    On the other hand, at the end of the execution the strong post has been
+    voted by the first $\frac{\playerlen}{2}$ players with $\rvp$
+    voting power and by the last $\frac{\playerlen}{2}$ players with at most
+    full voting power, thus its final score will be at most
+    $\mathrm{sc}_{\rounds}\left(\postlist\left[i\right]\right) \leq
+    c\left(\frac{\playerlen}{2}\left(\rvp \cdot \gamma a +
+    b\right) + \frac{\playerlen}{2}\left(a + b\right)\right)$. It is
+    \begin{gather*}
+      \epsilon < \gamma\left(1 - \rvp\right) \Rightarrow \\
+      c\left(\frac{\playerlen}{2}\left(a + b\right) +
+      \frac{\playerlen}{2}\left(\left(\gamma - \epsilon\right) a +
+      b\right)\right) < c\left(\frac{\playerlen}{2}\left(\rvp
+      \cdot \gamma a + \frac{\playerlen}{2}\left(a + b\right)\right)\right)
+      \Rightarrow \\
+      \mathrm{sc}_{\rounds}\left(\postlist\left[i\right]\right) <
+      \mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) \enspace.
+    \end{gather*}
+
+    Thus $\postlist_{\rounds}\left[1\right] \neq \postlist\left[i\right]$ and
+    $\mathrm{Ideal}^1\left(\postlist_{\rounds}\right)$ does not hold.
+
+    As for the case when $\playerlen$ is odd, we can simply assume that the
+    likeability of the first $i$ posts (weak and strong) for the last player is
+    $\gamma$, whereas the likeability of the last $\postlen - i$ posts (the null
+    posts) is 0. This means that the first player votes first for the weak and
+    strong posts and then for the null posts. We observe that the ideal score of
+    the strong post is still strictly higher than the rest. We have the
+    following changes:
+
+    \begin{gather*}
+      \mathrm{sc}_{\rounds}\left(\postlist\left[i\right]\right) \leq
+      c\left(\frac{\playerlen - 1}{2}\left(\rvp \cdot \gamma a +
+      b\right) + \frac{\playerlen - 1}{2}\left(a + b\right) + \gamma a + b\right)
+      \enspace, \\
+      \mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) \geq
+      c\left(\frac{\playerlen - 1}{2}\left(a + b\right) + \frac{\playerlen -
+      1}{2}\left(\left(\gamma - \epsilon\right) a + b\right) +
+      \rvp \cdot \gamma a + b\right) \enspace.
+    \end{gather*}
+
+    For the strong post to have strictly lower score than the first weak one, it
+    must hold that
+    \begin{equation*}
+      \epsilon < \gamma\frac{\playerlen - 3}{\playerlen - 1}\left(1 -
+      \rvp\right) \enspace.
+    \end{equation*}
   \end{itemize}
 \end{proof}

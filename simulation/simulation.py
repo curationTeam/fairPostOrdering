@@ -53,11 +53,11 @@ class Simulation:
     # Reseed and initialize players and posts
     def init_setup(self, seed):
         random.seed(seed) # reseed the prng
-        players = self.init_players()
         if (self.lik_mat):
           posts = self.create_posts(self.lik_mat)
         else:
           posts = self.create_posts(self.get_random_likabilities())
+        players = self.init_players(len(posts))
         return players, posts
 
     def create_posts(self, likability_matrix):
@@ -71,7 +71,7 @@ class Simulation:
         return posts
 
     # Initialize players
-    def init_players(self):
+    def init_players(self, noPosts):
         players = []
         index = 0
         profile_index = 0
@@ -80,7 +80,8 @@ class Simulation:
             # Create noProfile players of self.profile[profile_index]
             for _i in range(0, noProfile):
                 players.append(Player(index, self.profile[profile_index],
-                self.spvec[index], self.att_span, self.a, self.b, self.regen))
+                self.spvec[index], self.att_span, self.a, self.b, self.regen,
+                self.rounds, noPosts))
                 index += 1
             profile_index += 1
         return players
@@ -103,7 +104,7 @@ class Simulation:
         for r in range(0, self.rounds):
             for player in players:
                 player.regenerate_vp() # TODO: We have to define "regen" in terms of the rounds
-                player.vote(r, self.rounds, posts)
+                player.vote(r, posts)
 
             posts.sort(key = lambda x: x.real_score, reverse = True)
             yield players, posts
