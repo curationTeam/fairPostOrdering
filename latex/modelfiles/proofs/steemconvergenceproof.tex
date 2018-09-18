@@ -343,7 +343,14 @@
       1\right]\right)$, thus $\mathrm{Ideal}^1\left(\postlist_{\rounds}\right)$
       does not hold.
 
-      If $\rounds \geq 2$,
+      If $\rounds \geq 2$, then $\forall \pid \in \left[\nichepostnum\right],
+      u_\pid$ votes at least for $\postlist\left[\pid\right]$ and
+      $\postlist\left[\nichepostnum + 1\right]$. Furthermore $\forall \pid \in
+      \left\{\nichepostnum + 1, \dots, \playerlen\right\}, u_\pid$ votes
+      certainly for $\postlist\left[1\right]$ and may vote for
+      $\postlist\left[\nichepostnum +1\right]$, thus
+      $\mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) =
+      \nichepostnum$
 
       \item $\rounds \geq \postlen \vee \ceil*{\frac{a + b}{\regen}} \geq 2
       \wedge \attspan \geq i \wedge i = 2$
