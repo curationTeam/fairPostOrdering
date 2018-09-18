@@ -1,45 +1,34 @@
 \section{Introduction}
-    
-  The modern Internet contains an immense amount of data; a single user can only consume a tiny fraction in a reasonable amount of time. Therefore, any widely used platform that hosts user-generated content must employ a content curation mechanism. 
-   Content curation can be understood as the set of mechanisms which rank, aggregate and filter relevant information. In recent years, popular news aggregation sites like Reddit\footnote{\url{https://www.reddit.com/} Accessed: 2018-09-10.} or Hacker News\footnote{\url{https://news.ycombinator.com/} Accessed: 2018-09-10.} have established crowdsourced curation as the primary way to filter content for their users.  
-   Crowdsourced content curation, as opposed to more traditional techniques such as expert- or algorithmic-based curation, orders and filters content based on the ratings and feedback of the users themselves, obviating the need for a central moderator by leveraging the wisdom of the crowd~\citep{askalidis2013theoretical}.\\
-   
+  The modern Internet contains an immense amount of data; a single user can only consume a tiny fraction in a reasonable amount of time. Therefore, any widely used platform that hosts user-generated content must employ a content curation mechanism.
+   Content curation can be understood as the set of mechanisms which rank, aggregate and filter relevant information. In recent years, popular news aggregation sites like Reddit\footnote{\url{https://www.reddit.com/} Accessed: 2018-09-10.} or Hacker News\footnote{\url{https://news.ycombinator.com/} Accessed: 2018-09-10.} have established crowdsourced curation as the primary way to filter content for their users.
+   Crowdsourced content curation, as opposed to more traditional techniques such as expert- or algorithmic-based curation, orders and filters content based on the ratings and feedback of the users themselves, obviating the need for a central moderator by leveraging the wisdom of the crowd~\cite{askalidis2013theoretical}.
+
   The decentralized nature of crowdsourced curation makes it a suitable solution for ranking user-generated content in blockchain-based content hosting systems. The aggregation and filtering of user-generated content emerges as a particularly challenging problem in permissionless blockchains, as any solution that requires a concrete moderator implies that there exists a privileged party, which is incompatible with a permissionless blockchain.
    Moreover, public blockchains are easy targets for Sybil attacks, as any user can create new accounts at any time for a marginal cost.
-    Therefore, on-chain mechanisms to resist the effect of Sybil users are necessary for a healthy and well-functioning platform; traditional counter-Sybil mechanisms~\cite{levine2006survey} are much harder to apply in the case of blockchains due to the decentralized nature of the latter. 
-   The functions performed by moderators in traditional content platforms need to be replaced by incentive mechanisms that ensure self-regulation. Having the impact of a vote depend on the number of coins the voter holds is an intuitively appealing strategy to achieve a proper alignment of incentives for users in decentralized content platforms; specifically, it can render Sybil attacks impossible. 
-   However, the correct design of such systems is still an unsolved problem. Blockchains have created a new economic paradigm where users are at the same time equity holders in the system, and leveraging this property in a robust manner constitutes an interesting challenge. 
-   A variety of projects have designed decentralized content curation systems~\cite{synereo,steemit,tcr}. However, a deep understanding of the properties of such systems is still lacking.\\
-  
-  
- In the current work, we develop a theoretical model of a post-voting system which sorts the posts created by users in a distributed and crowdsourced manner. 
+    Therefore, on-chain mechanisms to resist the effect of Sybil users are necessary for a healthy and well-functioning platform; traditional counter-Sybil mechanisms~\cite{levine2006survey} are much harder to apply in the case of blockchains due to the decentralized nature of the latter.
+   The functions performed by moderators in traditional content platforms need to be replaced by incentive mechanisms that ensure self-regulation. Having the impact of a vote depend on the number of coins the voter holds is an intuitively appealing strategy to achieve a proper alignment of incentives for users in decentralized content platforms; specifically, it can render Sybil attacks impossible.
+   However, the correct design of such systems is still an unsolved problem. Blockchains have created a new economic paradigm where users are at the same time equity holders in the system, and leveraging this property in a robust manner constitutes an interesting challenge.
+   A variety of projects have designed decentralized content curation systems~\cite{synereo,steemit,tcr}. However, a deep understanding of the properties of such systems is still lacking.
+
+ In the current work, we develop a theoretical model of a post-voting system which sorts the posts created by users in a distributed and crowdsourced manner.
   Our model is constituted by N players who contribute votes in a round-based curation process. The impact of each vote depends on the number of coins held by the player.
-   The posts are arranged in a list, sorted by the value of votes received, resembling the front-page model of Reddit or Hacker News. In the model, players vote according to their subjective opinion on the quality of the posts and have a limited attention span $\attspan$.  
-   Following previous academic work, we represent each player's opinion on each post (i.e. likability) with a numerical value $n \in [ 0,1 ]$~\cite{ghosh2011incentivizing,askalidis2013theoretical}.  
+   The posts are arranged in a list, sorted by the value of votes received, resembling the front-page model of Reddit or Hacker News. In the model, players vote according to their subjective opinion on the quality of the posts and have a limited attention span $\attspan$.
+   Following previous academic work, we represent each player's opinion on each post (i.e. likability) with a numerical value $n \in [ 0,1 ]$~\cite{ghosh2011incentivizing,askalidis2013theoretical}.
    The objective quality of a post will be calculated as the simple summation of all players' likabilities for the post in question. To measure the properties of such a post-voting system, we say that the system \textit{t-converges} if the t first articles are ordered according to the objective quality of the posts at the end of the execution.
-  After defining and formalizing a general post-voting system, we particularize it to model Steemit, a social media platform based on the Steem blockchain. 
-  We particularize our analysis on Steemit as we recognize that the explicit financial incentives present in its blockchain-based platform are better suited to our analysis than traditional sites such as Reddit or Hacker News, studied in the previous literature. 
+  After defining and formalizing a general post-voting system, we particularize it to model Steemit, a social media platform based on the Steem blockchain.
+  We particularize our analysis on Steemit as we recognize that the explicit financial incentives present in its blockchain-based platform are better suited to our analysis than traditional sites such as Reddit or Hacker News, studied in the previous literature.
   We develop a simulation to help us parametrize Steemit according to our post-voting model and then we prove the conditions under which Steemit t-converges (i.e. it is successful in the content curation process).
-   Our analysis of Steemit's post-voting system aims to provide a better framework for the better design of future decentralized curation platforms.\\ 
+   Our analysis of Steemit's post-voting system aims to provide a better framework for the better design of future decentralized curation platforms.\\
 
-  
-  \textbf{Our Contributions.}  
-  
+  \textbf{Our Contributions.}
   \begin{itemize}
-  
   \item Original treatment following cryptography and simulation-based techniques to model crowdsourced content curation, in opposition to previous academic work which have leaned more towards an analytical and game-theoretic approach.
-  
-  \item Taking in account of subjective likeabilities, the effect of rounds and an agnostic likeability distribution treatment.
-  
-  \item Measurement of the influence of coin-holding (wealth-distribution) in the effectivity of post sorting. New paradigm present in blockchain based systems (main difference with Reddit-like platforms.)
-   
-  \item Proof that Steem does not t-converge with the parameters currently used in their implementation. Insights to improve the curation quality of the trending section of steem.
-   
-  \item (Maybe)Impact of the curation quality when greedy players are present in the system.
-   
-  \end{itemize}
-    
 
-  
-  
-  
+  \item Taking in account of subjective likeabilities, the effect of rounds and an agnostic likeability distribution treatment.
+
+  \item Measurement of the influence of coin-holding (wealth-distribution) in the effectivity of post sorting. New paradigm present in blockchain based systems (main difference with Reddit-like platforms.)
+
+  \item Proof that Steem does not t-converge with the parameters currently used in their implementation. Insights to improve the curation quality of the trending section of steem.
+
+  \item (Maybe)Impact of the curation quality when greedy players are present in the system.
+  \end{itemize}
