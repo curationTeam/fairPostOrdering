@@ -298,6 +298,104 @@
     $\mathrm{Ideal}^1\left(\postlist_{\rounds}\right)$ does not hold.
 
     We finally cover the previously untreated edge case where $\attspan \geq i
-    \wedge i = 2$.
+    \wedge i = 2$. $\rvp$ is defined like before. We first consider the case
+    when $\playerlen$ is even and greater than 2: $\exists k \in \mathbb{N}
+    \setminus \left\{0, 1\right\}: \playerlen = 2k$. Let $0 < \gamma < 1, 0 <
+    \epsilon < 2 \gamma \frac{1 - \rvp}{\left(k - 1\right)\rvp}$,
+    \begin{gather*}
+      \weakpost = \left(1, \left(\underbrace{1, \dots, 1}_{k - 1},
+      \underbrace{\gamma - \epsilon, \dots, \gamma - \epsilon}_{k - 1}, \gamma,
+      \gamma\right)\right) \enspace, \\
+      \strongpost = \left(1, \left(\underbrace{\gamma, \dots, \gamma}_{k - 1},
+      \underbrace{1, \dots, 1}_{k - 1}, \gamma, \gamma\right)\right) \enspace,
+      \\
+      \postlist = \left[\weakpost, \strongpost, \underbrace{\nullpost, \dots,
+      \nullpost}_{\postlen - 2}\right] \enspace.
+    \end{gather*}
+    We first observe that $\forall j \in \left\{3, \dots, \postlen\right\},
+    \idsc{\postlist\left[j\right]} = 0 < \idsc{\postlist\left[1\right]} = k - 1 +
+    \left(k - 1\right)\left(\gamma - \epsilon\right) + 2\gamma = k - 1 + \left(k
+    + 1\right)\gamma - \left(k - 1\right)\epsilon < k - 1 + \left(k +
+    1\right)\gamma = \idsc{\postlist\left[2\right]}$, thus the strong post has
+    strictly the highest ideal score of all posts and as a result, $\forall
+    \postlist'$ that contains the same posts as $\postlist$ and
+    $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is
+    $\postlist'\left[1\right] = \postlist\left[2\right]$.
+
+    The first $k - 1$ and the last two players vote first for
+    $\postlist\left[1\right]$ and then for $\postlist\left[2\right]$, whereas
+    players $k, \dots, 2k - 2$ vote first for $\postlist\left[2\right]$ and then
+    for $\postlist\left[1\right]$, thus at the end of the execution,
+    \begin{gather*}
+      \mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) = \left(k -
+      1\right)\left(a + b\right) + 2\left(\gamma a + b\right) + \left(k -
+      1\right)\left(\left(\gamma - \epsilon\right)\rvp a + b\right) \enspace, \\
+      \mathrm{sc}_{\rounds}\left(\postlist\left[2\right]\right) = \left(k -
+      1\right)\left(a + b\right) + \left(k + 1\right)\left(\gamma \rvp a +
+      b\right) \enspace.
+    \end{gather*}
+    Given the bound on $\epsilon$, it is
+    $\mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) >
+    \mathrm{sc}_{\rounds}\left(\postlist\left[2\right]\right)$, thus
+    $\mathrm{Ideal}^1\left(\postlist_{\rounds}\right)$ does not hold.
+
+    Second, we consider the case when $\playerlen$ is odd: $\exists k \in
+    \mathbb{N}: \playerlen = 2k + 1$. Let $0 < \gamma < 1, 0 <
+    \epsilon < \gamma \frac{1 - \rvp}{k\rvp}$,
+    \begin{gather*}
+      \weakpost = \left(1, \left(\underbrace{1, \dots, 1}_{k},
+      \underbrace{\gamma - \epsilon, \dots, \gamma - \epsilon}_{k},
+      \gamma\right)\right) \enspace, \\
+      \strongpost = \left(1, \left(\underbrace{\gamma, \dots, \gamma}_{k},
+      \underbrace{1, \dots, 1}_{k}, \gamma\right)\right) \enspace, \\
+      \postlist = \left[\weakpost, \strongpost, \underbrace{\nullpost, \dots,
+      \nullpost}_{\postlen - 2}\right] \enspace.
+    \end{gather*}
+    We first observe that $\forall j \in \left\{3, \dots, \postlen\right\},
+    \idsc{\postlist\left[j\right]} = 0 < \idsc{\postlist\left[1\right]} = k +
+    k\left(\gamma - \epsilon\right) + \gamma = k + \left(k + 1\right)\gamma
+    -k\epsilon < k + \left(k + 1\right)\gamma = \idsc{\postlist\left[2\right]}$,
+    thus the strong post has strictly the highest ideal score of all posts and
+    as a result, $\forall \postlist'$ that contains the same posts as
+    $\postlist$ and $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is
+    $\postlist'\left[1\right] = \postlist\left[2\right]$.
+
+    The first $k$ and the last player vote first for $\postlist\left[1\right]$
+    and then for $\postlist\left[2\right]$, whereas players $k + 1, \dots, 2k$
+    vote first for $\postlist\left[2\right]$ and then for
+    $\postlist\left[1\right]$, thus at the end of the execution,
+    \begin{gather*}
+      \mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) = k\left(a +
+      b\right) + \gamma a + b + k\left(\left(\gamma - \epsilon\right)\rvp a +
+      b\right) \enspace, \\
+      \mathrm{sc}_{\rounds}\left(\postlist\left[2\right]\right) = k\left(a +
+      b\right) + \left(k + 1\right)\left(\gamma \rvp a + b\right) \enspace.
+    \end{gather*}
+    Given the bound on $\epsilon$, it is
+    $\mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) >
+    \mathrm{sc}_{\rounds}\left(\postlist\left[2\right]\right)$, thus
+    $\mathrm{Ideal}^1\left(\postlist_{\rounds}\right)$ does not hold.
+
+    Last but not least, we consider the case when $\playerlen = 2$. In this
+    case, let $0 < \gamma < 1$ and
+    \begin{equation*}
+      \postlist = \left[\left(1, \left(1, 0\right)\right), \left(1,
+      \left(\gamma, 1 - \gamma\frac{1 + \rvp}{2}\right)\right),
+      \underbrace{\nullpost, \dots, \nullpost}_{\postlen - 2}\right] \enspace.
+    \end{equation*}
+    It is $\forall j \in \left\{3, \dots, \postlen\right\},
+    \idsc{\postlist\left[j\right]} = 0 < \idsc{\postlist\left[1\right]} = 1
+    \overset{\rvp < 1}{<} 1 + \gamma\frac{1 - \rvp}{2} = \gamma + 1 -
+    \gamma\frac{1 +\rvp}{2} = \idsc{\postlist\left[2\right]}$, thus
+    $\postlist\left[2\right]$ has strictly the highest ideal score of all posts
+    and as a result, $\forall \postlist'$ that contains the same posts as
+    $\postlist$ and $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is
+    $\postlist'\left[1\right] = \postlist\left[2\right]$.
+
+    On the other hand,
+    $\mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) = a + 2b > \gamma
+    \rvp a + b + \left(1 - \gamma \frac{1 + \rvp}{2}\right) a + b =
+    \mathrm{sc}_{\rounds}\left(\postlist\left[2\right]\right)$, thus
+    $\mathrm{Ideal}^1\left(\postlist_{\rounds}\right)$ does not hold.
   \end{itemize}
 \end{proof}
