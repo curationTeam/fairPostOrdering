@@ -138,43 +138,39 @@
       \enspace,
     \end{equation*}
     i.e. $i$ is the first round in which $u_\pid$ votes with less than full
-    voting power. Such a round exists when $\rounds \geq \postlen \vee
-    \ceil*{\frac{a + b}{\regen}} \geq 2$ as we will show now. Note that, since
-    the first round is a voting round and the voting power of all players is
-    full at the beginning, if $i$ exists it is $i \geq 2$.
+    voting power. Such a round exists in every case as we will show now. Note
+    that, since the first round is a voting round and the voting power of all
+    players is full at the beginning, if $i$ exists it is $i \geq 2$.
 
     \begin{itemize}
-      \item $\rounds \geq \postlen$. In this case, $\votenum = \postlen$. If
+      \item If $\rounds \geq \postlen$, it is $\votenum = \postlen$. If
       $\nexists i \in \left[\postlen\right] :\left(\votpowvecreg_{\pid,
-      \round_i} < 1 \wedge \nexists i' < i: \votpowvecreg_{\pid, \round_{i'}}
-      < 1\right)$, then $\forall i \in \left[\postlen\right],
-      \votpowvecreg_{\pid, \round_i} = 1 \Rightarrow \forall i \in
-      \left[\postlen\right] \setminus \left\{1\right\}, \round_i \geq
-      \round_{i - 1} + \ceil*{\frac{a + b}{\regen}}$ to have enough rounds to
-      replenish the voting power after a full-weight, full-voting power vote.
-      Thus $\round_\postlen \geq 1 + \left(\postlen - 1\right)\ceil*{\frac{a +
-      b}{\regen}} > \rounds$, contradiction.
+      \round_i} < 1 \wedge \nexists i' < i: \votpowvecreg_{\pid, \round_{i'}} <
+      1\right)$, then $\forall i \in \left[\postlen\right], \votpowvecreg_{\pid,
+      \round_i} = 1 \Rightarrow \forall i \in \left[\postlen\right] \setminus
+      \left\{1\right\}, \round_i \geq \round_{i - 1} + \ceil*{\frac{a +
+      b}{\regen}}$ to have enough rounds to replenish the voting power after a
+      full-weight, full-voting power vote. Thus $\round_\postlen \geq 1 +
+      \left(\postlen - 1\right)\ceil*{\frac{a + b}{\regen}} > \rounds$,
+      contradiction.
 
-      \item \begin{equation}
+      \item If $\rounds < \postlen$, every player votes on all rounds, thus $r_2
+      = 2$. Note that
+      \begin{equation}
         \label{conv:proof:normalregen}
         \ceil*{\frac{a + b}{\regen}} \geq 2 \Rightarrow \frac{a + b}{\regen} >
         1 \Rightarrow a + b > \regen\enspace.
       \end{equation}
-      If $\rounds \geq \postlen$, refer to the previous case. If $\rounds <
-      \postlen$, every player votes on all rounds, thus $r_2 = 2$ and $\forall
-      \pid \in \left[\playerlen\right], \votpowvecreg_{\pid, r_2} = 1 - a - b
-      + \regen \overset{(\ref{conv:proof:normalregen})}{<} 1$, thus $i = 2$.
+      Thus $\forall \pid \in \left[\playerlen\right], \votpowvecreg_{\pid, r_2}
+      = 1 - a - b + \regen \overset{(\ref{conv:proof:normalregen})}{<} 0$, thus
+      $i = 2$.
     \end{itemize}
-    We proved that $\rounds \geq \postlen \vee \ceil*{\frac{a + b}{\regen}} \geq
-    2 \Rightarrow i$ exists. We cover the case when $\left(\postlen - \attspan <
-    \rounds < \postlen\right) \wedge \ceil*{\frac{a + b}{\regen}} = 1$ later.
-
-    Since all players follow the same voting pattern, the voting power of all
-    players in each round is the same. Let $\rvp = \votpowvecreg_{1, \round_i}$.
-    Assume that $\attspan < i \vee i > 2$. We cover the case when $\rounds \geq
-    \postlen \vee \ceil*{\frac{a + b}{\regen}} \geq 2 \wedge \attspan \geq i
-    \wedge i = 2$ later. In case $\playerlen$ is even, let $0 < \gamma < 1, 0 <
-    \epsilon < \gamma\left(1 - \rvp\right)$,
+    We proved that $i$ exists. Since all players follow the same voting pattern,
+    the voting power of all players in each round is the same. Let $\rvp =
+    \votpowvecreg_{1, \round_i}$. Assume that $\attspan < i \vee i > 2$. We
+    cover the case where $\attspan \geq i \wedge i = 2$ later. In case
+    $\playerlen$ is even, let $0 < \gamma < 0, 0 < \epsilon < \gamma\left(1 -
+    \rvp\right)$,
 
     \begin{gather*}
       \weakpost = \left(1, \left(\underbrace{1, \dots, 1}_{\playerlen/2},
@@ -301,60 +297,7 @@
     \mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right)$, thus
     $\mathrm{Ideal}^1\left(\postlist_{\rounds}\right)$ does not hold.
 
-    We finally cover the two edge cases that were left untreated previously.
-    \begin{itemize}
-      \item $\left(\postlen - \attspan < \rounds < \postlen\right) \wedge
-      \ceil*{\frac{a + b}{\regen}} = 1$
-
-      In this case, every player votes $\rounds$ different posts, every vote is
-      cast with full voting power (since $\ceil*{\frac{a + b}{\regen}} = 1$) and
-      every post eventually is in every player's attetion span at some moment in
-      time. Let $\nichepostnum = \min{\left\{\playerlen, \postlen
-      - 1\right\}}, \gamma = TODO$,
-      \begin{gather*}
-        \bestpost{i} = \left(1, \left(\underbrace{\gamma, \dots, \gamma}_{i},
-        \underbrace{0, \dots, 0}_{\playerlen - i}\right)\right) \\
-        \nichepost{i} = \left(1, \left(\underbrace{0, \dots, 0}_{i - 1}, 1,
-        \underbrace{0, \dots, 0}_{\playerlen - i}\right)\right) \text{ and} \\
-        \postlist = \left[\nichepost{1}, \dots, \nichepost{\nichepostnum},
-        \bestpost{\nichepostnum}, \underbrace{\nullpost, \dots,
-        \nullpost}_{\max{\left\{0, \postlen - \playerlen - 1\right\}}}\right]
-        \enspace.
-      \end{gather*}
-      We observe that $\forall i \in \left[\nichepostnum\right],
-      \idsc{\postlist\left[\nichepostnum + 1\right]} = \nichepostnum \gamma >
-      \idsc{\postlist\left[i\right]} = 1$ and $\forall i \in
-      \left\{\nichepostnum + 2, \dots, \postlen\right\},
-      \idsc{\postlist\left[\nichepostnum + 1\right]} = \nichepostnum \gamma >
-      \idsc{\postlist\left[i\right]} = 0$, thus the best post has strictly the
-      highest ideal score of all posts and as a result, $\forall \postlist'$
-      that contains the same posts as $\postlist$ and
-      $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is
-      $\postlist'\left[1\right] = \postlist\left[\nichepostnum + 1\right]$.
-
-      Since every post gets a chance to be voted by every player, each player
-      votes for her preferred $\rounds$ posts. If $\rounds = 1$ then $\forall
-      \pid \in \left[\nichepostnum\right], u_\pid$ votes only for
-      $\postlist\left[\pid\right]$ and $\forall \pid \in \left\{\nichepostnum +
-      1, \dots, \playerlen\right\}, u_\pid$ votes only for
-      $\postlist\left[1\right]$. Thus
-      $\mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) \geq a + b > 0
-      = \mathrm{sc}_{\rounds}\left(\postlist\left[\nichepostnum +
-      1\right]\right)$, thus $\mathrm{Ideal}^1\left(\postlist_{\rounds}\right)$
-      does not hold.
-
-      If $\rounds \geq 2$, then $\forall \pid \in \left[\nichepostnum\right],
-      u_\pid$ votes at least for $\postlist\left[\pid\right]$ and
-      $\postlist\left[\nichepostnum + 1\right]$. Furthermore $\forall \pid \in
-      \left\{\nichepostnum + 1, \dots, \playerlen\right\}, u_\pid$ votes
-      certainly for $\postlist\left[1\right]$ and may vote for
-      $\postlist\left[\nichepostnum +1\right]$, thus
-      $\mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) =
-      \nichepostnum$
-
-      \item $\rounds \geq \postlen \vee \ceil*{\frac{a + b}{\regen}} \geq 2
-      \wedge \attspan \geq i \wedge i = 2$
-    \end{itemize}
-
+    We finally cover the previously untreated edge case where $\attspan \geq i
+    \wedge i = 2$.
   \end{itemize}
 \end{proof}
