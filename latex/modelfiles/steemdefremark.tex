@@ -1,0 +1,14 @@
+\begin{remark}
+  The constraint $a + b < 1$ ensures that a single vote of full weight cast by a
+  player with full voting power does not completely deplete her voting power.
+  The constraint $\ceil*{\frac{a + b}{\regen}} \geq 2$ excludes the degenerate
+  case in which the regeneration of a single round is enough to fully replenish
+  the voting power in all cases; in this case the purpose of voting power would
+  be defeated.
+\end{remark}
+
+\begin{remark}
+  The Steem blockchain protocol defines $a = 0.0001, b = 0.02, \regen =
+  \frac{3}{5 \cdot 24 \cdot 60 \cdot 60} = 0.0000069\bar{4}$, thus
+  $\ceil*{\frac{a + b}{\regen}} = 2895$.
+\end{remark}
