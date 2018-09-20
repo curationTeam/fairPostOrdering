@@ -26,7 +26,7 @@ class Player:
 
     def set_strategy(self, strategy):
         """
-        Set core strategy of the player (e.g. honest or greedy).
+        Set core strategy of the player (e.g. honest or selfish).
         """
         self.strategy = strategy
 

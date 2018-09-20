@@ -19,9 +19,9 @@ def plot(x, y, kind):
     plt.savefig(name)
     plt.show()
 
-def all_votes_submitted(not_greedy_player_no, posts):
+def all_votes_submitted(not_selfish_player_no, posts):
     for post in posts:
-        if len(post.voters) < not_greedy_player_no:
+        if len(post.voters) < not_selfish_player_no:
             return False
     return True
 
@@ -59,9 +59,9 @@ def main():
 
         append_results(rounds, i, t_similar_list, t_similar, spearman_list,
                        spearman, kendall_tau_list, kendall_tau)
-        not_greedy_player_no = noProfiles[0] + noProfiles[2]
+        not_selfish_player_no = noProfiles[0] + noProfiles[2]
         # next rounds will be the same
-        if all_votes_submitted(not_greedy_player_no, posts):
+        if all_votes_submitted(not_selfish_player_no, posts):
             for j in range(i, noRound):
                 append_results(rounds, j, t_similar_list, t_similar,
                                spearman_list, spearman, kendall_tau_list, kendall_tau)
