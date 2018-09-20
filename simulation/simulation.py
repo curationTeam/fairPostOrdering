@@ -75,20 +75,6 @@ class Simulation:
             profile_index += 1
         return players
 
-    # Initialize posts
-    def init_posts(self, players):
-        posts = []
-        players_ids = list(range(0, len(players)))
-        for player in players:
-            # users do not create posts
-            if str(player.strategy) != "user":
-                assert (str(player.strategy) == "honest" or str(player.strategy) == "greedy")
-                post = player.create_post(player.quality, players_ids)
-                posts.append(post)
-
-        return posts
-
-
     def execute(self):
         for r in range(0, self.rounds):
             for player in self.players:
