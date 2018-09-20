@@ -12,9 +12,10 @@ class Player:
         attention(int) - Number of posts that the player can view in a round.
     """
 
-    def __init__(self, id, type, sp, attention, a, b, regen, rounds, noPost):
+    def __init__(self, id, type, sp, attention, a, b, regen, rounds, noPost,
+            ring_leader_id = None):
         self.id = id
-        self.strategy = Strategy(type, id)
+        self.strategy = Strategy(type, id, ring_leader_id)
         self.sp = sp
         self.vp = 1
         self.attention = attention

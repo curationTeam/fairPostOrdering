@@ -13,9 +13,17 @@ class Strategy:
     min_vp(int) - It is the minimum voting power threshold the player is willing to reach.
     """
 
-    def __init__(self, type_strategy, id):
+    def __init__(self, type_strategy, id, ring_leader_id = None):
+        assert(type_strategy in ["honest", "user", "greedy"])
+        if type_strategy in ["honest", "user"]:
+            assert(ring_leader_id is None)
+        else:
+            assert(isinstance(ring_leader_id, int))
+
         self.type_strategy = type_strategy
         self.id = id
+        self.ring_leader_id = ring_leader_id
+        self.greedy_has_voted = False
 
     def vote(self, posts, attention):
         """
@@ -34,11 +42,18 @@ class Strategy:
             else:
                 return False, False
 
-        elif self.type_strategy == "greedy": #WIP---------
-            for post in posts:
-                if (post.author_id == self.id and self.id not in post.voters):
-                    return post, 1
+        elif self.type_strategy == "greedy":
+            if not self.greedy_has_voted:
+                for post in posts:
+                    if (post.author_id == self.ring_leader_id and
+                            self.id not in post.voters):
+                        self.greedy_has_voted = True
+                        return post, 1
+                    elif (post.author_id == self.ring_leader_id and
+                            self.id in post.voters):
+                        raise Error("Optimisation with self.greedy_has_voted failed")
             return False, False
+        raise ValueError("type_strategy should be \"honest\", \"user\" or \"greedy\".")
 
     def get_short_list(self, posts, attention):
         """
