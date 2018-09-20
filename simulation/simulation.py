@@ -89,14 +89,14 @@ class Simulation:
         return posts
 
 
-    def execute(self, players, posts):
+    def execute(self):
         for r in range(0, self.rounds):
-            for player in players:
+            for player in self.players:
                 player.regenerate_vp() # TODO: We have to define "regen" in terms of the rounds
-                player.vote(r, posts)
+                player.vote(r, self.posts)
 
-            posts.sort(key = lambda x: x.real_score, reverse = True)
-            yield players, posts
+            self.posts.sort(key = lambda x: x.real_score, reverse = True)
+            yield self.players, self.posts
 
     # Return a list with the author_id of the posts
     def display_list(self, posts):

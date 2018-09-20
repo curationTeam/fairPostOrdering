@@ -44,15 +44,14 @@ def main():
     lik_mat = get_random_likabilities()
 
     sim = Simulation(sp, noRound, noProfiles, a, b, regen_time, att_span, lik_mat, seed)
-    #players, posts = sim.init_setup(seed)
-    gen = sim.execute(sim.players, sim.posts)
+    gen = sim.execute()
     for i in range(0, noRound):
         players, posts = next(gen)
         t_similar, spearman, kendall_tau = sim.results(posts)
 
         append_results(rounds, i, t_similar_list, t_similar, spearman_list,
                        spearman, kendall_tau_list, kendall_tau)
-        if all_votes_submitted(players, posts): # next simulations will be the same
+        if all_votes_submitted(players, posts): # next rounds will be the same
             for j in range(i, noRound):
                 append_results(rounds, j, t_similar_list, t_similar,
                                spearman_list, spearman, kendall_tau_list, kendall_tau)
