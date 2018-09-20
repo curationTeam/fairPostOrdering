@@ -32,8 +32,13 @@ def append_results(rounds, i, t_similar_list, t_similar, spearman_list,
     kendall_tau_list.append(kendall_tau)
 
 def get_random_likabilities():
-    return [[random.betavariate((i+j+2)/(noRound/5000), (i*i+2*j*j*j/3+1)/(noRound/5)) for i in range(0, sum(noProfiles))]
-           for j in range(0, noProfiles[0] + noProfiles[1])]
+    return [
+            [random.betavariate(
+                (i+j+2)/(noRound/5000),
+                (i*i+2*j*j*j/3+1)/(noRound/5)
+            ) for i in range(0, sum(noProfiles))]
+            for j in range(0, noProfiles[0] + noProfiles[1])
+           ]
 
 def main():
     seed = random.randint(0, 1000)
