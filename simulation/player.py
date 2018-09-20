@@ -1,4 +1,4 @@
-from math import floor
+from math import floor, ceil
 from post import Post
 from strategy import Strategy
 
@@ -52,11 +52,14 @@ class Player:
 
     def buildVoteRounds(self, R, noPost):
         voteRounds = set()
-        for i in range(0, R):
-            voteRound = floor(i * (R - 1) / (noPost - 1))
-            if voteRound > R:
-                break
-            voteRounds.add(voteRound)
+        # if there are many rounds,
+        # leave isVoteRound() to vote when vp is full
+        if R - 1 < (noPost - 1)*ceil((self.a + self.b) / self.regen):
+            for i in range(0, R):
+                voteRound = floor(i * (R - 1) / (noPost - 1))
+                if voteRound > R:
+                    break
+                voteRounds.add(voteRound)
         return voteRounds
 
     def isVoteRound(self, r, voteRounds):
