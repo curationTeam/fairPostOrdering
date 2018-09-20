@@ -48,6 +48,17 @@ def get_random_likabilities(choice):
             likabilities[-1][i] = max(0, likabilities[-1][i] - 0.3)
     return likabilities
 
+def position_of_post(author_id, posts):
+    for i in range(0, len(posts)):
+        if posts[i].author_id == author_id:
+            return i
+
+def real_position_of_post(author_id, sim):
+    return position_of_post(author_id, sim.posts)
+
+def ideal_position_of_post(author_id, sim):
+    ideal_posts = sim.sort_by_ideal_score(sim.posts)
+    return position_of_post(author_id, ideal_posts)
 
 def main():
     seed = random.randint(0, 1000)
@@ -79,6 +90,12 @@ def main():
     plot(rounds, t_similar_list, "t_similarity")
     plot(rounds, spearman_list, "spearman")
     plot(rounds, kendall_tau_list, "kendall_tau")
+
+    if noProfiles[1] > 0: # if there exist selfish players
+        ideal_pos = ideal_position_of_post(noProfiles[0], sim)
+        real_pos = real_position_of_post(noProfiles[0], sim)
+        print("Ideal position of selfish post:", ideal_pos)
+        print("Real position of selfish post:", real_pos)
 
 if __name__== "__main__":
     main()
