@@ -9,6 +9,7 @@ b = 0.1
 regen_time = 3 / (5*24*60) # as in Steem
 att_span = 10
 noRound = 50000
+choice = 0 # 0 for uniform, 1 for beta
 
 def plot(x, y, kind):
     plt.plot(x, y)
@@ -31,14 +32,17 @@ def append_results(rounds, i, t_similar_list, t_similar, spearman_list,
     spearman_list.append(spearman)
     kendall_tau_list.append(kendall_tau)
 
-def get_random_likabilities():
-    return [
+def get_random_likabilities(choice):
+    if choice: return [
             [random.betavariate(
-                (i+j+2)/(noRound/5000),
+                (i+j+2)/(noRound/500),
                 (i*i+2*j*j*j/3+1)/(noRound/5)
             ) for i in range(0, sum(noProfiles))]
-            for j in range(0, noProfiles[0] + noProfiles[1])
-           ]
+            for j in range(0, noProfiles[0] + noProfiles[1])]
+
+    return [[random.uniform(0, 1)
+                for i in range(0, sum(noProfiles))]
+            for j in range(0, noProfiles[0] + noProfiles[1])]
 
 def main():
     seed = random.randint(0, 1000)
@@ -46,7 +50,7 @@ def main():
     spearman_list = []
     kendall_tau_list = []
     rounds = []
-    lik_mat = get_random_likabilities()
+    lik_mat = get_random_likabilities(choice)
 
     sim = Simulation(sp, noRound, noProfiles, a, b, regen_time, att_span, lik_mat, seed)
     gen = sim.execute()
