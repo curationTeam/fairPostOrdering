@@ -35,13 +35,19 @@ def append_results(rounds, i, t_similar_list, t_similar, spearman_list,
 def get_random_likabilities(choice):
     profile_indexes = range(0, sum(noProfiles))
     post_indexes = range(0, noProfiles[0] + bool(noProfiles[1]))
-    if choice: return [[random.betavariate(
+    if choice:
+        likabilities =  [[random.betavariate(
                 (i+j+2)/(noRound/500),
                 (i*i+2*j*j*j/3+1)/(noRound/5))
             for i in profile_indexes] for j in post_indexes]
+    else:
+        likabilities = [[random.uniform(0, 1)
+            for i in profile_indexes] for j in post_indexes]
+    if noProfiles[1] > 0: # handicap selfish post
+        for i in range(0, sum(noProfiles)):
+            likabilities[-1][i] = max(0, likabilities[-1][i] - 0.3)
+    return likabilities
 
-    return [[random.uniform(0, 1)
-                for i in profile_indexes] for j in post_indexes]
 
 def main():
     seed = random.randint(0, 1000)
