@@ -131,9 +131,9 @@ class Simulation:
         print('KendallTau:', stats.kendalltau(ideal_score_sorted, order_posts)[0])
 
     # Calculate t-similarity, spearman and kendall-tau correlation coefficient
-    def results(self, posts):
-        order_posts = self.get_names(posts)
-        sorted_by_ideal_order = self.get_names(self.sort_by_ideal_score(posts))
+    def stats(self):
+        order_posts = self.get_names(self.posts)
+        sorted_by_ideal_order = self.get_names(self.sort_by_ideal_score(self.posts))
         spearman = stats.spearmanr(sorted_by_ideal_order, order_posts)[0]
         kendall_tau = stats.kendalltau(sorted_by_ideal_order, order_posts)[0]
         t_similar = self.t_similarity(sorted_by_ideal_order, order_posts)

@@ -47,7 +47,7 @@ def main():
     gen = sim.execute()
     for i in range(0, noRound):
         players, posts = next(gen)
-        t_similar, spearman, kendall_tau = sim.results(posts)
+        t_similar, spearman, kendall_tau = sim.stats()
 
         append_results(rounds, i, t_similar_list, t_similar, spearman_list,
                        spearman, kendall_tau_list, kendall_tau)
