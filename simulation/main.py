@@ -19,10 +19,19 @@ def plot(x, y, kind):
     plt.savefig(name)
     plt.show()
 
-def all_votes_submitted(not_selfish_player_no, posts):
-    for post in posts:
-        if len(post.voters) < not_selfish_player_no:
+def all_votes_submitted(honest_no, not_selfish_no, selfish_no, posts, sim):
+    selfish_post_pos = real_position_of_post(honest_no, sim)
+    for post in posts[:selfish_post_pos]:
+        if len(post.voters) != not_selfish_no:
             return False
+
+    if len(posts[selfish_post_pos].voters) != not_selfish_no + selfish_no:
+        return False
+
+    for post in posts[selfish_post_pos + 1:]:
+        if len(post.voters) != not_selfish_no:
+            return False
+
     return True
 
 def append_results(rounds, i, t_similar_list, t_similar, spearman_list,
@@ -76,9 +85,9 @@ def main():
 
         append_results(rounds, i, t_similar_list, t_similar, spearman_list,
                        spearman, kendall_tau_list, kendall_tau)
-        not_selfish_player_no = noProfiles[0] + noProfiles[2]
+        not_selfish_no = noProfiles[0] + noProfiles[2]
         # next rounds will be the same
-        if all_votes_submitted(not_selfish_player_no, posts):
+        if all_votes_submitted(noProfiles[0], not_selfish_no, noProfiles[1], posts, sim):
             for j in range(i, noRound):
                 append_results(rounds, j, t_similar_list, t_similar,
                                spearman_list, spearman, kendall_tau_list, kendall_tau)
