@@ -77,6 +77,7 @@ class Player:
         if self.isVoteRound(r, self.voteRounds):
             post, weight = self.strategy.vote(posts, self.attention)
             if post:
+                assert(self.id not in post.voters)
                 post.real_score += self.calculate_vote_score(weight)
                 post.voters.add(self.id)
                 self.spend_vp(weight)
