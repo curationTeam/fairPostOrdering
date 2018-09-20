@@ -120,6 +120,15 @@ class Simulation:
     def sort_by_ideal_score(self, posts):
         return sorted(posts, key=lambda x: x.ideal_score, reverse = True)
 
+    def t_similarity(self, ideal_list, real_list):
+        assert(len(ideal_list) == len(real_list))
+        res = 0
+        for i in range(0, len(ideal_list)):
+            if ideal_list[i] == real_list[i]:
+                res += 1
+            else: break
+        return res
+
     # Print results of execution
     def print_result(self, posts):
         order_posts = self.display_list(posts)
@@ -134,15 +143,10 @@ class Simulation:
 
     # Calculate t-similarity, spearman and kendall-tau correlation coefficient
     def results(self, posts):
-        t_similar = 0
         order_posts = self.get_names(posts)
         sorted_by_ideal_order = self.get_names(self.sort_by_ideal_score(posts))
         spearman = stats.spearmanr(sorted_by_ideal_order, order_posts)[0]
         kendall_tau = stats.kendalltau(sorted_by_ideal_order, order_posts)[0]
-
-        for i in range(0, len(posts)):
-            if order_posts[i] == sorted_by_ideal_order[i]:
-                t_similar += 1
-            else: break
+        t_similar = self.t_similarity(sorted_by_ideal_order, order_posts)
 
         return t_similar, spearman, kendall_tau
