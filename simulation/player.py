@@ -12,9 +12,10 @@ class Player:
         attention(int) - Number of posts that the player can view in a round.
     """
 
-    def __init__(self, id, type, sp, attention, a, b, regen, rounds, noPost):
+    def __init__(self, id, type, sp, attention, a, b, regen, rounds, noPost,
+            ring_leader_id = None):
         self.id = id
-        self.strategy = Strategy(type, id)
+        self.strategy = Strategy(type, id, ring_leader_id)
         self.sp = sp
         self.vp = 1
         self.attention = attention
@@ -25,7 +26,7 @@ class Player:
 
     def set_strategy(self, strategy):
         """
-        Set core strategy of the player (e.g. honest or greedy).
+        Set core strategy of the player (e.g. honest or selfish).
         """
         self.strategy = strategy
 
@@ -77,6 +78,7 @@ class Player:
         if self.isVoteRound(r, self.voteRounds):
             post, weight = self.strategy.vote(posts, self.attention)
             if post:
+                assert(self.id not in post.voters)
                 post.real_score += self.calculate_vote_score(weight)
                 post.voters.add(self.id)
                 self.spend_vp(weight)
