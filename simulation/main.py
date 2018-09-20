@@ -19,12 +19,10 @@ def plot(x, y, kind):
     plt.show()
 
 def all_votes_submitted(players, posts):
-    all_votes = True
     for post in posts:
         if len(post.voters) != len(players): # TODO: incompatible with greedy
-            all_votes = False
-            break
-    return all_votes
+            return False
+    return True
 
 def append_results(rounds, i, t_similar_list, t_similar, spearman_list,
                    spearman, kendall_tau_list, kendall_tau):
