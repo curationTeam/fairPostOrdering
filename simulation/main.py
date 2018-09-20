@@ -31,16 +31,21 @@ def append_results(rounds, i, t_similar_list, t_similar, spearman_list,
     spearman_list.append(spearman)
     kendall_tau_list.append(kendall_tau)
 
+def get_random_likabilities():
+    return [[random.betavariate((i+j+2)/(noRound/5000), (i*i+2*j*j*j/3+1)/(noRound/5)) for i in range(0, sum(noProfiles))]
+           for j in range(0, noProfiles[0] + noProfiles[1])]
+
 def main():
     seed = random.randint(0, 1000)
     t_similar_list = []
     spearman_list = []
     kendall_tau_list = []
     rounds = []
+    lik_mat = get_random_likabilities()
 
-    sim = Simulation(sp, noRound, noProfiles, a, b, regen_time, att_span)
-    players, posts = sim.init_setup(seed)
-    gen = sim.execute(players, posts)
+    sim = Simulation(sp, noRound, noProfiles, a, b, regen_time, att_span, lik_mat, seed)
+    #players, posts = sim.init_setup(seed)
+    gen = sim.execute(sim.players, sim.posts)
     for i in range(0, noRound):
         players, posts = next(gen)
         t_similar, spearman, kendall_tau = sim.results(posts)
