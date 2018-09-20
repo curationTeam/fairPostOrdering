@@ -2,14 +2,14 @@ import random
 from simulation import Simulation
 import matplotlib.pyplot as plt
 
-noProfiles = (200, 0, 100)
+noProfiles = (9, 1, 20)
 sp = (1,) * sum(noProfiles)
-a = 5/200
+a = 1/200
 b = 0.1
 regen_time = 3 / (5*24*60) # as in Steem
 att_span = 10
-noRound = 50000
-choice = 0 # 0 for uniform, 1 for beta
+noRound = 200000
+choice = 1 # 0 for uniform, 1 for beta
 
 def plot(x, y, kind):
     plt.plot(x, y)
