@@ -31,7 +31,7 @@ convergence}
     \in \left[\postlen\right], \votpowvec_{\pid, r_i} = 1$.
 
     \begin{itemize}
-      \item For $i = 1, \votpowvec_{\pid, 1} = 1$ by
+      \item For $i = 1, \votpowvec_{\pid, 1} = 1$
       (Algorithm~\ref{alg:steem:init}, line~\ref{alg:steem:init:vp}).
       \item Let $\votpowvec_{\pid, r_i} = 1$. Until $r_{i + 1}$, a single
       non-null vote is cast by $u_\pid$, which reduces $\votpowvec_{\pid}$ by at
@@ -47,20 +47,23 @@ convergence}
       (line~\ref{alg:steem:handlevote:regen}), thus $\votpowvec_{\pid, r_{i +
       1}} = 1$.
     \end{itemize}
-    Since the above holds for every $\pid \in \left[\playerlen\right]$, we have
+    Since the above holds for every $\pid \in \left[\playerlen\right]$, it holds
     that at the end of the execution, all votes have been cast with full voting
-    power, thus $\forall \post = \left(i, \like\right) \in \postlist_\rounds,
-    \mathrm{scores}_{p} = c\left(\playerlen b + a \sum\limits_{\pid =
-    1}^\playerlen \like_{\pid}\right)$ and the posts in $\postlist_R$ are sorted
-    by decreasing score (Algorithm~\ref{alg:steem:handlevote},
+    power, thus $\forall i \in \left[\postlen\right],
+    \mathrm{sc}_{\rounds}\left(\postlist\left[i\right]\right) =
+    c\left(\playerlen b + a \sum\limits_{\pid = 1}^\playerlen
+    \postlist\left[i\right]_{\pid}\right)$ and the posts in $\postlist_R$ are
+    sorted by decreasing score (Algorithm~\ref{alg:steem:handlevote},
     line~\ref{alg:steem:handlevote:order}). We observe that
     \begin{gather*}
-      \forall p_1 = \left(j^1, \like^1\right) \neq p_2 = \left(j^2,
-      \like^2\right) \in \postlist_R, \idsc{p_1} > \idsc{p_2} \Rightarrow \\
-      \sum\limits_{i = 1}^\playerlen \like^1_i > \sum\limits_{i = 1}^\playerlen
-      \like^2_i \Rightarrow c\left(\playerlen b + a \sum\limits_{i =
-      1}^\playerlen \like^1_i\right) > c\left(\playerlen b + a \sum\limits_{i =
-      1}^\playerlen \like^2_i\right) \enspace.
+      \forall i \neq j \in \left[\postlen\right], \idsc{\postlist\left[i\right]}
+      > \idsc{\postlist\left[j\right]} \Rightarrow \\
+      \sum\limits_{\pid = 1}^\playerlen \postlist\left[i\right]_\pid >
+      \sum\limits_{\pid = 1}^\playerlen \postlist\left[j\right]_\pid \Rightarrow
+      c\left(\playerlen b + a \sum\limits_{\pid = 1}^\playerlen
+      \postlist\left[i\right]_\pid\right) > c\left(\playerlen b + a
+      \sum\limits_{\pid = 1}^\playerlen \postlist\left[j\right]_\pid\right)
+      \enspace.
     \end{gather*}
     Thus all posts will be ordered according to their ideal scores; put
     otherwise, $\textsc{IdealScore}^M\left(\postlist_\rounds\right)$ holds.
