@@ -5,10 +5,12 @@
   \begin{algorithmic}[1]
     \State Store input parameters as constants
     \State $\round \gets 1$
-    \State $\mathrm{lastVoted} \gets \underbrace{\left(0, \dots, 0\right)}_{N}$
-    \State $\votpowvec \gets \underbrace{\left(1, \dots, 1\right)}_{N}$
+    \State $\mathrm{lastVoted} \gets \left(0, \dots, 0\right) \in
+    \left(\mathbb{N}^*\right)^\playerlen$
+    \State $\votpowvec \gets \left(1, \dots, 1\right) \in \left[0,
+    1\right]^\playerlen$
     \label{alg:steem:init:vp}
-    \State $\mathrm{scores} \gets \underbrace{\left(0, \dots,
-    0\right)}_{|\postlist|}$
+    \State $\mathrm{scores} \gets \left(0, \dots, 0\right) \in
+    \left(\mathbb{R}^{+}\right)^\postlen$
   \end{algorithmic}
 \end{algorithm}
