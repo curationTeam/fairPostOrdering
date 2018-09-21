@@ -85,6 +85,11 @@ convergence}
       \enspace. \nonumber
     \end{gather}
 
+    Several lists of posts will be defined in the rest of the proof. Given that,
+    when all players are honest, the creator of a post is irrelevant, we omit
+    the creator from the definition of posts to facilitate the exposition. Thus
+    every post will be defined as a tuple of likabilities.
+
     First, we consider the case when
     \begin{equation}
       \label{conv:proof:smallattspanrounds}
@@ -109,10 +114,8 @@ convergence}
     The above observation naturally leads us to the following counterexample:
     Let
     \begin{gather*}
-      \strongpost = \left(1, \left(\underbrace{1, \dots,
-      1}_{\playerlen}\right)\right) \\
-      \nullpost = \left(1, \left(\underbrace{0, \dots,
-      0}_{\playerlen}\right)\right) \\
+      \strongpost = \left(\underbrace{1, \dots, 1}_{\playerlen}\right) \\
+      \nullpost = \left(\underbrace{0, \dots, 0}_{\playerlen}\right) \\
       \postlist = \left[\underbrace{\nullpost, \dots, \nullpost}_{\postlen -
       1}, \strongpost\right]
     \end{gather*}
@@ -174,14 +177,13 @@ convergence}
     \rvp\right)$,
 
     \begin{gather*}
-      \weakpost = \left(1, \left(\underbrace{1, \dots, 1}_{\playerlen/2},
+      \weakpost = \left(\underbrace{1, \dots, 1}_{\playerlen/2},
       \underbrace{\gamma - \epsilon, \dots, \gamma -
-      \epsilon}_{\playerlen/2}\right)\right) \enspace, \\
-      \strongpost = \left(1, \left(\underbrace{\gamma, \dots,
-      \gamma}_{\playerlen/2}, \underbrace{1, \dots,
-      1}_{\playerlen/2}\right)\right) \enspace, \\
-      \nullpost = \left(1, \left(\underbrace{0, \dots,
-      0}_{\playerlen}\right)\right) \enspace, \\
+      \epsilon}_{\playerlen/2}\right) \enspace, \\
+      \strongpost = \left(\underbrace{\gamma, \dots, \gamma}_{\playerlen/2},
+      \underbrace{1, \dots, 1}_{\playerlen/2}\right) \enspace, \\
+      \nullpost = \left(\underbrace{0, \dots, 0}_{\playerlen}\right) \enspace,
+      \\
       \postlist = \left[\underbrace{\weakpost, \dots, \weakpost}_{i - 1},
       \strongpost, \underbrace{\nullpost, \dots, \nullpost}_{\postlen -
       i}\right] \enspace.
@@ -304,12 +306,11 @@ convergence}
     \setminus \left\{0, 1\right\}: \playerlen = 2k$. Let $0 < \gamma < 1, 0 <
     \epsilon < 2 \gamma \frac{1 - \rvp}{\left(k - 1\right)\rvp}$,
     \begin{gather*}
-      \weakpost = \left(1, \left(\underbrace{1, \dots, 1}_{k - 1},
-      \underbrace{\gamma - \epsilon, \dots, \gamma - \epsilon}_{k - 1}, \gamma,
-      \gamma\right)\right) \enspace, \\
-      \strongpost = \left(1, \left(\underbrace{\gamma, \dots, \gamma}_{k - 1},
-      \underbrace{1, \dots, 1}_{k - 1}, \gamma, \gamma\right)\right) \enspace,
-      \\
+      \weakpost = \left(\underbrace{1, \dots, 1}_{k - 1}, \underbrace{\gamma -
+      \epsilon, \dots, \gamma - \epsilon}_{k - 1}, \gamma, \gamma\right)
+      \enspace, \\
+      \strongpost = \left(\underbrace{\gamma, \dots, \gamma}_{k - 1},
+      \underbrace{1, \dots, 1}_{k - 1}, \gamma, \gamma\right) \enspace, \\
       \postlist = \left[\weakpost, \strongpost, \underbrace{\nullpost, \dots,
       \nullpost}_{\postlen - 2}\right] \enspace.
     \end{gather*}
@@ -344,11 +345,10 @@ convergence}
     \mathbb{N}: \playerlen = 2k + 1$. Let $0 < \gamma < 1, 0 <
     \epsilon < \gamma \frac{1 - \rvp}{k\rvp}$,
     \begin{gather*}
-      \weakpost = \left(1, \left(\underbrace{1, \dots, 1}_{k},
-      \underbrace{\gamma - \epsilon, \dots, \gamma - \epsilon}_{k},
-      \gamma\right)\right) \enspace, \\
-      \strongpost = \left(1, \left(\underbrace{\gamma, \dots, \gamma}_{k},
-      \underbrace{1, \dots, 1}_{k}, \gamma\right)\right) \enspace, \\
+      \weakpost = \left(\underbrace{1, \dots, 1}_{k}, \underbrace{\gamma -
+      \epsilon, \dots, \gamma - \epsilon}_{k}, \gamma\right) \enspace, \\
+      \strongpost = \left(\underbrace{\gamma, \dots, \gamma}_{k}, \underbrace{1,
+      \dots, 1}_{k}, \gamma\right) \enspace, \\
       \postlist = \left[\weakpost, \strongpost, \underbrace{\nullpost, \dots,
       \nullpost}_{\postlen - 2}\right] \enspace.
     \end{gather*}
@@ -380,9 +380,9 @@ convergence}
     Last but not least, we consider the case when $\playerlen = 2$. In this
     case, let $0 < \gamma < 1$ and
     \begin{equation*}
-      \postlist = \left[\left(1, \left(1, 0\right)\right), \left(1,
-      \left(\gamma, 1 - \gamma\frac{1 + \rvp}{2}\right)\right),
-      \underbrace{\nullpost, \dots, \nullpost}_{\postlen - 2}\right] \enspace.
+      \postlist = \left[\left(1, 0\right), \left(\gamma, 1 - \gamma\frac{1 +
+      \rvp}{2}\right), \underbrace{\nullpost, \dots, \nullpost}_{\postlen -
+      2}\right] \enspace.
     \end{equation*}
     It is $\forall j \in \left\{3, \dots, \postlen\right\},
     \idsc{\postlist\left[j\right]} = 0 < \idsc{\postlist\left[1\right]} = 1
