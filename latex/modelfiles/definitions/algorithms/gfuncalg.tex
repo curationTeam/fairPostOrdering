@@ -10,8 +10,8 @@
     \EndIndent
     \State
     \State Upon receiving (\texttt{read}) from $\player_{\pid}$:
-    \State $\playerlist \gets \playerlist \cup \left\{\player_{\pid}\right\}$
     \Indent
+      \State $\playerlist \gets \playerlist \cup \left\{\player_{\pid}\right\}$
       \State $\mathrm{aux} \gets \textsc{Aux}\left(\player_{\pid}\right)$
       \State Send (\texttt{posts}, $\postlist$, aux) to $\player_{\pid}$
     \EndIndent

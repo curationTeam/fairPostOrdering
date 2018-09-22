@@ -1,7 +1,8 @@
 \begin{definition}[Post-Voting System]
   \label{model:def:pvs}
-  A tuple $\pvs = \left(\textsc{Init}, \textsc{Aux}, \textsc{HandleVote},
-  \textsc{Vote}\right)$ of four algorithms. The four algorithms parametrize the
+  Consider four PPT algorithms $\textsc{Init}, \textsc{Aux},
+  \textsc{HandleVote}$ and $\textsc{Vote}$. The tuple $\mathcal{S}$ consisting
+  of the four algorithms is a Post-Voting System. $\mathcal{S}$ parametrizes the
   following two ITMs:
 
   $\gfunc$ is a global functionality that accepts two messages: \texttt{read},
