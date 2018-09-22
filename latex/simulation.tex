@@ -13,8 +13,13 @@ The second case tries to measure how resilient is the curation quality of Steemi
 
 \subsubsection*{Modeling greedy behavior}
 
-Explain here the rationale behind self-voting, voting rings, etc...
+Steem allows its users to self-vote. 
+Self-voting occurs when a user upvotes their own content. While this cannot be regarded as an intrinsic flaw in the protocol, if self-voting abusively is profitable, there are no incentives for rational players to follow the
+curation system defined in our model by the Likability distribution.
 
+ In Steem, users cannot vote more than once for the same piece of content, so greedy users can create dummy posts and constantly vote for them.
+In our model of section X, we establish the condition that users can create only one post at the beginning of the voting execution (see algo..).
+ Therefore, to replicate the effects of abusively self-voting, we introduce \textit{hub-and-spoke} voting rings, where a greedy user create a defined number sybil accounts which will vote for the post created by the selfish player.
 
 
 \subsection{Methodology}
@@ -26,9 +31,9 @@ To complement the convergence analysis for the top-t posts of the list, we use t
 \subsubsection*{Rank correlation coefficients}
 Maybe talk and put the formulas which define this coefficients.
 
-Kendall's Tau...blablabla
+\textbf{Kendall's Tau.} Blablabla
 
-Sperman's Rho...blablabla
+\textbf{Sperman's Rho.} Blablabla
 
 In addition to \textit{t-convergence} and the rank correlation coefficients used in the ``all-honest'' scenario, we include a \textit{selfish-rewards} metric to quantify how successful for the selfish players was deviating from the protocol. 
 In particular, we compare the position of the post created by a selfish(or greedy,dunno what's better) user with the ranking of the post following the ideal order of qualities. In this way, we are able to measure how advantageous is for users to behave greedily and how this behavior affects the overall quality of curation of the platform (i.e. using the rest of curation quality metrics previously defined).
@@ -42,3 +47,4 @@ The simulation scenario in which all users follow the established protocol is an
 
 
 \subsubsection{Scenario B: Selfish users}
+
