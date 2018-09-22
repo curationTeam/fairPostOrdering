@@ -1,12 +1,11 @@
 \begin{proof}
   \begin{itemize}
     \item ($\Leftarrow$) Suppose that
-    \begin{gather}
+    \begin{equation}
       \label{conv:proof:rev}
-      \rounds - 1 \geq \left(\postlen - 1\right)\ceil*{\frac{a+b}{\regen}} \\
-      \text{and } \forall i \in \left[\playerlen\right], \stpowvec_i = c
-      \enspace. \nonumber
-    \end{gather}
+      \rounds - 1 \geq \left(\postlen - 1\right)\ceil*{\frac{a+b}{\regen}}
+      \enspace.
+    \end{equation}
     Let $\pid \in \left[\playerlen\right]$. In this case it is $\rounds \geq
     \postlen$ and according to \textsc{VoteThisRound} in
     Algorithm~\ref{alg:steem:vote}, $u_{\pid}$ votes non-null in rounds
@@ -50,42 +49,41 @@
     that at the end of the execution, all votes have been cast with full voting
     power, thus $\forall i \in \left[\postlen\right],
     \mathrm{sc}_{\rounds}\left(\postlist\left[i\right]\right) =
-    c\left(\playerlen b + a \sum\limits_{\pid = 1}^\playerlen
-    \postlist\left[i\right]_{\pid}\right)$ and the posts in $\postlist_R$ are
-    sorted by decreasing score (Algorithm~\ref{alg:steem:handlevote},
+    \playerlen b + a \sum\limits_{\pid = 1}^\playerlen
+    \postlist\left[i\right]_{\pid}$ and the posts in $\postlist_R$ are sorted by
+    decreasing score (Algorithm~\ref{alg:steem:handlevote},
     line~\ref{alg:steem:handlevote:order}). We observe that
     \begin{gather*}
       \forall i \neq j \in \left[\postlen\right], \idsc{\postlist\left[i\right]}
       > \idsc{\postlist\left[j\right]} \Rightarrow \\
       \sum\limits_{\pid = 1}^\playerlen \postlist\left[i\right]_\pid >
       \sum\limits_{\pid = 1}^\playerlen \postlist\left[j\right]_\pid \Rightarrow
-      c\left(\playerlen b + a \sum\limits_{\pid = 1}^\playerlen
-      \postlist\left[i\right]_\pid\right) > c\left(\playerlen b + a
-      \sum\limits_{\pid = 1}^\playerlen \postlist\left[j\right]_\pid\right)
-      \enspace.
+      \\
+      \playerlen b + a \sum\limits_{\pid = 1}^\playerlen
+      \postlist\left[i\right]_\pid > \playerlen b + a \sum\limits_{\pid =
+      1}^\playerlen \postlist\left[j\right]_\pid \enspace.
     \end{gather*}
     Thus all posts will be ordered according to their ideal scores; put
     otherwise, $\textsc{IdealScore}^M\left(\postlist_\rounds\right)$ holds.
 
-    \item ($\stpowvec$ variable $\Rightarrow$ no convergence) Let $\postlist =
-    \left[\left(1, \left(a_1, \dots, a_\playerlen\right)\right), \left(1,
-    \left(b_1, \dots, b_\playerlen\right)\right), \left(1, \left(0, \dots,
-    0\right)\right), \dots, \left(1, \left(0, \dots, 0\right)\right)\right]$
-    such that the following linear constraints are simultaneously feasible:
-    \begin{gather*}
-      \sum\limits_{i=1}^\playerlen a_i > \sum\limits_{i=1}^\playerlen b_i \\
-      \sum\limits_{i=1}^\playerlen \stpow_i a_i < \sum\limits_{i=1}^\playerlen
-      \stpow_i  b_i
-    \end{gather*}
-    I think that's always possible if $\stpow$ is not constant.
-
-    \item (inequality doesn't hold $\Rightarrow$ no convergence) Suppose that
-    \begin{gather}
+%   \item ($\stpowvec$ variable $\Rightarrow$ no convergence) Let $\postlist =
+%   \left[\left(1, \left(a_1, \dots, a_\playerlen\right)\right), \left(1,
+%   \left(b_1, \dots, b_\playerlen\right)\right), \left(1, \left(0, \dots,
+%   0\right)\right), \dots, \left(1, \left(0, \dots, 0\right)\right)\right]$
+%   such that the following linear constraints are simultaneously feasible:
+%   \begin{gather*}
+%     \sum\limits_{i=1}^\playerlen a_i > \sum\limits_{i=1}^\playerlen b_i \\
+%     \sum\limits_{i=1}^\playerlen \stpow_i a_i < \sum\limits_{i=1}^\playerlen
+%     \stpow_i  b_i
+%   \end{gather*}
+%   I think that's always possible if $\stpow$ is not constant.
+%
+    \item ($\Rightarrow$) Suppose that
+    \begin{equation}
       \label{conv:proof:fewrounds}
-      \rounds - 1 < \left(\postlen - 1\right)\ceil*{\frac{a+b}{\regen}} \\
-      \text{and } \forall i \in \left[\playerlen\right], \stpowvec_i = c
-      \enspace. \nonumber
-    \end{gather}
+      \rounds - 1 < \left(\postlen - 1\right)\ceil*{\frac{a+b}{\regen}}
+      \enspace.
+    \end{equation}
 
     Several lists of posts will be defined in the rest of the proof. Given that,
     when all players are honest, the creator of a post is irrelevant, we omit
@@ -149,8 +147,8 @@
     players is full at the beginning, if $i$ exists it is $i \geq 2$.
 
     \begin{itemize}
-      \item If $\rounds \geq \postlen$, it is $\votenum = \postlen$. If
-      $\nexists i \in \left[\postlen\right] :\left(\votpowvecreg_{\pid,
+      \item If $\rounds \geq \postlen$, it is $\votenum = \postlen$. \\
+      If $\nexists i \in \left[\postlen\right] :\left(\votpowvecreg_{\pid,
       \round_i} < 1 \wedge \nexists i' < i: \votpowvecreg_{\pid, \round_{i'}} <
       1\right)$, then $\forall i \in \left[\postlen\right], \votpowvecreg_{\pid,
       \round_i} = 1 \Rightarrow \forall i \in \left[\postlen\right] \setminus
@@ -191,10 +189,14 @@
       i}\right] \enspace.
     \end{gather*}
 
-    First of all, it is $\forall j \in \left[i - 1\right],
-    \idsc{\postlist\left[j\right]} = \frac{\playerlen}{2}\left(1 + \gamma -
-    \epsilon\right) < \frac{\playerlen}{2}\left(1 + \gamma\right) =
-    \idsc{\postlist\left[i\right]}$ and $\forall j \in \left\{i + 1, \dots,
+    First of all, it is
+    \begin{gather*}
+      \forall j \in \left[i - 1\right], \idsc{\postlist\left[j\right]} =
+      \frac{\playerlen}{2}\left(1 + \gamma - \epsilon\right) < \\
+      < \frac{\playerlen}{2}\left(1 + \gamma\right) =
+      \idsc{\postlist\left[i\right]}
+    \end{gather*}
+    and $\forall j \in \left\{i + 1, \dots,
     \postlen\right\}, \idsc{\postlist\left[j\right]} = 0 <
     \idsc{\postlist\left[i\right]}$, thus the strong post has strictly the
     highest ideal score of all posts and as a result, $\forall \postlist'$ that
@@ -248,24 +250,22 @@
     post with full voting power. Therefore, the score of the first weak post at
     the end of the execution is
     $\mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) =
-    c\left(\frac{\playerlen}{2}\left(a + b\right) +
-    \frac{\playerlen}{2}\left(\left(\gamma - \epsilon\right) a +
-    b\right)\right)$.
+    \frac{\playerlen}{2}\left(a + b\right) +
+    \frac{\playerlen}{2}\left(\left(\gamma - \epsilon\right) a + b\right)$.
 
     On the other hand, at the end of the execution the strong post has been
     voted by the first $\frac{\playerlen}{2}$ players with $\rvp$
     voting power and by the last $\frac{\playerlen}{2}$ players with at most
     full voting power, thus its final score will be at most
     $\mathrm{sc}_{\rounds}\left(\postlist\left[i\right]\right) \leq
-    c\left(\frac{\playerlen}{2}\left(\rvp \cdot \gamma a +
-    b\right) + \frac{\playerlen}{2}\left(a + b\right)\right)$. It is
+    \frac{\playerlen}{2}\left(\rvp \cdot \gamma a + b\right) +
+    \frac{\playerlen}{2}\left(a + b\right)$. It is
     \begin{gather*}
       \epsilon < \gamma\left(1 - \rvp\right) \Rightarrow \\
-      c\left(\frac{\playerlen}{2}\left(a + b\right) +
-      \frac{\playerlen}{2}\left(\left(\gamma - \epsilon\right) a +
-      b\right)\right) < c\left(\frac{\playerlen}{2}\left(\rvp
-      \cdot \gamma a + \frac{\playerlen}{2}\left(a + b\right)\right)\right)
-      \Rightarrow \\
+      \frac{\playerlen}{2}\left(\rvp \cdot \gamma a + b\right) +
+      \frac{\playerlen}{2}\left(a + b\right) < \frac{\playerlen}{2}\left(a +
+      b\right) + \frac{\playerlen}{2}\left(\left(\gamma - \epsilon\right) a +
+      b\right) \Rightarrow \\
       \mathrm{sc}_{\rounds}\left(\postlist\left[i\right]\right) <
       \mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) \enspace.
     \end{gather*}
@@ -288,13 +288,12 @@
 
     \begin{gather*}
       \mathrm{sc}_{\rounds}\left(\postlist\left[i\right]\right) \leq
-      c\left(\frac{\playerlen - 1}{2}\left(\rvp \cdot \gamma a +
-      b\right) + \frac{\playerlen - 1}{2}\left(a + b\right) + \gamma a + b\right)
-      \enspace, \\
+      \frac{\playerlen - 1}{2}\left(\rvp \cdot \gamma a + b\right) +
+      \frac{\playerlen - 1}{2}\left(a + b\right) + \gamma a + b \enspace, \\
       \mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) \geq
-      c\left(\frac{\playerlen - 1}{2}\left(a + b\right) + \frac{\playerlen -
-      1}{2}\left(\left(\gamma - \epsilon\right) a + b\right) +
-      \rvp \cdot \gamma a + b\right) \enspace.
+      \frac{\playerlen - 1}{2}\left(a + b\right) + \frac{\playerlen -
+      1}{2}\left(\left(\gamma - \epsilon\right) a + b\right) + \rvp \cdot \gamma
+      a + b \enspace.
     \end{gather*}
 
     Given the bounds of $\epsilon$, it is
@@ -316,14 +315,19 @@
       \postlist = \left[\weakpost, \strongpost, \underbrace{\nullpost, \dots,
       \nullpost}_{\postlen - 2}\right] \enspace.
     \end{gather*}
-    We first observe that $\forall j \in \left\{3, \dots, \postlen\right\},
-    \idsc{\postlist\left[j\right]} = 0 < \idsc{\postlist\left[1\right]} = k - 1 +
-    \left(k - 1\right)\left(\gamma - \epsilon\right) + 2\gamma = k - 1 + \left(k
-    + 1\right)\gamma - \left(k - 1\right)\epsilon < k - 1 + \left(k +
-    1\right)\gamma = \idsc{\postlist\left[2\right]}$, thus the strong post has
-    strictly the highest ideal score of all posts and as a result, $\forall
-    \postlist'$ that contains the same posts as $\postlist$ and
-    $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is
+    We first observe that
+    \begin{gather*}
+      \forall j \in \left\{3, \dots, \postlen\right\},
+      \idsc{\postlist\left[j\right]} = 0 < \\
+      < \idsc{\postlist\left[1\right]} = k - 1 + \left(k - 1\right)\left(\gamma
+      - \epsilon\right) + 2\gamma = \\
+      = k - 1 + \left(k + 1\right)\gamma - \left(k - 1\right)\epsilon < \\
+      < k - 1 + \left(k + 1\right)\gamma = \idsc{\postlist\left[2\right]}
+      \enspace,
+    \end{gather*}
+    thus the strong post has strictly the highest ideal score of all posts and
+    as a result, $\forall \postlist'$ that contains the same posts as
+    $\postlist$ and $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is
     $\postlist'\left[1\right] = \postlist\left[2\right]$.
 
     The first $k - 1$ and the last two players vote first for
@@ -354,10 +358,15 @@
       \postlist = \left[\weakpost, \strongpost, \underbrace{\nullpost, \dots,
       \nullpost}_{\postlen - 2}\right] \enspace.
     \end{gather*}
-    We first observe that $\forall j \in \left\{3, \dots, \postlen\right\},
-    \idsc{\postlist\left[j\right]} = 0 < \idsc{\postlist\left[1\right]} = k +
-    k\left(\gamma - \epsilon\right) + \gamma = k + \left(k + 1\right)\gamma
-    -k\epsilon < k + \left(k + 1\right)\gamma = \idsc{\postlist\left[2\right]}$,
+    We first observe that
+    \begin{gather*}
+      \forall j \in \left\{3, \dots, \postlen\right\},
+      \idsc{\postlist\left[j\right]} = 0 < \\
+      < \idsc{\postlist\left[1\right]} = k + k\left(\gamma - \epsilon\right) +
+      \gamma = \\
+      = k + \left(k + 1\right)\gamma -k\epsilon < k + \left(k + 1\right)\gamma =
+      \idsc{\postlist\left[2\right]} \enspace,
+    \end{gather*}
     thus the strong post has strictly the highest ideal score of all posts and
     as a result, $\forall \postlist'$ that contains the same posts as
     $\postlist$ and $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is

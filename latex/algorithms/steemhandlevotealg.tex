@@ -7,9 +7,8 @@
     player per round}
       \State $\votpowvec_{\pid, r} \gets \votpowvec_{\pid}$ \Comment{For
       proofs}
-      \State $\votpowvec_{\pid} \gets \max{\lbrace \votpowvec_{\pid} + \regen
-      \cdot \left(\round - \mathrm{lastVoted}_{\pid}\right), 1 \rbrace}$
-      \Comment{TODO: Remove $\left(\round - \mathrm{lastVoted}_{\pid}\right)$?}
+      \State $\votpowvec_{\pid} \gets \max{\lbrace \votpowvec_{\pid} + \regen, 1
+      \rbrace}$
       \State $\votpowvecreg_{\pid, r} \gets \votpowvec_{\pid}$ \Comment{For
       proofs}
       \label{alg:steem:handlevote:regen}
