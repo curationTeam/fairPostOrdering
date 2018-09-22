@@ -6,6 +6,6 @@ class Utils:
         plt.plot(x, y)
         plt.xlabel(x_label)
         plt.ylabel(y_label)
-        name = "figures/" + str(x[-1] + 1) + "_" + y_label + ".png"
+        name = "figures/" + str(x[-1] + 1) + "_" + "".join(y_label.split(" ")) + ".png"
         plt.savefig(name)
         plt.show()
