@@ -1,6 +1,18 @@
 \documentclass[11pt]{llncs}
 \usepackage{preamble}
 
+\usepackage{color}
+\long\def\red#1\par{\par\bigskip{\color{red}#1}\par}
+\def\showauthnotes{1}
+\ifthenelse{\showauthnotes=1}
+{
+\newcommand{\authnote}[2]{{ \footnotesize \bf{[#1: #2]~}}}
+%\newcommand{\authnote}[2]{{ \tt {[#1: #2]~}}}
+}
+{ \newcommand{\authnote}[2]{} }
+\newcommand{\aggelos}[1]{\authnote{\color{magenta}Aggelos}{#1}}
+
+
 \begin{document}
 \import{./}{title.tex}
 \thispagestyle{plain}
