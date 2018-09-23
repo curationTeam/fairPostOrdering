@@ -122,7 +122,9 @@ class PVS:
                 print("Ideal position of selfish post:", ideal_pos)
                 print("Real position of selfish post:", real_pos)
 
-        return ideal_pos - real_pos
+
+        if self.noProfiles[1] > 0: # if there exist selfish players
+            return ideal_pos - real_pos
 
 if __name__== "__main__":
     PVS(noProfiles, sp, a, b, regen_time, att_span, noRound,
