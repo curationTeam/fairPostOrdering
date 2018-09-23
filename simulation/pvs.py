@@ -26,17 +26,22 @@ class PVS:
         self.selfish_handicap = selfish_handicap
 
     def all_votes_submitted(self, honest_no, not_selfish_no, selfish_no, posts, sim):
-        selfish_post_pos = self.real_position_of_post(honest_no, sim)
-        for post in posts[:selfish_post_pos]:
-            if len(post.voters) != not_selfish_no:
+        if selfish_no > 0:
+            selfish_post_pos = self.real_position_of_post(honest_no, sim)
+            for post in posts[:selfish_post_pos]:
+                if len(post.voters) != not_selfish_no:
+                    return False
+
+            if len(posts[selfish_post_pos].voters) != not_selfish_no + selfish_no:
                 return False
 
-        if len(posts[selfish_post_pos].voters) != not_selfish_no + selfish_no:
-            return False
-
-        for post in posts[selfish_post_pos + 1:]:
-            if len(post.voters) != not_selfish_no:
-                return False
+            for post in posts[selfish_post_pos + 1:]:
+                if len(post.voters) != not_selfish_no:
+                    return False
+        else:
+            for post in posts:
+                if len(post.voters) != not_selfish_no:
+                    return False
 
         return True
 
