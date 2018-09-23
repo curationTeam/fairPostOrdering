@@ -2,14 +2,14 @@ import random
 from simulation import Simulation
 from utils import Utils
 
-noProfiles = (100, 1, 0)
+noProfiles = (80, 0, 200)
 sp = (1,) * sum(noProfiles)
 a = 1/50
 b = 0.0001
 regen_time = 3 / (5*24*60*60) # as in Steem
 att_span = 10
-noRound = 20
-choice = 1 # 0 for uniform, 1 for beta
+noRound = 200000
+choice = 0 # 0 for uniform, 1 for beta
 handicap = 1
 
 class PVS:

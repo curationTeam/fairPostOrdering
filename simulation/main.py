@@ -6,9 +6,9 @@ honestNo = 100
 selfishMax = 100
 a = 1/50
 b = 0.0001
-regen_time = 3 / (5*24*60*60) # as in Steem
+regen_time = 3 / (5*24*60) # as in Steem x60
 att_span = 10
-noRound = 20000
+noRound = 5000
 choice = 1 # 0 for uniform, 1 for beta
 handicap = 1
 
