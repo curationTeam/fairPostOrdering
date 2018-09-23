@@ -59,12 +59,41 @@
     affects the overall quality of curation of the platform.
 
   \subsection{Results}
+    In all simulations, the likabilities all ``honest'' posts have been
+    generated at random, following the $\left[0, 1\right]$-uniform distribution.
 
-    \subsubsection*{Scenario A: All users are honest}
-      The simulation scenario in which all users follow the established protocol
-      is an extension of the $t$-convergence bounds obtained in the previous
-      section and permits us study the curation problem from a more practical
-      perspective.
+    \subsubsection*{Scenario A}
+      As already mentioned, the results closely follow
+      Theorem~\ref{theorem:convergence:steem}. The following 2 figures show
+      $t$-similarity and Kendall's Tau coefficient respectively when the number
+      of rounds is enough for all votes to be cast with full voting power. In
+      particular, the parameters used are $a = \frac{1}{50}, b = 10^{-4}, \regen
+      = \frac{3}{5*24*60*60}, \rounds = 200000, \attspan = 10, \playerlen = 270$
+      and $\postlen = 70$. (Observe that $\rounds - 1 > \left(\postlen -
+      1\right)\ceil*{\frac{a + b}{\regen}}$.)
+
+      \includegraphics[width=\textwidth]{cand1good_t_similarity}
+
+      \includegraphics[width=\textwidth]{cand1good_kendall_tau}
+
+      As we can see, both measures show that the real list converges suddenly to
+      the ideal order at the very end of the execution; in the meanwhile, the
+      quality of the list improves very slowly.
+
+      The next two figures depict what happens when the rounds are sufficient
+      for all votes to be cast with full voting power. In particular, the
+      corresponding simulation was executed with the same parameters as before,
+      only changing $\postlen$ to 100 and $\playerlen$ to 300. (Observe that
+      $\rounds - 1 < \left(\postlen - 1\right)\ceil*{\frac{a + b}{\regen}}$.)
+
+      \includegraphics[width=\textwidth]{candidate1_t_similarity}
+
+      \includegraphics[width=\textwidth]{candidate1_kendall_tau}
+
+      Here we see that $t$-similarity never exceeds 0, i.e. the best post is not
+      even briefly placed in the top position. Regarding the rest of the list,
+      Kendall's Tau correlation shows that there the order of the posts does not
+      improve throughout the execution of the simulation.
 
     \subsubsection{Scenario B: Selfish users}
       The inclusion of selfish actors in our simulation of Steemit permits us
