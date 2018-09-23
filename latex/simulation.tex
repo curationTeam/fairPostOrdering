@@ -95,16 +95,17 @@
       Kendall's Tau correlation shows that there the order of the posts does not
       improve throughout the execution of the simulation.
 
+      TODO: Maybe include graphs with rounds just short of being enough
+
     \subsubsection{Scenario B: Selfish users}
-      The inclusion of selfish actors in our simulation of Steemit permits us
-      measuring the system's resilience to deviations of the expected curation
-      protocol (i.e. all users voting according to their likability). As
-      previously mentioned, we constitute voting rings in which one user, the
-      ring leader, creates a number of sybil accounts which will vote firstly
-      for the post of the ring leader. In order to understand how the presence
-      of voting rings affect the quality of curation of the platform, we run our
-      simulations varying key parameters such as the ring size or the ration
-      between greedy participants and the total number of users. From our
-      analysis in Scenario A, we are able to run the simulation in the most
-      relevant curation conditions, such as bounding number of rounds when the
-      $t$-convergence is reached.
+      In order to understand how the presence of voting rings affects the
+      quality of curation of the platform, we simulate the execution of the game
+      for various voting ring sizes. We fix the rest of the system parameters so
+      that the selfish post is handicapped. In particular, the voting rounds are
+      sufficient for all votes to be cast with full voting power, the likability
+      of the selfish post is 0 for all players and it is initially placed at the
+      bottom of the post list.
+
+      \includegraphics[width=\textwidth]{cand2_positionsgained}
+
+      \includegraphics[width=\textwidth]{cand2_t-convergence}
