@@ -2,8 +2,10 @@ from pvs import PVS
 import matplotlib.pyplot as plt
 from utils import Utils
 
+plt.rc('text', usetex = True)
+
 honestNo = 100
-selfishMax = 100
+selfishMax = 20
 a = 1/50
 b = 0.0001
 regen_time = 3 / (5*24*60) # as in Steem x60
@@ -27,8 +29,8 @@ def main():
         gains.append(gain)
         t_convs.append(t_conv)
 
-    Utils.plot_and_save(sybil_size, gains, "Voting ring size", "positions gained")
-    Utils.plot_and_save(sybil_size, t_convs, "Voting ring size", "t-convergence")
+    Utils.plot_and_save(sybil_size, gains, "Voting Ring Size", "Positions Gained")
+    Utils.plot_and_save(sybil_size, t_convs, "Voting Ring Size", "$t$-convergence")
 
 if __name__== "__main__":
     main()
