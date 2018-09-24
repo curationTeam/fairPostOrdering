@@ -1,50 +1,111 @@
-
 \section{Simulation}
+  \subsection{Introduction}
+    The outcomes of the analysis of Steemit are here complemented with
+    experiments that verify our findings. We have implemented a simulation
+    framework that realizes execution of Steemit's post-voting system as defined
+    previously.
 
-\subsection{Introduction}
+    In particular, we consider two separate scenarios: First, we simulate the
+    case when all players follow the prescribed honest strategy of Steemit,
+    investigating how the curation quality of the system varies with the number
+    of voting rounds. We successfully reproduce the result of
+    Theorem~\ref{theorem:convergence:steem}, which implies that the system
+    converges to the ideal post order up to the last post/completely/perfectly
+    converges when a sufficient number of voting rounds is permitted, but
+    otherwise the resulting list of posts may fail to achieve even
+    1-convergence.
 
-In the previous section, we analyzed and proved the convergence bounds on the number of rounds in which Steemit retrieves optimal results in the curation of content.
-We measure the quality of curation of the platform with our \textit{t-convergence} metric, which identifies if the t-top posts in the final lists of posts are equal to the t-posts list on the ideal quality order.
-The outcomes obtained in our theoretical analysis of the platform have motivated us to better understand the implications of these results in practice. In the current section, we create a simulation framework to replicate the execution of Steemit's post-voting system, based on the protocols of section(x) and Appendix.
+    The second case measures how resilient is the curation quality of Steemit to
+    dishonest agents. As we have already seen TOFIX, a Steemit user has
+    financial benefit in promoting her own posts. A combination of methods
+    (apart from striving to produce posts of higher quality) can contribute to
+    that end.  Voting for one's own posts, refraining from voting posts created
+    by others and obtaining Sybil~\cite{sybilattack} accounts that only vote for
+    her posts are only an indicative subset. We thus examine the quality of the
+    resulting list when certain users do not follow the honest protocol, but
+    apply the aforementioned self-promoting methods. We observe that a small
+    increase in the number of selfish players has a detrimental effect to the
+    t-convergence metric of the post voting system. Furthermore, we measure the
+    number of positions on the list that the selfish post gains with respect to
+    the number of selfish players.
 
-In particular we will consider two scenarios for our simulation: when all users are honest (i.e. vote according to the likability distribution) as in section X and when users behave selfishly in order to improve the final position of their posts.
-With the first scenario, we aim to understand in more depth the practical implementation of the bounds obtained in the previous section. We study how the curation quality of the system varies with the number of voting rounds to give a better grasp on the curation properties a post-voting system can achieve when the number of available rounds is tight.
-The second case tries to measure how resilient is the curation quality of Steemit to malicious agents. We study which are the effects of a subset of users of the platform not following the likability distribution of the posts to cast votes and voting to maximize the popularity of their own posts.
+  \subsection{Methodology}
+    We leverage three metrics to measure the correlation of the curated list and
+    the ideal list: Kendall's Tau and Spearman's Rho that are two prominent rank
+    corellation coefficients, and $t$-similarity. The last measure is based on
+    $t$-convergence. More specifically, a post list has $t$-similarity if the
+    first $t$ posts are ordered as they would in any $t$-ideal reordering of the
+    post list.
 
-\subsubsection*{Modeling greedy behavior}
+    \subsubsection*{Rank correlation coefficients.}
+      To quantify the similarity between two ordered list of posts we employ
+      Spearman's Rho and Kendall's Tau, two of the most popular rank correlation
+      coefficients~\cite{kendall1955rank}. When measuring rank correlation,
+      these coefficients will measure the statistical significance between two
+      lists, each producing a value in $\left[-1, 1\right]$. When the ranking of
+      two lists is completely unrelated to each other, the rank correlation
+      coefficient will be 0. If there exists a correlation, the coefficients
+      vary between 1 meaning absolute correlation (i.e. the the lists are
+      identical) and -1, meaning absolute inverse correlation (i.e. the lists
+      are sorted in reversed order).
 
-Steem allows its users to self-vote. 
-Self-voting occurs when a user upvotes their own content. While this cannot be regarded as an intrinsic flaw in the protocol, if self-voting abusively is profitable, there are no incentives for rational players to follow the
-curation system defined in our model by the Likability distribution.
+    In addition to $t$-similarity and the rank correlation coefficients used in
+    the first scenario, in the case of dishonest participants we include a
+    metric that measures the gains of the selfish players. In particular, the
+    metric is defined as the difference between the real position of the
+    ``selfish'' post after the execution and its ranking according to the ideal
+    order. We are thus able to measure how advantageous is for users to behave
+    selfishly.  Furthermore, $t$-similarity informs us how this behavior
+    affects the overall quality of curation of the platform.
 
- In Steem, users cannot vote more than once for the same piece of content, so greedy users can create dummy posts and constantly vote for them.
-In our model of section X, we establish the condition that users can create only one post at the beginning of the voting execution (see algo..).
- Therefore, to replicate the effects of abusively self-voting, we introduce \textit{hub-and-spoke} voting rings, where a greedy user create a defined number sybil accounts which will vote for the post created by the selfish player.
+  \subsection{Results}
+    In all simulations, the likabilities all ``honest'' posts have been
+    generated at random, following the $\left[0, 1\right]$-uniform distribution.
 
+    \subsubsection*{Scenario A}
+      As already mentioned, the results closely follow
+      Theorem~\ref{theorem:convergence:steem}. The following 2 figures show
+      $t$-similarity and Kendall's Tau coefficient respectively when the number
+      of rounds is enough for all votes to be cast with full voting power. In
+      particular, the parameters used are $a = \frac{1}{50}, b = 10^{-4}, \regen
+      = \frac{3}{5*24*60*60}, \rounds = 200000, \attspan = 10, \playerlen = 270$
+      and $\postlen = 70$. (Observe that $\rounds - 1 > \left(\postlen -
+      1\right)\ceil*{\frac{a + b}{\regen}}$.)
 
-\subsection{Methodology}
+      \includegraphics[width=\textwidth]{cand1good_t_similarity}
 
-To measure the curation quality we employ the \textit{t-convergence} used in section X. However, our analysis now aims to capture how this metric varies depending on the system parameters not in the calculation of a bound for the curation success.
-The evolution of the \textit{t-convergence} on the list of posts for different number of rounds will provide a better intuition of these research questions.
-To complement the convergence analysis for the top-t posts of the list, we use two statistical coefficients, Kendall's Tau and Spearman's Rho, to measure the correlation of the curated list and the ideal list of posts based on the likability distribution.
+      \includegraphics[width=\textwidth]{cand1good_kendall_tau}
 
-\subsubsection*{Rank correlation coefficients}
-Maybe talk and put the formulas which define this coefficients.
+      As we can see, both measures show that the real list converges suddenly to
+      the ideal order at the very end of the execution; in the meanwhile, the
+      quality of the list improves very slowly.
 
-\textbf{Kendall's Tau.} Blablabla
+      The next two figures depict what happens when the rounds are sufficient
+      for all votes to be cast with full voting power. In particular, the
+      corresponding simulation was executed with the same parameters as before,
+      only changing $\postlen$ to 100 and $\playerlen$ to 300. (Observe that
+      $\rounds - 1 < \left(\postlen - 1\right)\ceil*{\frac{a + b}{\regen}}$.)
 
-\textbf{Sperman's Rho.} Blablabla
+      \includegraphics[width=\textwidth]{candidate1_t_similarity}
 
-In addition to \textit{t-convergence} and the rank correlation coefficients used in the ``all-honest'' scenario, we include a \textit{selfish-rewards} metric to quantify how successful for the selfish players was deviating from the protocol. 
-In particular, we compare the position of the post created by a selfish(or greedy,dunno what's better) user with the ranking of the post following the ideal order of qualities. In this way, we are able to measure how advantageous is for users to behave greedily and how this behavior affects the overall quality of curation of the platform (i.e. using the rest of curation quality metrics previously defined).
+      \includegraphics[width=\textwidth]{candidate1_kendall_tau}
 
+      Here we see that $t$-similarity never exceeds 0, i.e. the best post is not
+      even briefly placed in the top position. Regarding the rest of the list,
+      Kendall's Tau correlation shows that there the order of the posts does not
+      improve throughout the execution of the simulation.
 
-\subsection{Results}
+      TODO: Maybe include graphs with rounds just short of being enough
 
-\subsubsection*{Scenario A: All users are honest}
+    \subsubsection{Scenario B: Selfish users}
+      In order to understand how the presence of voting rings affects the
+      quality of curation of the platform, we simulate the execution of the game
+      for various voting ring sizes. We fix the rest of the system parameters so
+      that the selfish post is handicapped. In particular, the voting rounds are
+      sufficient for all votes to be cast with full voting power, the likability
+      of the selfish post is 0 for all players and it is initially placed at the
+      bottom of the post list.
 
-The simulation scenario in which all users follow the established protocol is an extension of the t-convergence bounds obtained in the previous section and permits us study the curation problem from a more practical perspective.
+      \includegraphics[width=\textwidth]{cand2_positionsgained}
 
-
-\subsubsection{Scenario B: Selfish users}
-
+      \includegraphics[width=\textwidth]{cand2_t-convergence}

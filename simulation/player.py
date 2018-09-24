@@ -55,17 +55,17 @@ class Player:
         voteRounds = set()
         # if there are many rounds,
         # leave isVoteRound() to vote when vp is full
-        if R - 1 < (noPost - 1)*ceil((self.a + self.b) / self.regen):
-            for i in range(0, R):
-                voteRound = floor(i * (R - 1) / (noPost - 1))
-                if voteRound > R:
-                    break
-                voteRounds.add(voteRound)
+        #if R - 1 < (noPost - 1)*ceil((self.a + self.b) / self.regen):
+        for i in range(0, R):
+            voteRound = floor(i * (R - 1) / (noPost - 1))
+            if voteRound > R:
+                break
+            voteRounds.add(voteRound)
         return voteRounds
 
     def isVoteRound(self, r, voteRounds):
-        if self.vp == 1:
-            return True
+        #if self.vp == 1:
+        #    return True
         return r in voteRounds
 
     def vote(self, r, posts):

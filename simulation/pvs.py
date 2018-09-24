@@ -2,14 +2,14 @@ import random
 from simulation import Simulation
 from utils import Utils
 
-noProfiles = (100, 1, 0)
+noProfiles = (80, 0, 200)
 sp = (1,) * sum(noProfiles)
 a = 1/50
 b = 0.0001
 regen_time = 3 / (5*24*60*60) # as in Steem
 att_span = 10
-noRound = 20
-choice = 1 # 0 for uniform, 1 for beta
+noRound = 200000
+choice = 0 # 0 for uniform, 1 for beta
 handicap = 1
 
 class PVS:
@@ -26,17 +26,22 @@ class PVS:
         self.selfish_handicap = selfish_handicap
 
     def all_votes_submitted(self, honest_no, not_selfish_no, selfish_no, posts, sim):
-        selfish_post_pos = self.real_position_of_post(honest_no, sim)
-        for post in posts[:selfish_post_pos]:
-            if len(post.voters) != not_selfish_no:
+        if selfish_no > 0:
+            selfish_post_pos = self.real_position_of_post(honest_no, sim)
+            for post in posts[:selfish_post_pos]:
+                if len(post.voters) != not_selfish_no:
+                    return False
+
+            if len(posts[selfish_post_pos].voters) != not_selfish_no + selfish_no:
                 return False
 
-        if len(posts[selfish_post_pos].voters) != not_selfish_no + selfish_no:
-            return False
-
-        for post in posts[selfish_post_pos + 1:]:
-            if len(post.voters) != not_selfish_no:
-                return False
+            for post in posts[selfish_post_pos + 1:]:
+                if len(post.voters) != not_selfish_no:
+                    return False
+        else:
+            for post in posts:
+                if len(post.voters) != not_selfish_no:
+                    return False
 
         return True
 
@@ -117,7 +122,9 @@ class PVS:
                 print("Ideal position of selfish post:", ideal_pos)
                 print("Real position of selfish post:", real_pos)
 
-        return ideal_pos - real_pos
+
+        if self.noProfiles[1] > 0: # if there exist selfish players
+            return ideal_pos - real_pos, t_similar_list[-1]
 
 if __name__== "__main__":
     PVS(noProfiles, sp, a, b, regen_time, att_span, noRound,
