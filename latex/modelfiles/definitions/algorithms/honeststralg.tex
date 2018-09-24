@@ -3,6 +3,7 @@
   \label{alg:honest}
   \begin{algorithmic}[1]
     \State Upon receiving (\texttt{activate}) from $\env$:
+    \label{alg:honest:activate}
     \Indent
       \State Send (\texttt{read}) to $\gfunc$
       \State Wait for response (\texttt{posts}, $\postlist$, aux)
