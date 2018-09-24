@@ -12,3 +12,4 @@ __pycache__
 *.synctex.gz
 src/contentCuration.pdf
 .vscode
+.DS_store

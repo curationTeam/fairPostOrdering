@@ -1,9 +1,8 @@
 \section{Simulation}
   \subsection{Introduction}
-    The outcomes of the analysis of Steemit are here complemented with
-    experiments that verify our findings. We have implemented a simulation
-    framework that realizes execution of Steemit's post-voting system as defined
-    previously.
+    The previous outcomes are here complemented with experiments that verify our
+    findings. We have implemented a simulation framework that realizes the
+    execution of Steemit's post-voting system as defined above.
 
     In particular, we consider two separate scenarios: First, we simulate the
     case when all players follow the prescribed honest strategy of Steemit,
@@ -15,27 +14,26 @@
     otherwise the resulting list of posts may fail to achieve even
     1-convergence.
 
-    The second case measures how resilient is the curation quality of Steemit to
-    dishonest agents. As we have already seen TOFIX, a Steemit user has
-    financial benefit in promoting her own posts. A combination of methods
-    (apart from striving to produce posts of higher quality) can contribute to
-    that end.  Voting for one's own posts, refraining from voting posts created
-    by others and obtaining Sybil~\ref{sybilattack} accounts that only vote for
-    her posts are only an indicative subset. We thus examine the quality of the
-    resulting list when certain users do not follow the honest protocol, but
-    apply the aforementioned self-promoting methods. We observe that a small
-    increase in the number of selfish players has a detrimental effect to the
-    t-convergence metric of the post voting system. Furthermore, we measure the
-    number of positions on the list that the selfish post gains with respect to
-    the number of selfish players.
+    The second case measures how resilient is the curation quality of Steemit
+    against dishonest agents. Since a creator is financially rewarded when her
+    content is upvoted, she has incentive to promote her own posts. A
+    combination of in-band methods (apart from striving to produce posts of
+    higher quality) can help her to that end. Voting for one's own posts,
+    refraining from voting posts created by others and obtaining
+    Sybil~\cite{sybilattack} accounts that only vote for her posts are only an
+    indicative subset. We thus examine the quality of the resulting list when
+    certain users do not follow the honest protocol, but apply the
+    aforementioned self-promoting methods. We observe that a small increase in
+    the number of selfish players has a detrimental effect to the t-convergence
+    metric of the post voting system. Furthermore, we measure the number of
+    positions on the list that the selfish post gains with respect to the number
+    of selfish players.
 
   \subsection{Methodology}
     We leverage three metrics to measure the correlation of the curated list and
-    the ideal list: Kendall's Tau and Spearman's Rho that are two prominent rank
-    corellation coefficients, and $t$-similarity. The last measure is based on
-    $t$-convergence. More specifically, a post list has $t$-similarity if the
-    first $t$ posts are ordered as they would in any $t$-ideal reordering of the
-    post list.
+    the ideal list: Kendall's Tau, Spearman's Rho, and $t$-similarity. A post
+    list has $t$-similarity if it is $t$-ideal but not $\left(t +
+    1\right)$-ideal.
 
     \subsubsection*{Rank correlation coefficients.}
       To quantify the similarity between two ordered list of posts we employ
@@ -59,8 +57,8 @@
     affects the overall quality of curation of the platform.
 
   \subsection{Results}
-    In all simulations, the likabilities all ``honest'' posts have been
-    generated at random, following the $\left[0, 1\right]$-uniform distribution.
+    In all simulations, the likabilities all ``honest'' posts have been drawn
+    from the $\left[0, 1\right]$-uniform distribution.
 
     \subsubsection*{Scenario A}
       As already mentioned, the results closely follow
@@ -68,23 +66,24 @@
       $t$-similarity and Kendall's Tau coefficient respectively when the number
       of rounds is enough for all votes to be cast with full voting power. In
       particular, the parameters used are $a = \frac{1}{50}, b = 10^{-4}, \regen
-      = \frac{3}{5*24*60*60}, \rounds = 200000, \attspan = 10, \playerlen = 270$
-      and $\postlen = 70$. (Observe that $\rounds - 1 > \left(\postlen -
-      1\right)\ceil*{\frac{a + b}{\regen}}$.)
+      = \frac{3}{5 \cdot 24 \cdot 60 \cdot 60}, \rounds = 200000, \attspan = 10,
+      \playerlen = 270$ and $\postlen = 70$. (Observe that $\rounds - 1 >
+      \left(\postlen - 1\right)\ceil*{\frac{a + b}{\regen}}$.)
 
       \includegraphics[width=\textwidth]{cand1good_t_similarity}
 
       \includegraphics[width=\textwidth]{cand1good_kendall_tau}
 
-      As we can see, both measures show that the real list converges suddenly to
+      As we can see, both measures show that the real list converges rapidly to
       the ideal order at the very end of the execution; in the meanwhile, the
       quality of the list improves very slowly.
 
-      The next two figures depict what happens when the rounds are sufficient
-      for all votes to be cast with full voting power. In particular, the
-      corresponding simulation was executed with the same parameters as before,
-      only changing $\postlen$ to 100 and $\playerlen$ to 300. (Observe that
-      $\rounds - 1 < \left(\postlen - 1\right)\ceil*{\frac{a + b}{\regen}}$.)
+      The next two figures depict what happens when the rounds are not
+      sufficient for all votes to be cast with full voting power. In particular,
+      the corresponding simulation was executed with the same parameters as
+      before, only changing $\postlen$ to 100 and $\playerlen$ to 300. (Observe
+      that $\rounds - 1 < \left(\postlen - 1\right)\ceil*{\frac{a +
+      b}{\regen}}$.)
 
       \includegraphics[width=\textwidth]{candidate1_t_similarity}
 
@@ -95,12 +94,12 @@
       Kendall's Tau correlation shows that there the order of the posts does not
       improve throughout the execution of the simulation.
 
-      TODO: Maybe include graphs with rounds just short of being enough
+      \orfeas{Maybe include graphs with rounds just short of being enough}
 
-    \subsubsection{Scenario B: Selfish users}
-      In order to understand how the presence of voting rings affects the
-      quality of curation of the platform, we simulate the execution of the game
-      for various voting ring sizes. We fix the rest of the system parameters so
+    \subsubsection{Scenario B: Selfish users.}
+      In order to understand how the presence of voting rings/Sybil accounts
+      affects the curation quality, we simulate the execution of the game for
+      various voting ring sizes. We fix the rest of the system parameters so
       that the selfish post is handicapped. In particular, the voting rounds are
       sufficient for all votes to be cast with full voting power, the likability
       of the selfish post is 0 for all players and it is initially placed at the
