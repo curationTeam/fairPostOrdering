@@ -114,9 +114,9 @@ class PVS:
 
         if output:
             sim.print_result(posts)
-            Utils.plot_and_save(rounds, t_similar_list, "Rounds", "$t$-similarity")
-            Utils.plot_and_save(rounds, spearman_list, "Rounds", "Spearman's Rho")
-            Utils.plot_and_save(rounds, kendall_tau_list, "Rounds", "Kendall's Tau")
+            Utils.plot_and_save(rounds, t_similar_list, "Round", "$t$-similarity")
+            Utils.plot_and_save(rounds, spearman_list, "Round", "Spearman's Rho")
+            Utils.plot_and_save(rounds, kendall_tau_list, "Round", "Kendall's Tau")
 
             if self.noProfiles[1] > 0: # if there exist selfish players
                 print("Ideal position of selfish post:", ideal_pos)
