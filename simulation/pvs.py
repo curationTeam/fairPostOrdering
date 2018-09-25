@@ -114,7 +114,7 @@ class PVS:
 
         if output:
             sim.print_result(posts)
-            Utils.plot_and_save(rounds, t_similar_list, "Round", "$t$-similarity")
+            Utils.plot_and_save(rounds, t_similar_list, "Round", "$t$-ideal rank")
             Utils.plot_and_save(rounds, spearman_list, "Round", "Spearman's Rho")
             Utils.plot_and_save(rounds, kendall_tau_list, "Round", "Kendall's Tau")
             Utils.plot_and_save2(rounds, spearman_list, kendall_tau_list, "Rounds", "Spearman's Rho", "Kendall's Tau")
