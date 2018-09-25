@@ -12,25 +12,32 @@
    A variety of projects have designed decentralized content curation systems~\cite{synereo,steemit,tcr}. Nevertheless, a deep understanding of the properties of such systems is still lacking. Among them, Steemit
 has a long track record, having been in operation since 2016 and attaining a user base of more than 1.08 M\footnote{\url{https://steemdb.com/accounts} Accessed: 2018-09-25} registered accounts\footnote{The number of accounts should not be understood as the number of active users, as one user can create multiple accounts.}. Steemit is a social media platform which lets users earn money (in the form of the STEEM cryptocurrency) by both creating and curating content in the network. Steemit is the front-end of the social network, a graphical web interface which allows users to see the content of the platform. On the other hand, all the back-end information is stored on a distributed ledger, the Steem blockchain. Steem can be understood as an ``app-chain'', a blockchain with a specific application purpose: serving as a distributed database for social media applications~\cite{steemit}.
 
-In this work we initiate a study of the foundations of decentralized content curation. We develop a theoretical model of a post-voting system which aims to sort the posts created by users in a distributed and crowdsourced manner.
-  Our model is constituted by a functionality which executes a protocol performed by $N$ players who have a fixed strategy, but in principle their set of actions could be extended.
-   The $N$ players contribute votes in a round-based curation process. The impact of each vote depends on the number of coins held by the player.
+\noindent  \textbf{Our Contributions.}
+In this work we study the foundations of decentralized content curation from a computational perspective. We develop an abstract model of a post-voting system which aims to sort the posts created by users in a distributed and crowdsourced manner.
+  Our model is constituted by a functionality which executes a protocol performed by $N$ players. The model includes an honest participant behaviour while it allows deviations to be modeled for a subset of the participants.      The $N$ players contribute votes in a round-based curation process. The impact of each vote depends on the number of coins held by the player.
    The posts are arranged in a list, sorted by the value of votes received, resembling the front-page model of Reddit or Hacker News. In the model, players vote according to their subjective opinion on the quality of the posts and have a limited attention span.
    Following previous related work, we represent each player's opinion on each post (i.e. likability) with a numerical value $\like \in [ 0,1 ]$~\cite{ghosh2011incentivizing,askalidis2013theoretical}.
-   The objective quality of a post will be calculated as the simple summation of all players' likabilities for the post in question. To measure the properties of such a post-voting system, we say that the system \textit{$t$-converges} if the $t$ first articles are ordered according to the objective quality of the posts at the end of the execution.
-  After defining and formalizing an abstract post-voting system, we particularize it to model Steemit.
-   We prove the conditions under which Steemit $t$-converges and then we develop a simulation to help us parametrize Steemit according to our post-voting model.
-   Our analysis of the post-voting system of Steemit aims to provide a useful framework to aid the design of future decentralized curation platforms. \aggelos{This needs more work}
+   The objective quality of a post is calculated as the simple summation of all players' likabilities for the post in question. 
+   To measure the effectiveness of a post-voting system, we introduce the property of  \textit{convergence} under honesty which is parameterised by a number of values including a metric $t$, that demands the  first $t$ articles to be   ordered according to the objective quality of the posts at the end of the execution assuming all participants signal honestly to the system their personal preferences. 
+Armed with our  post-voting system abstraction, we proceed to particularize it to model Steemit and provide the following results. 
 
-  \textbf{Our Contributions.}
-  \begin{itemize}
-  \item Original treatment following cryptography and simulation-based techniques to model crowdsourced content curation, in opposition to previous academic work which have leaned more towards an analytical and game-theoretic approach.
+\begin{itemize}
+\item[i] We characterise the conditions under which our abstract Steemit model converges highlighting the number of rounds that the system requires in order to converge under honesty for any sequence of posts. 
+\item[ii]
+We validate our results with a simulation testing different metrics based on  correlation that have been proposed in previous work and relating them to our notion of convergence. 
+\item[iii]
+We demonstrate that ``selfish''  deviation from honest behavior results to substantial gains in terms of boosting the ranking of specific posts  in the resulting list of the post-voting system. 
+\end{itemize}
+%   Our analysis of the post-voting system of Steemit aims to provide a useful framework to aid the design of future decentralized curation platforms. 
 
-  \item Taking in account of subjective likeabilities, the effect of rounds and an agnostic likeability distribution treatment.
+%  \begin{itemize}
+%  \item Original treatment following cryptography and simulation-based techniques to model crowdsourced content curation, in opposition to previous academic work which have leaned more towards an analytical and game-theoretic approach.
 
-  \item Measurement of the influence of coin-holding (wealth-distribution) in the effectivity of post sorting. New paradigm present in blockchain based systems (main difference with Reddit-like platforms.)
+%  \item Taking in account of subjective likeabilities, the effect of rounds and an agnostic likeability distribution treatment.
 
-  \item Proof that Steem does not t-converge with the parameters currently used in their implementation. Insights to improve the curation quality of the trending section of steem.
+%  \item Measurement of the influence of coin-holding (wealth-distribution) in the effectivity of post sorting. New paradigm present in blockchain based systems (main difference with Reddit-like platforms.)
 
-  \item (Maybe)Impact of the curation quality when greedy players are present in the system.
-  \end{itemize}
+ % \item Proof that Steem does not t-converge with the parameters currently used in their implementation. Insights to improve the curation quality of the trending section of steem.
+
+ % \item (Maybe)Impact of the curation quality when greedy players are present in the system.
+ % \end{itemize}
