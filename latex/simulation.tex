@@ -30,10 +30,9 @@
     of selfish players.
 
   \subsection{Methodology}
-    We leverage three metrics to measure the correlation of the curated list and
-    the ideal list: Kendall's Tau, Spearman's Rho, and $t$-similarity. A post
-    list has $t$-similarity if it is $t$-ideal but not $\left(t +
-    1\right)$-ideal.
+    We leverage three metrics to compare the curated list with the ideal list:
+    Kendall's Tau~\cite{kendall1955rank}, Spearman's
+    Rho~\cite{spearman1904proof}, and $t$-ideal degree.
 
     \subsubsection*{Rank correlation coefficients.}
       To quantify the similarity between two ordered list of posts we employ
@@ -57,7 +56,7 @@
     affects the overall quality of curation of the platform.
 
   \subsection{Results}
-    In all simulations, the likabilities all ``honest'' posts have been drawn
+    In all simulations, the likabilities of all ``honest'' posts have been drawn
     from the $\left[0, 1\right]$-uniform distribution.
 
     \subsubsection*{Scenario A}

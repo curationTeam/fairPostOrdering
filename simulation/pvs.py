@@ -2,7 +2,7 @@ import random
 from simulation import Simulation
 from utils import Utils
 
-noProfiles = (80, 0, 200)
+noProfiles = (70, 0, 200)
 sp = (1,) * sum(noProfiles)
 a = 1/50
 b = 0.0001
@@ -114,9 +114,10 @@ class PVS:
 
         if output:
             sim.print_result(posts)
-            Utils.plot_and_save(rounds, t_similar_list, "Rounds", "t_similarity")
-            Utils.plot_and_save(rounds, spearman_list, "Rounds", "spearman")
-            Utils.plot_and_save(rounds, kendall_tau_list, "Rounds", "kendall_tau")
+            Utils.plot_and_save(rounds, t_similar_list, "Round", "$t$-similarity")
+            Utils.plot_and_save(rounds, spearman_list, "Round", "Spearman's Rho")
+            Utils.plot_and_save(rounds, kendall_tau_list, "Round", "Kendall's Tau")
+            Utils.plot_and_save2(rounds, spearman_list, kendall_tau_list, "Rounds", "Spearman's Rho", "Kendall's Tau")
 
             if self.noProfiles[1] > 0: # if there exist selfish players
                 print("Ideal position of selfish post:", ideal_pos)
@@ -124,7 +125,7 @@ class PVS:
 
 
         if self.noProfiles[1] > 0: # if there exist selfish players
-            return ideal_pos - real_pos, t_similar_list[-1]
+            return ideal_pos - real_pos, t_similar_list[-1], spearman_list[-1], kendall_tau_list[-1]
 
 if __name__== "__main__":
     PVS(noProfiles, sp, a, b, regen_time, att_span, noRound,
