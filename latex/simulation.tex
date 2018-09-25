@@ -61,48 +61,52 @@
 
     \subsubsection*{Scenario A}
       As already mentioned, the results closely follow
-      Theorem~\ref{theorem:convergence:steem}. The following 2 figures show
-      the $t$-ideal rank and Kendall's Tau coefficient respectively when the
-      number of rounds is enough for all votes to be cast with full voting
-      power. In particular, the parameters used are $a = \frac{1}{50}, b =
-      10^{-4}, \regen = \frac{3}{5 \cdot 24 \cdot 60 \cdot 60}, \rounds =
-      200000, \attspan = 10, \playerlen = 270$ and $\postlen = 70$. (Observe
-      that $\rounds - 1 > \left(\postlen - 1\right)\ceil*{\frac{a +
-      b}{\regen}}$.)
+      Theorem~\ref{theorem:convergence:steem}.
+      Figures~\ref{fig:honest:70:tideal} and~\ref{fig:honest:70:coeffs} show the
+      $t$-ideal rank and Kendall's Tau coefficient respectively when the number
+      of rounds is enough for all votes to be cast with full voting power. In
+      particular, the parameters used are $a = \frac{1}{50}, b = 10^{-4}, \regen
+      = \frac{3}{5 \cdot 24 \cdot 60 \cdot 60}, \rounds = 200000, \attspan = 10,
+      \playerlen = 270$ and $\postlen = 70$. (Observe that $\rounds - 1 >
+      \left(\postlen - 1\right)\ceil*{\frac{a + b}{\regen}}$.)
 
       \begin{figure}[!htbp]
         \includegraphics[width=0.9\textwidth]{cand1good_t_similarity}
         \caption{$t$-ideal rank evolution with 270 honest players, 70 posts and
         200.000 rounds}
+        \label{fig:honest:70:tideal}
       \end{figure}
 
       \begin{figure}[!htbp]
         \includegraphics[width=0.9\textwidth]{cand1good_kendall_tau}
         \caption{Kendall's Tau evolution with 270 honest players, 70 posts and
         200.000 rounds}
+        \label{fig:honest:70:coeffs}
       \end{figure}
 
       As we can see, both measures show that the real list converges rapidly to
       the ideal order at the very end of the execution; in the meanwhile, the
       quality of the list improves very slowly.
 
-      The next two figures depict what happens when the rounds are not
-      sufficient for all votes to be cast with full voting power. In particular,
-      the corresponding simulation was executed with the same parameters as
-      before, only changing $\postlen$ to 100 and $\playerlen$ to 300. (Observe
-      that $\rounds - 1 < \left(\postlen - 1\right)\ceil*{\frac{a +
-      b}{\regen}}$.)
+      Figures~\ref{fig:honest:100:tideal} and~\ref{fig:honest:100:coeffs} depict
+      what happens when the rounds are not sufficient for all votes to be cast
+      with full voting power. In particular, the corresponding simulation was
+      executed with the same parameters as before, only changing $\postlen$ to
+      100 and $\playerlen$ to 300. (Observe that $\rounds - 1 < \left(\postlen -
+      1\right)\ceil*{\frac{a + b}{\regen}}$.)
 
       \begin{figure}[!htbp]
         \includegraphics[width=0.9\textwidth]{candidate1_t_similarity}
         \caption{$t$-ideal rank evolution with 300 honest players, 100 posts and
         200.000 rounds}
+        \label{fig:honest:100:tideal}
       \end{figure}
 
       \begin{figure}[!htbp]
         \includegraphics[width=0.9\textwidth]{candidate1_kendall_tau}
         \caption{Kendall's Tau evolution with 300 honest players, 100 posts and
         200.000 rounds}
+        \label{fig:honest:100:coeffs}
       \end{figure}
 
       \orfeas{Maybe include graphs with rounds just short of being enough}
@@ -118,16 +122,25 @@
       that the selfish post is handicapped. In particular, the voting rounds are
       sufficient for all votes to be cast with full voting power, the likability
       of the selfish post is 0 for all players and it is initially placed at the
-      bottom of the post list.
+      bottom of the post list. Define the gain of the post of the selfish
+      players as its ideal position minus its final position.
+      Figure~\ref{fig:selfish:gain} depicts the gain of the selfish post for a
+      varying number of selfish players, from 1 to 100.
+      Figure~\ref{fig:selfish:tideal} shows the $t$-ideal rank of the resulting
+      list at the same executions. For these simulations, the system parameters
+      are $\playerlen = 101 .. 200, a = \frac{1}{50}, b = 10^{-4}, \regen =
+      \frac{3}{5 \cdot 24 \cdot 60}, \attspan = 10, \rounds = 5000$.
 
       \begin{figure}[!htbp]
         \includegraphics[width=0.9\textwidth]{cand2_positionsgained}
         \caption{Positions gained by selfish post with 100 honest players, 100
         posts and 1 to 100 selfish players}
+        \label{fig:selfish:gain}
       \end{figure}
 
       \begin{figure}[!htbp]
         \includegraphics[width=0.9\textwidth]{cand2_t-convergence}
         \caption{$t$-ideal rank with 100 honest players, 100 posts and 1 to 100
         selfish players}
+        \label{fig:selfish:tideal}
       \end{figure}
