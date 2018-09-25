@@ -32,7 +32,7 @@
   \subsection{Methodology}
     We leverage three metrics to compare the curated list with the ideal list:
     Kendall's Tau~\cite{kendall1955rank}, Spearman's
-    Rho~\cite{spearman1904proof}, and $t$-ideal degree.
+    Rho~\cite{spearman1904proof}, and $t$-ideal rank.
 
     \subsubsection*{Rank correlation coefficients.}
       To quantify the similarity between two ordered list of posts we employ
@@ -46,14 +46,14 @@
       identical) and -1, meaning absolute inverse correlation (i.e. the lists
       are sorted in reversed order).
 
-    In addition to $t$-similarity and the rank correlation coefficients used in
-    the first scenario, in the case of dishonest participants we include a
+    In addition to the $t$-ideal rank and the rank correlation coefficients used
+    in the first scenario, in the case of dishonest participants we include a
     metric that measures the gains of the selfish players. In particular, the
     metric is defined as the difference between the real position of the
     ``selfish'' post after the execution and its ranking according to the ideal
     order. We are thus able to measure how advantageous is for users to behave
-    selfishly.  Furthermore, $t$-similarity informs us how this behavior
-    affects the overall quality of curation of the platform.
+    selfishly. Furthermore, $t$-ideal rank informs us how this behavior affects
+    the overall quality of curation of the platform.
 
   \subsection{Results}
     In all simulations, the likabilities of all ``honest'' posts have been drawn
@@ -62,12 +62,13 @@
     \subsubsection*{Scenario A}
       As already mentioned, the results closely follow
       Theorem~\ref{theorem:convergence:steem}. The following 2 figures show
-      $t$-similarity and Kendall's Tau coefficient respectively when the number
-      of rounds is enough for all votes to be cast with full voting power. In
-      particular, the parameters used are $a = \frac{1}{50}, b = 10^{-4}, \regen
-      = \frac{3}{5 \cdot 24 \cdot 60 \cdot 60}, \rounds = 200000, \attspan = 10,
-      \playerlen = 270$ and $\postlen = 70$. (Observe that $\rounds - 1 >
-      \left(\postlen - 1\right)\ceil*{\frac{a + b}{\regen}}$.)
+      the $t$-ideal rank and Kendall's Tau coefficient respectively when the
+      number of rounds is enough for all votes to be cast with full voting
+      power. In particular, the parameters used are $a = \frac{1}{50}, b =
+      10^{-4}, \regen = \frac{3}{5 \cdot 24 \cdot 60 \cdot 60}, \rounds =
+      200000, \attspan = 10, \playerlen = 270$ and $\postlen = 70$. (Observe
+      that $\rounds - 1 > \left(\postlen - 1\right)\ceil*{\frac{a +
+      b}{\regen}}$.)
 
       \includegraphics[width=\textwidth]{cand1good_t_similarity}
 
@@ -88,12 +89,12 @@
 
       \includegraphics[width=\textwidth]{candidate1_kendall_tau}
 
-      Here we see that $t$-similarity never exceeds 0, i.e. the best post is not
-      even briefly placed in the top position. Regarding the rest of the list,
-      Kendall's Tau correlation shows that there the order of the posts does not
-      improve throughout the execution of the simulation.
 
       \orfeas{Maybe include graphs with rounds just short of being enough}
+      Here we see that the $t$-ideal rank never exceeds 0, i.e. the best post is
+      not even briefly placed in the top position. Regarding the rest of the
+      list, Kendall's Tau correlation shows that there the order of the posts
+      does not improve throughout the execution of the simulation.
 
     \subsubsection{Scenario B: Selfish users.}
       In order to understand how the presence of voting rings/Sybil accounts
