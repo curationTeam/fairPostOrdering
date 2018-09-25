@@ -32,6 +32,7 @@
     \EndFunction
     \State
     \Function{VoteThisRound}{$\round, \postlen$}
+    \label{alg:steem:vote:votethisround}
       \If{$\rounds < \postlen$}
         \State \Return yes
       \ElsIf{$\round \in \mathrm{voteRounds}$}
@@ -45,6 +46,7 @@
     \EndFunction
     \State
     \Function{VoteRounds}{$\rounds, \postlen$}
+    \label{alg:steem:vote:voterounds:start}
       \State $\mathrm{voteRounds} \gets \emptyset$
       \For{$i = 1$ to $\postlen$}
         \State $\mathrm{voteRounds} \gets \mathrm{voteRounds} \cup \left\{1 +
@@ -52,5 +54,6 @@
       \EndFor
       \State \Return voteRounds
     \EndFunction
+    \label{alg:steem:vote:voterounds:end}
   \end{algorithmic}
 \end{algorithm}
