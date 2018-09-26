@@ -9,10 +9,8 @@
     investigating how the curation quality of the system varies with the number
     of voting rounds. We successfully reproduce the result of
     Theorem~\ref{theorem:convergence:steem}, which implies that the system
-    converges to the ideal post order up to the last post/completely/perfectly
-    converges when a sufficient number of voting rounds is permitted, but
-    otherwise the resulting list of posts may fail to achieve even
-    1-convergence.
+    converges perfectly when a sufficient number of voting rounds is permitted,
+    but otherwise the resulting list of posts may not have but 0-ideal rank.
 
     The second case measures how resilient is the curation quality of Steemit
     against dishonest agents. Since a creator is financially rewarded when her
@@ -23,11 +21,11 @@
     Sybil~\cite{sybilattack} accounts that only vote for her posts are only an
     indicative subset. We thus examine the quality of the resulting list when
     certain users do not follow the honest protocol, but apply the
-    aforementioned self-promoting methods. We observe that a small increase in
-    the number of selfish players has a detrimental effect to the t-convergence
-    metric of the post voting system. Furthermore, we measure the number of
-    positions on the list that the selfish post gains with respect to the number
-    of selfish players.
+    aforementioned self-promoting methods. We observe that there exists a cutoff
+    point above which a small increase in the number of selfish players has a
+    detrimental effect to the $t$-ideal rank of the post voting system.
+    Furthermore, we measure the number of positions on the list that the selfish
+    post gains with respect to the number of selfish players.
 
   \subsection{Methodology}
     We leverage three metrics to compare the curated list with the ideal list:
