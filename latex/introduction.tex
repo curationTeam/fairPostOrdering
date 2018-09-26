@@ -16,7 +16,7 @@ In this work we initiate a study of the foundations of decentralized content cur
   Our model is constituted by a functionality which executes a protocol performed by $N$ players who have a fixed strategy, but in principle their set of actions could be extended.
    The $N$ players contribute votes in a round-based curation process. The impact of each vote depends on the number of coins held by the player.
    The posts are arranged in a list, sorted by the value of votes received, resembling the front-page model of Reddit or Hacker News. In the model, players vote according to their subjective opinion on the quality of the posts and have a limited attention span.
-   Following previous related work, we represent each player's opinion on each post (i.e. likability) with a numerical value $\like \in [ 0,1 ]$~\cite{ghosh2011incentivizing,askalidis2013theoretical}.
+   Following previous related work~\cite{ghosh2011incentivizing,askalidis2013theoretical}, we represent each player's opinion on each post (i.e. likability) with a numerical value $\like \in [ 0,1 ]$.
    The objective quality of a post will be calculated as the simple summation of all players' likabilities for the post in question. To measure the properties of such a post-voting system, we say that the system \textit{$t$-converges} if the $t$ first articles are ordered according to the objective quality of the posts at the end of the execution.
   After defining and formalizing an abstract post-voting system, we particularize it to model Steemit.
    We prove the conditions under which Steemit $t$-converges and then we develop a simulation to help us parametrize Steemit according to our post-voting model.
