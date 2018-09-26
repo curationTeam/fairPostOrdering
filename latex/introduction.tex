@@ -16,10 +16,12 @@ has a long track record, having been in operation since 2016 and attaining a use
 In this work we study the foundations of decentralized content curation from a computational perspective. We develop an abstract model of a post-voting system which aims to sort the posts created by users in a distributed and crowdsourced manner.
   Our model is constituted by a functionality which executes a protocol performed by $N$ players. The model includes an honest participant behaviour while it allows deviations to be modeled for a subset of the participants.      The $N$ players contribute votes in a round-based curation process. The impact of each vote depends on the number of coins held by the player.
    The posts are arranged in a list, sorted by the value of votes received, resembling the front-page model of Reddit or Hacker News. In the model, players vote according to their subjective opinion on the quality of the posts and have a limited attention span.
-   Following previous related work, we represent each player's opinion on each post (i.e. likability) with a numerical value $\like \in [ 0,1 ]$~\cite{ghosh2011incentivizing,askalidis2013theoretical}.
+
+   Following previous related work~\cite{ghosh2011incentivizing,askalidis2013theoretical}, we represent each player's opinion on each post (i.e. likability) with a numerical value $\like \in [ 0,1 ]$.
    The objective quality of a post is calculated as the simple summation of all players' likabilities for the post in question. 
    To measure the effectiveness of a post-voting system, we introduce the property of  \textit{convergence} under honesty which is parameterised by a number of values including a metric $t$, that demands the  first $t$ articles to be   ordered according to the objective quality of the posts at the end of the execution assuming all participants signal honestly to the system their personal preferences. 
 Armed with our  post-voting system abstraction, we proceed to particularize it to model Steemit and provide the following results. 
+
 
 \begin{itemize}
 \item[i] We characterise the conditions under which our abstract Steemit model converges highlighting the number of rounds that the system requires in order to converge under honesty for any sequence of posts. 
