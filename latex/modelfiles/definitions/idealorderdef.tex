@@ -1,14 +1,15 @@
 \begin{definition}[$t$-Ideal Post Order]
-  Let $\postlist$ a list of posts, $t \in [M]$. We say that $\postlist$
-  is in $t$-\emph{ideal order} and that the property
+  Let $\postlist$ a list of posts, $t \in [M]$. The property
   $\textsc{Ideal}^{t}\left(\postlist\right)$ holds if
   \begin{equation*}
     \forall i < j \in [t], \idsc{\postlist\left[i\right]} \geq
     \idsc{\postlist\left[j\right]} \enspace.
   \end{equation*}
-% (AK: IF WE WANT THE MAX)  and $t$ is the maximum integer less or equal to $M$ with this property. 
+  We say that $\postlist$ is in $t$-\emph{ideal order} if
+  $\idsc{\postlist\left[i\right]}$ holds and $t$ is the maximum integer less or
+  equal to $M$ with this property.
 %  $\postlist$ is in \emph{$t$-ideal order} iff
 %  $\textsc{Ideal}^t\left(\postlist\right)$ holds but
 %  $\textsc{Ideal}^{t+1}\left(\postlist\right)$ does not.
-  \aggelos{fixed a couple of issues with the previous version of the def.check it.}
+
 \end{definition}

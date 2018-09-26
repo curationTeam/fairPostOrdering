@@ -18,10 +18,10 @@
     \noindent In the case of many UGC platforms, e.g. Steemit, there exists a
     feed (commonly named ``Trending'') that displays the same ordered posts for
     all users. In such an ordered list, posts placed closer to the top are more
-    visible on average, since users typically will consume content from top to bottom
-    \orfeas{citation needed here?}\aggelos{i think we are ok without; }. We can thus measure the quality of an
-    ordered list of posts by comparing it with a list that contains the same
-    posts in decreasing order of ideal score.
+    visible on average, since users typically will consume content from top to
+    bottom. We can thus measure the quality of an ordered list of posts by
+    comparing it with a list that contains the same posts in decreasing order of
+    ideal score.
 
     \subimport{./modelfiles/definitions/}{idealorderdef.tex}
 
@@ -71,12 +71,6 @@
     \subimport{./modelfiles/theorems/}{steemconvergencetheorem.tex}
     \subimport{./modelfiles/proofsketches/}{steemconvergenceproofsketch.tex}
 
-    The above result is tight. If the conditions are violated the above theorem
-    is not true. \aggelos{ I don't see how this sentence makes sense given the formulation of the theorem as iff statement. Moreover,  check the theorem  statement more carefully. In the proof something stronger shuold be achieved (unless i am missing some corner cases?) Specifically I was expecting to see  a stronger theorem statement as follows: 
-    (i) if $R-1 \geq (M-1) \lceil \frac{a+b}{\mathrm{regen}}\rceil$ then   Steemit $(N,R,M,M)$-converges.  
-     (ii) If $R-1 < (M-1) \lceil \frac{a+b}{\mathrm{regen}}\rceil$ then Steemit does not $(N,R,M,1)$-converge.  
-    } See Appendix~\ref{appendix:proof} for full proof.
+    See Appendix~\ref{appendix:proof} for full proof.
 
     \subimport{./modelfiles/corollaries/}{steemconvergencecorollary.tex}
-
-\aggelos{And what happens for $M>70$ ? include this in the theorem. }
