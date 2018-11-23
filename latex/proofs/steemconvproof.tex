@@ -6,23 +6,63 @@
       \rounds - 1 \geq \left(\postlen - 1\right)\ceil*{\frac{a+b}{\regen}}
       \enspace.
     \end{equation}
-    Let $\pid \in \left[\playerlen\right]$. In this case it is $\rounds \geq
-    \postlen$ and according to \textsc{VoteThisRound} in
-    Algorithm~\ref{alg:steem:vote}, $u_{\pid}$ votes non-null in rounds
-    $\left(\round_1, \dots, \round_\postlen\right)$ with $r_i = \floor*{\left(i
-    - 1\right)\frac{\rounds - 1}{\postlen - 1}} + 1$. Observe that:
-    \begin{gather}
+    Observe that
+    \begin{equation}
       \label{conv:proof:integer}
       \left(\ref{conv:proof:rev}\right) \Rightarrow \frac{\rounds - 1}{\postlen
       - 1} \geq \ceil*{\frac{a+b}{\regen}}
       \underset{\text{integer}}{\overset{\text{rhs}}{\Rightarrow}}
       \floor*{\frac{\rounds - 1}{\postlen - 1}} \geq \ceil*{\frac{a+b}{\regen}}
+      \enspace.
+    \end{equation}
+    Let $\pid \in \left[\playerlen\right]$. From~(\ref{conv:proof:rev}) we
+    deduce that $\rounds \geq \postlen$ and according to \textsc{VoteThisRound}
+    in Algorithm~\ref{alg:steem:vote}, $u_{\pid}$ votes non-null in rounds
+    $\left(\round_1, \dots, \round_\postlen\right)$ with $r_i = \floor*{\left(i
+    - 1\right)\frac{\rounds - 1}{\postlen - 1}} + 1$. We define the following:
+    \begin{gather*}
+      k \in \mathbb{N}, w \in \mathbb{R} \enspace, \\
+      n \in \mathbb{Z}, p \in \left[0, 1\right) : \left(k - 1\right)w = n + p
       \enspace, \\
+      m \in \mathbb{Z}, q \in \left[0, 1\right) : w = m + q \enspace.
+    \end{gather*}
+    We have
+    \begin{gather}
+      \label{conv:proof:step:kw}
+      \floor*{\left(k - 1\right)w} = n \enspace, \\
+      \label{conv:proof:step:almostkw}
+      \floor*{kw} =
+      \begin{cases}
+        n + m, & p + q < 1 \\
+        n + m + 1, & p + q \geq 1 \text{ (impossible if } p = 0\text{)}
+      \end{cases} \\
+      \label{conv:proof:step:w:floor}
+      \floor*{w} = m \\
+      \label{conv:proof:step:w:ceil}
+      \ceil*{w} =
+      \begin{cases}
+        m, & p = 0 \\
+        m + 1, & p > 0
+      \end{cases}
+    \end{gather}
+    \begin{equation}
+      \label{conv:proof:step:floors}
+      \begin{gathered}
+        (\ref{conv:proof:step:kw}), (\ref{conv:proof:step:almostkw}),
+        (\ref{conv:proof:step:w:floor}), (\ref{conv:proof:step:w:ceil}), p + q <
+        2 \Rightarrow \\
+        \floor*{kw} \in \left\{\floor*{\left(k - 1\right)w} + \floor*{w},
+        \floor*{\left(k - 1\right)w} + \ceil*{w}\right\}
+      \end{gathered}
+    \end{equation}
+
+    From~(\ref{conv:proof:step:floors}) we deduce that
+    \begin{equation}
       \label{conv:proof:step}
       \forall i \in \left[\postlen\right] \setminus \left\{1\right\}, r_i
       \in \left\{r_{i - 1} + \floor*{\frac{\rounds - 1}{\postlen - 1}}, r_{i -
       1} + \ceil*{\frac{\rounds - 1}{\postlen - 1}}\right\} \enspace.
-    \end{gather}
+    \end{equation}
     From (\ref{conv:proof:integer}) and (\ref{conv:proof:step}) we have that
     $\forall i \in \left[\postlen - 1\right], r_{i+1} - r_i \geq
     \ceil*{\frac{a+b}{\regen}}$. We will now prove by induction that $\forall i
