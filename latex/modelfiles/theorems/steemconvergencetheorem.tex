@@ -1,10 +1,11 @@
 \begin{theorem}
   \label{theorem:convergence:steem} \
   \begin{enumerate}
-    \item \label{theorem:case:manyrounds} If $R-1 \geq (M-1)
-    \ceil*{\frac{a+b}{\mathrm{regen}}}$ then Steemit $(N,R,M,M)$-converges.
-    \item \label{theorem:case:fewrounds} If $R-1 < (M-1)
-    \ceil*{\frac{a+b}{\mathrm{regen}}}$ then Steemit does not
-    $(N,R,M,1)$-converge.
+    \item \label{theorem:case:manyrounds} If $\rounds - 1 \geq \left(\postlen -
+    1\right) \ceil*{\frac{a+b}{\regen}}$ then Steemit $\left(\playerlen,
+    \rounds, \postlen, \postlen\right)$-converges.
+    \item \label{theorem:case:fewrounds} If $\rounds - 1 < \left(\postlen -
+    1\right) \ceil*{\frac{a+b}{regen}}$ then Steemit does not $\left(\playerlen,
+    \rounds,\postlen, 1\right)$-converge.
   \end{enumerate}
 \end{theorem}
