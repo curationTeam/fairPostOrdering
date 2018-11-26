@@ -1,5 +1,75 @@
 \begin{proof}
   \begin{itemize}
+    \item Statement~\ref{theorem:case:varstpow}: Reorder the players such that
+    $\stpow_1 \geq \stpow_2 \geq \dots \geq \stpow_{\playerlen}$. Let $k =
+    \min\limits_{j \in \left[\playerlen - 1\right]}\left\{\stpow_j \neq
+    \stpow_{j+1}\right\}$. We first cover the case when $\attspan \geq 2$.
+
+    Let\footnote{We thank Heng Guo from the University of Edinburgh for this
+    counterexample.}
+    \begin{gather*}
+      \strongpost = \left(\underbrace{0, \dots, 0}_{k - 1}, \frac{\stpow_k -
+      \stpow_{k + 1}}{2\stpow_k}, 1, \underbrace{0, \dots, 0}_{\playerlen - k -
+      1}\right) \\
+      \weakpost = \left(\underbrace{0, \dots, 0}_{k - 1}, 1, \underbrace{0,
+      \dots, 0}_{\playerlen - k}\right) \\
+      \nullpost = \left(\underbrace{0, \dots, 0}_{\playerlen}\right) \\
+      \postlist = \left[\weakpost, \strongpost, \underbrace{\nullpost, \dots,
+      \nullpost}_{\postlen - 2}\right] \enspace.
+    \end{gather*}
+
+    We first note that $\stpow_k > \stpow_{k+1} \geq 0 \Rightarrow 0 \leq
+    \frac{\stpow_k - \stpow_{k + 1}}{2\stpow_k} \leq 1$, thus $\strongpost$ is a
+    valid post. We then observe that $\forall i \in \left\{3, \dots,
+    \postlen\right\}, \idsc{\postlist\left[i\right]} = 0 <
+    \idsc{\postlist\left[1\right]} = 1 < 1 + \frac{\stpow_k -
+    \stpow_{k+1}}{2\stpow_k} = \idsc{\postlist\left[2\right]}$, thus $\forall
+    \postlist'$ that contain the same posts as $\postlist$ and
+    $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is
+    $\postlist'\left[1\right] = \postlist\left[2\right]$.
+
+    Since $\attspan \geq 2$, all players apart from $\player_{k + 1}$ vote for
+    $\postlist\left[1\right]$ in the first round and for
+    $\postlist\left[2\right]$ in the second, whereas $\player_{k + 1}$ votes for
+    $\postlist\left[2\right]$ in the first round and for
+    $\postlist\left[1\right]$ in the second. Thus the two first posts will have
+    been voted by all players by the end of the second round and their score
+    will not change until the execution completes. We have:
+    \begin{gather*}
+      \mathrm{sc}_2\left(\postlist\left[1\right]\right) =
+      \mathrm{sc}_\rounds\left(\postlist\left[1\right]\right) = \\
+      \sum\limits_{j = 1}^{k-1}\stpow_j b + \stpow_k \left(a + b\right) +
+      \stpow_{k+1} \min{\left\{b, \votpowvecreg_{k+1,r_2}\right\}} +
+      \sum\limits_{j = k + 2}^{\postlen}\stpow_j b \text{ and} \\
+      \mathrm{sc}_2\left(\postlist\left[2\right]\right) =
+      \mathrm{sc}_\rounds\left(\postlist\left[2\right]\right) = \\
+      \sum\limits_{j = 1}^{k-1}\stpow_j \min{\left\{b,
+      \votpowvecreg_{j,r_2}\right\}} + \\
+      \stpow_k \min{\left\{a \frac{\stpow_k - \stpow_{k+1}}{2\stpow_k}
+      \votpowvecreg_{k, r_2} + b, \votpowvecreg_{k, r_2}\right\}} + \stpow_{k+1}
+      \left(a + b\right) + \\
+      \sum\limits_{j = k + 2}^{\postlen}\stpow_j \min{\left\{b,
+      \votpowvecreg_{j, r_2}\right\}} \Rightarrow \\
+      \mathrm{sc}_\rounds\left(\postlist\left[2\right]\right) \leq \\
+      \sum\limits_{j = 1}^{k-1}\stpow_j b + \stpow_k \left(a \frac{\stpow_k -
+      \stpow_{k+1}}{2\stpow_k} + b\right) + \stpow_{k+1} \left(a + b\right) +
+      \sum\limits_{j = k + 2}^{\postlen}\stpow_j b \enspace.
+    \end{gather*}
+
+    In the case that $\votpowvecreg_{k+1, r_2} \geq b$, it is
+    \begin{gather*}
+      \mathrm{sc}_\rounds\left(\postlist\left[1\right]\right) = \sum\limits_{j =
+      1}^{k-1}\stpow_j b + \stpow_k \left(a + b\right) + \stpow_{k+1} b +
+      \sum\limits_{j = k + 2}^{\postlen}\stpow_j b > \\
+      \sum\limits_{j = 1}^{k-1}\stpow_j b + \stpow_k \left(a \frac{\stpow_k -
+      \stpow_{k+1}}{2\stpow_k} + b\right) + \stpow_{k+1} \left(a + b\right) +
+      \sum\limits_{j = k + 2}^{\postlen}\stpow_j b \geq \\
+      \mathrm{sc}_\rounds\left(\postlist\left[2\right]\right) \Rightarrow
+      \mathrm{sc}_\rounds\left(\postlist\left[1\right]\right) >
+      \mathrm{sc}_\rounds\left(\postlist\left[2\right]\right) \enspace,
+    \end{gather*}
+    thus $\textsc{Ideal}^1\left(\postlist'\right)$ does not hold.
+
     \item Statement~\ref{theorem:case:manyrounds}: Suppose that
     \begin{equation}
       \label{conv:proof:rev}
