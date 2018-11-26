@@ -1,11 +1,20 @@
 \begin{theorem}
   \label{theorem:convergence:steem} \
   \begin{enumerate}
-    \item \label{theorem:case:manyrounds} If $\rounds - 1 \geq \left(\postlen -
-    1\right) \ceil*{\frac{a+b}{\regen}}$ then Steemit $\left(\playerlen,
-    \rounds, \postlen, \postlen\right)$-converges.
-    \item \label{theorem:case:fewrounds} If $\rounds - 1 < \left(\postlen -
-    1\right) \ceil*{\frac{a+b}{regen}}$ then Steemit does not $\left(\playerlen,
-    \rounds,\postlen, 1\right)$-converge.
+    \item \label{theorem:case:varstpow} If $\exists i \neq j \in
+    \left[\playerlen\right]: \stpow_i \neq \stpow_j$ (i.e. if not all players
+    have the same Steem Power) then Steemit does not $\left(\playerlen, \rounds,
+    \postlen, 1\right)$ converge. \orfeas{TODO: choose prose or math}
+    \item If $\forall i \neq j \in \left[\playerlen\right], \stpow_i = \stpow_j$
+    (i.e. if all players have the same Steem Power) and \orfeas{TODO: choose
+    prose or math}
+    \begin{enumerate}
+      \item \label{theorem:case:manyrounds} $\rounds - 1 \geq \left(\postlen -
+      1\right) \ceil*{\frac{a+b}{\regen}}$ then Steemit $\left(\playerlen,
+      \rounds, \postlen, \postlen\right)$-converges.
+      \item \label{theorem:case:fewrounds} $\rounds - 1 < \left(\postlen -
+      1\right) \ceil*{\frac{a+b}{regen}}$ then Steemit does not
+      $\left(\playerlen, \rounds,\postlen, 1\right)$-converge.
+    \end{enumerate}
   \end{enumerate}
 \end{theorem}
