@@ -70,6 +70,77 @@
     \end{gather*}
     thus $\textsc{Ideal}^1\left(\postlist'\right)$ does not hold.
 
+    Since $\player_{k+1}$ does not vote in any round between $\round_1$ and
+    $\round_2$, and $\round_2 \geq 2$, it is $\votpowvecreg_{k+1, r_2} \geq 1 -
+    a - b + \regen$. Thus the case when $\votpowvecreg_{k+1, r_2} < b$ can
+    happen only when $b > 1 - a - b + \regen \Leftrightarrow b > \frac{1 - a +
+    \regen}{2}$. We now provide a counterexample for the case when $b > \frac{1
+    - a + \regen}{2}$.
+
+    Once more we order the players in descending Steem Power, like in the
+    previous case. Once again $k = \min\limits_{j \in \left[\playerlen -
+    1\right]}\left\{\stpow_j \neq \stpow_{j+1}\right\}$ and we only care for the
+    case when $\attspan \geq 2$. Let $0 < \gamma < 1$ and
+    \begin{gather*}
+      \weakpost = \left(\underbrace{0, \dots, 0}_{k - 1}, 1, \frac{\gamma}{2},
+      \underbrace{0, \dots, 0}_{\playerlen - k - 1}\right) \\
+      \strongpost = \left(\underbrace{0, \dots, 0}_{k - 1}, \gamma, 1,
+      \underbrace{0, \dots, 0}_{\playerlen - k - 1}\right) \\
+      \nullpost = \left(\underbrace{0, \dots, 0}_{\playerlen}\right) \\
+      \postlist = \left[\weakpost, \strongpost, \underbrace{\nullpost, \dots,
+      \nullpost}_{\postlen - 2}\right] \enspace.
+    \end{gather*}
+
+    We observe that $\forall i \in \left\{3, \dots, \postlen\right\},
+    \idsc{\postlist\left[i\right]} = 0 < \idsc{\postlist\left[1\right]} = 1 +
+    \frac{\gamma}{2} < 1 + \gamma = \idsc{\postlist\left[2\right]}$, thus
+    $\forall \postlist'$ that contain the same posts as $\postlist$ and
+    $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is
+    $\postlist'\left[1\right] = \postlist\left[2\right]$.
+
+    Since $\attspan \geq 2$, all players apart from $\player_{k + 1}$ vote for
+    $\postlist\left[1\right]$ in the first round and for
+    $\postlist\left[2\right]$ in the second, whereas $\player_{k + 1}$ votes for
+    $\postlist\left[2\right]$ in the first round and for
+    $\postlist\left[1\right]$ in the second. Thus the two first posts will have
+    been voted by all players by the end of the second round and their score
+    will not change until the execution completes. We have:
+    \begin{gather*}
+      \mathrm{sc}_2\left(\postlist\left[1\right]\right) =
+      \mathrm{sc}_\rounds\left(\postlist\left[1\right]\right) = \\
+      \sum\limits_{j = 1}^{k-1}\stpow_j b + \stpow_k \left(a + b\right) +
+      \stpow_{k+1} \votpowvecreg_{k+1,r_2} + \sum\limits_{j = k +
+      2}^{\postlen}\stpow_j b \text{ and} \\
+      \mathrm{sc}_2\left(\postlist\left[2\right]\right) =
+      \mathrm{sc}_\rounds\left(\postlist\left[2\right]\right) = \\
+      \sum\limits_{j = 1}^{k-1}\stpow_j \min{\left\{b, \votpowvecreg_{j,
+      r_2}\right\}} + \stpow_k \votpowvecreg_{k, r_2} + \stpow_{k+1} \left(a +
+      b\right) + \\
+      \sum\limits_{j = k + 2}^{\postlen}\stpow_j \min{\left\{b,
+      \votpowvecreg_{j, r_2}\right\}} \leq \\
+      \sum\limits_{j = 1}^{k-1}\stpow_j b + \stpow_k \votpowvecreg_{k, r_2} +
+      \stpow_{k+1} \left(a + b\right) +
+      \sum\limits_{j = k + 2}^{\postlen}\stpow_j b \enspace.
+    \end{gather*}
+
+    We note that $\votpowvecreg_{k, r_2} = \votpowvecreg_{k+1, r_2}$ because
+    both $\player_k$ and $\player_{k+1}$ vote with full voting power in the
+    first round. Let $\mathrm{VP} = \votpowvecreg_{k, r_2}$. We have
+    \begin{gather*}
+      \stpow_k \left(a + b\right) + \stpow_{k+1} \mathrm{VP} > \stpow_k
+      \mathrm{VP} + \stpow_{k+1} \left(a + b\right) \Leftrightarrow \\
+      \stpow_k \left(a + b\right) + \stpow_{k+1} \mathrm{VP} - \stpow_k
+      \mathrm{VP} - \stpow_{k+1} \left(a + b\right) > 0 \Leftrightarrow \\
+      \left(a + b\right) \left(\stpow_k - \stpow_{k+1}\right) - \mathrm{VP}
+      \left(\stpow_k - \stpow_{k+1}\right) > 0 \Leftrightarrow \\
+      \left(\stpow_k - \stpow_{k+1}\right) \left(a + b - \mathrm{VP}\right) > 0
+    \end{gather*}
+    The last expression is true because $\stpow_k > \stpow_{k+1}$ and
+    $\mathrm{VP} < b$, thus the first expression is true as well. We can then
+    deduce that $\mathrm{sc}_\rounds\left(\postlist\left[1\right]\right) >
+    \mathrm{sc}_\rounds\left(\postlist\left[2\right]\right)$, thus
+    $\textsc{Ideal}^1\left(\postlist'\right)$ does not hold.
+
     \item Statement~\ref{theorem:case:manyrounds}: Suppose that
     \begin{equation}
       \label{conv:proof:rev}
