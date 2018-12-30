@@ -124,7 +124,7 @@
     \end{gather*}
 
     We note that $\votpowvecreg_{k, r_2} = \votpowvecreg_{k+1, r_2}$ because
-    both $\player_k$ and $\player_{k+1}$ vote with full voting power in the
+    both $\player_k$ and $\player_{k+1}$ vote with full Voting Power in the
     first round. Let $\mathrm{VP} = \votpowvecreg_{k, r_2}$. We have
     \begin{gather*}
       \stpow_k \left(a + b\right) + \stpow_{k+1} \mathrm{VP} > \stpow_k
@@ -196,8 +196,8 @@
 
     Since $\attspan = 1$, all players vote for all posts in the order they
     appear in the list of posts, thus $\postlist\left[1\right]$ is voted first,
-    with full voting power by all players. $\postlist\left[2\right]$ will be
-    voted next by all players with at most full voting power, thus
+    with full Voting Power by all players. $\postlist\left[2\right]$ will be
+    voted next by all players with at most full Voting Power, thus
     $\mathrm{sc}_1\left(\postlist\left[1\right]\right) =
     \mathrm{sc}_\rounds\left(\postlist\left[1\right]\right)$ and
     $\mathrm{sc}_2\left(\postlist\left[2\right]\right) =
@@ -454,8 +454,8 @@
       1}} = 1$.
     \end{itemize}
     Since the above holds for every $\pid \in \left[\playerlen\right]$, it holds
-    that at the end of the execution, all votes have been cast with full voting
-    power, thus $\forall i \in \left[\postlen\right],
+    that at the end of the execution, all votes have been cast with full Voting
+    Power, thus $\forall i \in \left[\postlen\right],
     \mathrm{sc}_{\rounds}\left(\postlist\left[i\right]\right) =
     \playerlen b + a \sum\limits_{\pid = 1}^\playerlen
     \postlist\left[i\right]_{\pid}$ and the posts in $\postlist_R$ are sorted by
@@ -538,8 +538,8 @@
       \enspace,
     \end{equation*}
     i.e. $i$ is the first round in which $u_\pid$ votes with less than full
-    voting power. Such a round exists in every case as we will show now. Note
-    that, since the first round is a voting round and the voting power of all
+    Voting Power. Such a round exists in every case as we will show now. Note
+    that, since the first round is a voting round and the Voting Power of all
     players is full at the beginning, if $i$ exists it is $i \geq 2$.
 
     \begin{itemize}
@@ -549,8 +549,8 @@
       1\right)$, then $\forall i \in \left[\postlen\right], \votpowvecreg_{\pid,
       \round_i} = 1 \Rightarrow \forall i \in \left[\postlen\right] \setminus
       \left\{1\right\}, \round_i \geq \round_{i - 1} + \ceil*{\frac{a +
-      b}{\regen}}$ to have enough rounds to replenish the voting power after a
-      full-weight, full-voting power vote. Thus $\round_\postlen \geq 1 +
+      b}{\regen}}$ to have enough rounds to replenish the Voting Power after a
+      full-weight, full-Voting Power vote. Thus $\round_\postlen \geq 1 +
       \left(\postlen - 1\right)\ceil*{\frac{a + b}{\regen}} > \rounds$,
       contradiction.
 
@@ -568,7 +568,7 @@
       $i = 2$.
     \end{itemize}
     We proved that $i$ exists. Since all players follow the same voting pattern,
-    the voting power of all players in each round is the same. Let $\rvp =
+    the Voting Power of all players in each round is the same. Let $\rvp =
     \votpowvecreg_{1, \round_i}$. Assume that $\attspan < i \vee i > 2$. We
     cover the case where $\attspan \geq i \wedge i = 2$ later. In case
     $\playerlen$ is even, let $0 < \gamma < 0, 0 < \epsilon < \gamma\left(1 -
@@ -631,20 +631,20 @@
     The two previous results combined prove that the first
     $\frac{\playerlen}{2}$ players vote for the strong post in round $\round_i$
     exactly. We also observe that these players have experienced the exact same
-    voting power reduction and regeneration as in the case of $\postlist^1$
+    Voting Power reduction and regeneration as in the case of $\postlist^1$
     since they voted only for posts with likability 1, thus in round $\round_i$
-    their voting power after regeneration is exactly the same as in the case of
+    their Voting Power after regeneration is exactly the same as in the case of
     $\postlist^1: \forall \pid \in \left[\frac{\playerlen}{2}\right],
     \votpowvecreg_{\pid, \round_i} = \rvp$.
 
     We observe that the first $\frac{\playerlen}{2}$ players vote for all weak
-    posts with full voting power. As for the last $\frac{\playerlen}{2}$
+    posts with full Voting Power. As for the last $\frac{\playerlen}{2}$
     players, we observe that, if $\attspan < i$, they all vote for the first
-    weak post of the list in the first round, and thus with full voting power. If
+    weak post of the list in the first round, and thus with full Voting Power. If
     $\attspan \geq i$ and $i > 2$, they vote for the strong post in the first
-    round and for the first weak post in $r_2$ with full voting power. Thus in
+    round and for the first weak post in $r_2$ with full Voting Power. Thus in
     all cases the last $\frac{\playerlen}{2}$ players vote for the first weak
-    post with full voting power. Therefore, the score of the first weak post at
+    post with full Voting Power. Therefore, the score of the first weak post at
     the end of the execution is
     $\mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) =
     \frac{\playerlen}{2}\left(a + b\right) +
@@ -652,8 +652,8 @@
 
     On the other hand, at the end of the execution the strong post has been
     voted by the first $\frac{\playerlen}{2}$ players with $\rvp$
-    voting power and by the last $\frac{\playerlen}{2}$ players with at most
-    full voting power, thus its final score will be at most
+    Voting Power and by the last $\frac{\playerlen}{2}$ players with at most
+    full Voting Power, thus its final score will be at most
     $\mathrm{sc}_{\rounds}\left(\postlist\left[i\right]\right) \leq
     \frac{\playerlen}{2}\left(\rvp \cdot \gamma a + b\right) +
     \frac{\playerlen}{2}\left(a + b\right)$. It is
@@ -679,8 +679,8 @@
     posts. The rest of the likabilities remain as in the case when $\playerlen$
     is even. We observe that the ideal score of the strong post is still
     strictly higher than the rest. Furthermore, since the additional player
-    votes for the first weak post within the first $i$ voting rounds, her voting
-    power at the time of this vote will be at least $\rvp$. We thus have the
+    votes for the first weak post within the first $i$ voting rounds, her Voting
+    Power at the time of this vote will be at least $\rvp$. We thus have the
     following bounds for the scores:
 
     \begin{gather*}
