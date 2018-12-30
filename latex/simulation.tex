@@ -85,9 +85,9 @@
         \label{fig:honest:70:coeffs}
       \end{figure}
 
-      As we can see, both measures show that the real list converges rapidly to
-      the ideal order at the very end of the execution;  meanwhile, the
-      quality of the list improves very slowly.
+      As we can see, all three measures show that the real list converges
+      rapidly to the ideal order at the very end of the execution; meanwhile,
+      the quality of the list improves very slowly.
 
       Figures~\ref{fig:honest:100:tideal} and~\ref{fig:honest:100:coeffs} depict
       what happens when the rounds are not sufficient for all votes to be cast
@@ -116,20 +116,20 @@
       only slightly throughout the execution of the simulation.
 
     \subsubsection{Scenario B: Selfish users.}
-      In order to understand how the presence of voting rings/Sybil accounts
-      affects the curation quality, we simulate the execution of the game for
-      various voting ring sizes. We fix the rest of the system parameters so
-      that the selfish post is handicapped. In particular, the voting rounds are
-      sufficient for all votes to be cast with full voting power, the likability
-      of the selfish post is 0 for all players and it is initially placed at the
-      bottom of the post list. Define the gain of the post of the selfish
-      players as its ideal position minus its final position.
-      Figure~\ref{fig:selfish:gain} depicts the gain of the selfish post for a
-      varying number of selfish players, from 1 to 100.
+      In order to understand how the presence of voting rings affects the
+      curation quality, we simulate the execution of the game for various ring
+      sizes, where ring members vote only for a particular, ``selfish'' post. We
+      fix the rest of the system parameters to handicap the selfish post. In
+      particular, the voting rounds are enough for all votes to be cast with
+      full voting power, the likability of the selfish post is 0 for all players
+      and it is initially placed at the bottom of the post list. Define the
+      gain of the post of the selfish players as its ideal position minus its
+      final position. Figure~\ref{fig:selfish:gain} shows the gain of the
+      selfish post for a varying number of selfish players, from 1 to 100.
       Figure~\ref{fig:selfish:tideal} shows the $t$-ideal rank of the resulting
-      list at the same executions. For these simulations, the system parameters
-      are $\playerlen = 101 .. 200, a = \frac{1}{50}, b = 10^{-4}, \regen =
-      \frac{3}{5 \cdot 24 \cdot 60}, \attspan = 10, \rounds = 5000$.
+      list at the same executions. The system parameters are $\playerlen = 101
+      .. 200, a = \frac{1}{50}, b = 10^{-4}, \regen = \frac{3}{5 \cdot 24 \cdot
+      60}, \attspan = 10, \rounds = 5000$.
 
       \begin{figure}[!htbp]
         \includegraphics[width=0.9\textwidth]{selfish_positionsgained}
