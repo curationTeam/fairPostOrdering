@@ -56,14 +56,16 @@
 
     We now give a high-level description of a concrete post voting system, based
     on the Steemit platform. According to this mechanism, each player is
-    assigned a number called ``Voting Power'' ($\votpow$) in $\left[0,
-    1\right]$, initialized to 1. A vote is a pair containing a post and a weight
-    $w \in \left[0, 1\right]$. Upon receiving a list of posts, the honest player
-    chooses to vote her most liked post amongst the top $\attspan$ posts of the
-    list. The weight is chosen to be equal to the respective likability. The
-    functionality increases the score of the post by $a \votpow w + b$ and
-    subsequently decreases the player's voting power by the same amount (but
-    keeping it within the aforementioned bounds).
+    assigned a number of coins known as ``Steem Power'' ($\stpow$) that remains
+    constant throughout the execution and another number called ``Voting Power''
+    ($\votpow$) in $\left[0, 1\right]$, initialized to 1. A vote is a pair
+    containing a post and a weight $w \in \left[0, 1\right]$. Upon receiving a
+    list of posts, the honest player chooses to vote her most liked post amongst
+    the top $\attspan$ posts of the list. The weight is chosen to be equal to
+    the respective likability. The functionality increases the score of the post
+    by $\stpow\left(a \votpow w + b\right)$ and subsequently decreases the
+    player's voting power by the same amount (but keeping it within the
+    aforementioned bounds).
 
     \subimport{./modelfiles/definitions/}{steemdef.tex}
     \subimport{./modelfiles/}{steemdefremark.tex}
