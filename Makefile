@@ -1,17 +1,21 @@
-all: contentCuration.pdf
+all: contentCuration.pdf contentCurationfullversion.pdf
 
 #.ONESHELL:
 contentCuration.pdf: $(shell find latex/ *)
-	if [ -e dot2tex ]; then rm -r dot2tex; fi
-	mkdir dot2tex;
 	export TEXINPUTS=.:./latex//:; \
-	pdflatex --shell-escape contentCuration.tex; \
+	pdflatex contentCuration.tex; \
 	bibtex contentCuration.aux; \
-	pdflatex --shell-escape contentCuration.tex; \
-	pdflatex --shell-escape contentCuration.tex; \
+	pdflatex contentCuration.tex; \
+	pdflatex contentCuration.tex; \
 	rm -rf contentCuration.aux contentCuration.log contentCuration.out contentCuration.toc contentCuration.lof contentCuration.lot contentCuration.bbl contentCuration.blg
-	-mv dot2tex/*.tex latex/figures/
-	rm -r dot2tex
+
+contentCurationfullversion.pdf: $(shell find latex/ *)
+	export TEXINPUTS=.:./latex//:; \
+	pdflatex contentCurationfullversion.tex; \
+	bibtex contentCurationfullversion.aux; \
+	pdflatex contentCurationfullversion.tex; \
+	pdflatex contentCurationfullversion.tex; \
+	rm -rf contentCurationfullversion.aux contentCurationfullversion.log contentCurationfullversion.out contentCurationfullversion.toc contentCurationfullversion.lof contentCurationfullversion.lot contentCurationfullversion.bbl contentCurationfullversion.blg
 
 clean:
 	rm -rf *.aux *.log *.out *.toc *.lof *.lot *.bbl *.blg *.pdf

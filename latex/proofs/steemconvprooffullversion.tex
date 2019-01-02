@@ -1,0 +1,815 @@
+\begin{proof}
+  \begin{itemize}
+    \item Statement~\ref{theorem:case:varstpow}: Reorder the players such that
+    $\stpow_1 \geq \stpow_2 \geq \dots \geq \stpow_{\playerlen}$. Let $k =
+    \min\limits_{j \in \left[\playerlen - 1\right]}\left\{\stpow_j \neq
+    \stpow_{j+1}\right\}$. We first cover the case when $\attspan \geq 2$.
+
+    Let\footnote{We thank Heng Guo from the University of Edinburgh for this
+    counterexample.}
+    \begin{gather*}
+      \weakpost = (\underbrace{0, \dots, 0}_{k - 1}, 1, \underbrace{0,
+      \dots, 0}_{\playerlen - k}) \\
+      \strongpost = (\underbrace{0, \dots, 0}_{k - 1}, \frac{\stpow_k -
+      \stpow_{k + 1}}{2\stpow_k}, 1, \underbrace{0, \dots, 0}_{\playerlen - k -
+      1}) \\
+      \nullpost = (\underbrace{0, \dots, 0}_{\playerlen}) \\
+      \postlist = [\weakpost, \strongpost, \underbrace{\nullpost, \dots,
+      \nullpost}_{\postlen - 2}] \enspace.
+    \end{gather*}
+
+    We first note that $\stpow_k > \stpow_{k+1} \geq 0 \Rightarrow 0 \leq
+    \frac{\stpow_k - \stpow_{k + 1}}{2\stpow_k} \leq 1$, thus $\strongpost$ is a
+    valid post. We then observe that
+    \begin{gather*}
+      \forall i \in \left\{3, \dots, \postlen\right\},
+      \idsc{\postlist\left[i\right]} = 0 < \\
+      <\idsc{\postlist\left[1\right]} = 1 < 1 + \frac{\stpow_k -
+      \stpow_{k+1}}{2\stpow_k} = \idsc{\postlist\left[2\right]} \enspace,
+    \end{gather*}
+    thus $\forall \postlist'$ that contain the same posts as $\postlist$ and
+    $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is
+    $\postlist'\left[1\right] = \postlist\left[2\right]$.
+
+    Since $\attspan \geq 2$, all players apart from $\player_{k + 1}$ vote for
+    $\postlist\left[1\right]$ in the first round and for
+    $\postlist\left[2\right]$ in the second, whereas $\player_{k + 1}$ votes for
+    $\postlist\left[2\right]$ in the first round and for
+    $\postlist\left[1\right]$ in the second. Thus the two first posts will have
+    been voted by all players by the end of the second round and their score
+    will not change until the execution completes. We have:
+
+    \begin{gather*}
+      \mathrm{sc}_2\left(\postlist\left[1\right]\right) =
+      \mathrm{sc}_\rounds\left(\postlist\left[1\right]\right) = \\
+      \sum\limits_{j = 1}^{k-1}\stpow_j b + \stpow_k \left(a + b\right) +
+      \stpow_{k+1} \min{\left\{b, \votpowvecreg_{k+1,r_2}\right\}} +
+      \sum\limits_{j = k + 2}^{\postlen}\stpow_j b \text{ and} \\
+      \mathrm{sc}_2\left(\postlist\left[2\right]\right) =
+      \mathrm{sc}_\rounds\left(\postlist\left[2\right]\right) = \\
+      \sum\limits_{j = 1}^{k-1}\stpow_j \min{\{b, \votpowvecreg_{j,r_2}\}} + \\
+      \stpow_k \min{\{a \frac{\stpow_k - \stpow_{k+1}}{2\stpow_k}
+      \votpowvecreg_{k, r_2} + b, \votpowvecreg_{k, r_2}\}} + \stpow_{k+1}
+      \left(a + b\right) + \\
+      \sum\limits_{j = k + 2}^{\postlen}\stpow_j \min{\{b, \votpowvecreg_{j,
+      r_2}\}} \Rightarrow
+    \end{gather*}
+    \begin{gather*}
+      \mathrm{sc}_\rounds(\postlist\left[2\right]) \leq \\
+      \sum\limits_{j = 1}^{k-1}\stpow_j b + \stpow_k (a \frac{\stpow_k -
+      \stpow_{k+1}}{2\stpow_k} + b) + \stpow_{k+1} \left(a + b\right) +
+      \sum\limits_{j = k + 2}^{\postlen}\stpow_j b \enspace.
+    \end{gather*}
+
+    In the case that $\votpowvecreg_{k+1, r_2} \geq b$, it is
+    \begin{gather*}
+      \mathrm{sc}_\rounds\left(\postlist\left[1\right]\right) = \sum\limits_{j =
+      1}^{k-1}\stpow_j b + \stpow_k \left(a + b\right) + \stpow_{k+1} b +
+      \sum\limits_{j = k + 2}^{\postlen}\stpow_j b > \\
+      \sum\limits_{j = 1}^{k-1}\stpow_j b + \stpow_k (a \frac{\stpow_k -
+      \stpow_{k+1}}{2\stpow_k} + b) + \stpow_{k+1} \left(a + b\right) +
+      \sum\limits_{j = k + 2}^{\postlen}\stpow_j b \geq \\
+      \mathrm{sc}_\rounds\left(\postlist\left[2\right]\right) \Rightarrow
+      \mathrm{sc}_\rounds\left(\postlist\left[1\right]\right) >
+      \mathrm{sc}_\rounds\left(\postlist\left[2\right]\right) \enspace,
+    \end{gather*}
+    thus $\textsc{Ideal}^1\left(\postlist'\right)$ does not hold.
+
+    Since $\player_{k+1}$ does not vote in any round between $\round_1$ and
+    $\round_2$, and $\round_2 \geq 2$, it is $\votpowvecreg_{k+1, r_2} \geq 1 -
+    a - b + \regen$. Thus the case when $\votpowvecreg_{k+1, r_2} < b$ can
+    happen only when $b > 1 - a - b + \regen \Leftrightarrow b > \frac{1 - a +
+    \regen}{2}$. We now provide a counterexample for the case when $b > \frac{1
+    - a + \regen}{2}$.
+
+    Once more we order the players in descending Steem Power, like in the
+    previous case. Once again $k = \min\limits_{j \in \left[\playerlen -
+    1\right]}\left\{\stpow_j \neq \stpow_{j+1}\right\}$ and we only care for the
+    case when $\attspan \geq 2$. Let $0 < \gamma < 1$ and
+    \begin{gather*}
+      \weakpost = (\underbrace{0, \dots, 0}_{k - 1}, 1, \frac{\gamma}{2},
+      \underbrace{0, \dots, 0}_{\playerlen - k - 1}) \\
+      \strongpost = (\underbrace{0, \dots, 0}_{k - 1}, \gamma, 1, \underbrace{0,
+      \dots, 0}_{\playerlen - k - 1}) \\
+      \nullpost = (\underbrace{0, \dots, 0}_{\playerlen}) \\
+      \postlist = [\weakpost, \strongpost, \underbrace{\nullpost, \dots,
+      \nullpost}_{\postlen - 2}] \enspace.
+    \end{gather*}
+
+    We observe that $\forall i \in \left\{3, \dots, \postlen\right\},
+    \idsc{\postlist\left[i\right]} = 0 < \idsc{\postlist\left[1\right]} = 1 +
+    \frac{\gamma}{2} < 1 + \gamma = \idsc{\postlist\left[2\right]}$, thus
+    $\forall \postlist'$ that contain the same posts as $\postlist$ and
+    $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is
+    $\postlist'\left[1\right] = \postlist\left[2\right]$.
+
+    Since $\attspan \geq 2$, all players apart from $\player_{k + 1}$ vote for
+    $\postlist\left[1\right]$ in the first round and for
+    $\postlist\left[2\right]$ in the second, whereas $\player_{k + 1}$ votes for
+    $\postlist\left[2\right]$ in the first round and for
+    $\postlist\left[1\right]$ in the second. Thus the two first posts will have
+    been voted by all players by the end of the second round and their score
+    will not change until the execution completes. We have:
+
+    \begin{gather*}
+      \mathrm{sc}_2\left(\postlist\left[1\right]\right) =
+      \mathrm{sc}_\rounds\left(\postlist\left[1\right]\right) = \\
+      \sum\limits_{j = 1}^{k-1}\stpow_j b + \stpow_k \left(a + b\right) +
+      \stpow_{k+1} \votpowvecreg_{k+1,r_2} + \sum\limits_{j = k +
+      2}^{\postlen}\stpow_j b \text{ and} \\
+      \mathrm{sc}_2\left(\postlist\left[2\right]\right) =
+      \mathrm{sc}_\rounds\left(\postlist\left[2\right]\right) = \\
+      \sum\limits_{j = 1}^{k-1}\stpow_j \min{\{b, \votpowvecreg_{j, r_2}\}} +
+      \stpow_k \votpowvecreg_{k, r_2} + \stpow_{k+1} \left(a + b\right) + \\
+      \sum\limits_{j = k + 2}^{\postlen}\stpow_j \min{\{b, \votpowvecreg_{j,
+      r_2}\}} \leq \\
+      \sum\limits_{j = 1}^{k-1}\stpow_j b + \stpow_k \votpowvecreg_{k, r_2} +
+      \stpow_{k+1} \left(a + b\right) +
+      \sum\limits_{j = k + 2}^{\postlen}\stpow_j b \enspace.
+    \end{gather*}
+
+    We note that $\votpowvecreg_{k, r_2} = \votpowvecreg_{k+1, r_2}$ because
+    both $\player_k$ and $\player_{k+1}$ vote with full Voting Power in the
+    first round. Let $\mathrm{VP} = \votpowvecreg_{k, r_2}$. We have
+    \begin{gather*}
+      \stpow_k \left(a + b\right) + \stpow_{k+1} \mathrm{VP} > \stpow_k
+      \mathrm{VP} + \stpow_{k+1} \left(a + b\right) \Leftrightarrow \\
+      \stpow_k \left(a + b\right) + \stpow_{k+1} \mathrm{VP} - \stpow_k
+      \mathrm{VP} - \stpow_{k+1} \left(a + b\right) > 0 \Leftrightarrow \\
+      \left(a + b\right) \left(\stpow_k - \stpow_{k+1}\right) - \mathrm{VP}
+      \left(\stpow_k - \stpow_{k+1}\right) > 0 \Leftrightarrow \\
+      \left(\stpow_k - \stpow_{k+1}\right) \left(a + b - \mathrm{VP}\right) > 0
+    \end{gather*}
+    The last expression is true because $\stpow_k > \stpow_{k+1}$ and
+    $\mathrm{VP} < b$, thus the first expression is true as well. We can then
+    deduce that $\mathrm{sc}_\rounds\left(\postlist\left[1\right]\right) >
+    \mathrm{sc}_\rounds\left(\postlist\left[2\right]\right)$, thus
+    $\textsc{Ideal}^1\left(\postlist'\right)$ does not hold.
+
+    We conclude the treatment of Statement~\ref{theorem:case:varstpow} by
+    covering the case when $\attspan = 1$. Consider the following list of posts:
+    \begin{gather*}
+      \weakpost = \left(\frac{\stpow_1 - \stpow_\playerlen}{\stpow_1 -
+      \stpow_\playerlen}, \dots, \frac{\stpow_i - \stpow_\playerlen}{\stpow_1 -
+      \stpow_\playerlen}, \dots, \frac{\stpow_\playerlen -
+      \stpow_\playerlen}{\stpow_1 - \stpow_\playerlen}\right) \\
+      \strongpost = \\
+      \left(\frac{\stpow_\playerlen - \stpow_\playerlen}{\stpow_1 -
+      \stpow_\playerlen}, \dots, \frac{\stpow_{\playerlen - i + 1} -
+      \stpow_\playerlen}{\stpow_1 - \stpow_\playerlen}, \dots, \frac{\stpow_{k +
+      2} - \stpow_\playerlen}{\stpow_1 - \stpow_\playerlen}, \right. \\
+      \left. \min{\left\{1, \frac{\stpow_{k + 1} - \stpow_\playerlen}{\stpow_1 -
+      \stpow_\playerlen} + \frac{\left(\stpow_k -
+      \stpow_{k+1}\right)^2}{2\stpow_{\playerlen - k}\max{\left\{1, \stpow_1 -
+      \stpow_\playerlen\right\}}}\right\}},\right. \\
+      \left.\frac{\stpow_{k} - \stpow_\playerlen}{\stpow_1 - \stpow_\playerlen},
+      \dots, \frac{\stpow_1 - \stpow_\playerlen}{\stpow_1 -
+      \stpow_\playerlen}\right) \\
+      \nullpost = \left(\underbrace{0, \dots, 0}_{\playerlen}\right) \\
+      \postlist = \left[\weakpost, \strongpost, \underbrace{\nullpost, \dots,
+      \nullpost}_{\postlen - 2}\right] \enspace.
+    \end{gather*}
+    All the aforementioned posts are valid, since $\forall i \in
+    \left[\playerlen\right], \stpow_1 \geq \stpow_i \geq \stpow_\playerlen
+    \Rightarrow 1 \geq \frac{\stpow_i - \stpow_\playerlen}{\stpow_1 -
+    \stpow_\playerlen} \geq 0$. Also $\frac{\left(\stpow_k -
+    \stpow_{k+1}\right)^2}{2\stpow_{\playerlen - k}\max{\left\{1, \stpow_1 -
+    \stpow_\playerlen\right\}}} > 0$, which ensures that
+    $\strongpost_{\playerlen - k} > 0$. We also observe that $\stpow_{k+1} <
+    \stpow_k \leq \stpow_1 \Rightarrow \frac{\stpow_{k+1} -
+    \stpow_\playerlen}{\stpow_1 - \stpow_\playerlen} < 1$, thus
+    $\strongpost_{\playerlen - k} > \frac{\stpow_{k+1} -
+    \stpow_\playerlen}{\stpow_1 - \stpow_\playerlen}$.
+
+    Regarding the ideal scores, we have
+    \begin{gather*}
+      \forall i \in \left\{3, \dots, \postlen\right\},
+      \idsc{\postlist\left[i\right]} = 0 \enspace, \\
+      \idsc{\postlist\left[1\right]} = \sum\limits_{i = 1}^\playerlen
+      \frac{\stpow_i - \stpow_\playerlen}{\stpow_1 - \stpow_\playerlen}
+      \enspace, \\
+      \idsc{\postlist\left[2\right]} > \sum\limits_{i = 1}^\playerlen
+      \frac{\stpow_{\playerlen - i + 1} - \stpow_\playerlen}{\stpow_1 -
+      \stpow_\playerlen} = \sum\limits_{i = 1}^\playerlen
+      \frac{\stpow_i - \stpow_\playerlen}{\stpow_1 - \stpow_\playerlen}
+      \enspace,
+    \end{gather*}
+    Thus $\postlist\left[2\right]$ has the highest ideal score and $\forall
+    \postlist'$ that contain the same posts as $\postlist$ and
+    $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is
+    $\postlist'\left[1\right] = \postlist\left[2\right]$.
+
+    Since $\attspan = 1$, all players vote for all posts in the order they
+    appear in the list of posts, thus $\postlist\left[1\right]$ is voted first,
+    with full Voting Power by all players. $\postlist\left[2\right]$ will be
+    voted next by all players with at most full Voting Power, thus
+    $\mathrm{sc}_1\left(\postlist\left[1\right]\right) =
+    \mathrm{sc}_\rounds\left(\postlist\left[1\right]\right)$ and
+    $\mathrm{sc}_2\left(\postlist\left[2\right]\right) =
+    \mathrm{sc}_\rounds\left(\postlist\left[2\right]\right)$. We will prove that
+    $\mathrm{sc}_\rounds\left(\postlist\left[2\right]\right) <
+    \mathrm{sc}_\rounds\left(\postlist\left[1\right]\right)$. It is
+    \begin{gather*}
+      \mathrm{sc}_\rounds\left(\postlist\left[1\right]\right) = \sum\limits_{i =
+      1}^\playerlen \stpow_i\left(a \postlist\left[1\right]_i + b\right) =
+      \sum\limits_{i = 1}^\playerlen \stpow_i\left(a \frac{\stpow_i -
+      \stpow_\playerlen}{\stpow_1 - \stpow_\playerlen} + b\right) \enspace, \\
+      \mathrm{sc}_\rounds\left(\postlist\left[2\right]\right) \leq
+      \sum\limits_{i = 1}^\playerlen \stpow_i\left(a \postlist\left[2\right]_i +
+      b\right) = \\
+      \sum\limits_{\overset{i = 1}{i \neq \playerlen - k}}^\playerlen
+      \stpow_i\left(a \frac{\stpow_{\playerlen - i + 1} -
+      \stpow_\playerlen}{\stpow_1 - \stpow_\playerlen} + b\right) + \\
+      \stpow_{\playerlen - k}\left(a \min\left\{1, \frac{\stpow_{k + 1} -
+      \stpow_\playerlen}{\stpow_1 - \stpow_\playerlen} + \right.\right. \\
+      \left.\left. \frac{\left(\stpow_k -
+      \stpow_{k+1}\right)^2}{2\stpow_{\playerlen - k}\max{\left\{1, \stpow_1 -
+      \stpow_\playerlen\right\}}}\right\} + b\right) \leq \\
+      \sum\limits_{i = 1}^\playerlen \stpow_i\left(a \frac{\stpow_{\playerlen -
+      i + 1} - \stpow_\playerlen}{\stpow_1 - \stpow_\playerlen} + b\right) + \\
+      \stpow_{\playerlen - k} a \frac{\left(\stpow_k -
+      \stpow_{k+1}\right)^2}{2\stpow_{\playerlen - k}\max{\left\{1, \stpow_1 -
+      \stpow_\playerlen\right\}}} = A \enspace.
+    \end{gather*}
+
+    Since $\mathrm{sc}_\rounds\left(\postlist\left[2\right]\right) \leq A$, it
+    is sufficient to prove $A <
+    \mathrm{sc}_\rounds\left(\postlist\left[1\right]\right)$.
+    \begin{gather*}
+      A < \mathrm{sc}_\rounds\left(\postlist\left[1\right]\right)
+      \Leftrightarrow \stpow_{\playerlen - k} a \frac{\left(\stpow_k -
+      \stpow_{k+1}\right)^2}{2\stpow_{\playerlen - k}\max{\left\{1, \stpow_1 -
+      \stpow_\playerlen\right\}}} + \\
+      \sum\limits_{i = 1}^\playerlen \stpow_i\left(a \frac{\stpow_{\playerlen -
+      i + 1} - \stpow_\playerlen}{\stpow_1 - \stpow_\playerlen} + b\right) - \\
+      \sum\limits_{i = 1}^\playerlen \stpow_i\left(a \frac{\stpow_i -
+      \stpow_\playerlen}{\stpow_1 - \stpow_\playerlen} + b\right) < 0
+      \Leftrightarrow \\
+      \frac{\left(\stpow_k - \stpow_{k+1}\right)^2}{2\max{\left\{1, \stpow_1 -
+      \stpow_\playerlen\right\}}} + \\
+      \sum\limits_{i = 1}^\playerlen \stpow_i \left(\frac{\stpow_{\playerlen - i
+      + 1} - \stpow_\playerlen}{\stpow_1 - \stpow_\playerlen} - \frac{\stpow_i -
+      \stpow_\playerlen}{\stpow_1 - \stpow_\playerlen}\right) < 0
+      \Leftrightarrow \\
+      \frac{\left(\stpow_k - \stpow_{k+1}\right)^2}{2\max{\left\{1, \stpow_1 -
+      \stpow_\playerlen\right\}}} + \sum\limits_{i = 1}^\playerlen \stpow_i
+      \frac{\stpow_{\playerlen - i + 1} - \stpow_i}{\stpow_1 -
+      \stpow_\playerlen} < 0
+    \end{gather*}
+    It is
+    \begin{equation}
+      \label{conv:proof:varstpow:incfrac}
+      \frac{\left(\stpow_k - \stpow_{k+1}\right)^2}{2\max{\left\{1, \stpow_1 -
+      \stpow_\playerlen\right\}}} \leq \frac{\left(\stpow_k -
+      \stpow_{k+1}\right)^2}{2 \left(\stpow_1 - \stpow_\playerlen\right)}
+      \enspace.
+    \end{equation}
+    Furthermore,
+    \begin{equation}
+      \label{conv:proof:varstpow:split}
+      \begin{gathered}
+        \sum\limits_{i = 1}^\playerlen \stpow_i \left(\stpow_{\playerlen - i +
+        1} - \stpow_i\right) = \\
+        \sum\limits_{i = 1}^{\floor*{\frac{\playerlen}{2}}}
+        \left(\stpow_i\left(\stpow_{\playerlen - i + 1} - \stpow_i\right) +
+        \stpow_{\playerlen - i + 1}\left(\stpow_i - \stpow_{\playerlen - i +
+        1}\right)\right) \enspace.
+      \end{gathered}
+    \end{equation}
+    From~(\ref{conv:proof:varstpow:incfrac})
+    and~(\ref{conv:proof:varstpow:split}),
+    it suffices to prove that
+    \begin{gather*}
+      \frac{\left(\stpow_k - \stpow_{k+1}\right)^2}{2 \left(\stpow_1 -
+      \stpow_\playerlen\right)} + \\
+      \sum\limits_{i = 1}^{\floor*{\frac{\playerlen}{2}}}
+      \frac{\stpow_i\left(\stpow_{\playerlen - i + 1} - \stpow_i\right) +
+      \stpow_{\playerlen - i + 1}\left(\stpow_i - \stpow_{\playerlen - i +
+      1}\right)}{\stpow_1 - \stpow_\playerlen} < 0 \enspace.
+    \end{gather*}
+    \begin{gather*}
+      \frac{\left(\stpow_k - \stpow_{k+1}\right)^2}{2 \left(\stpow_1 -
+      \stpow_\playerlen\right)} + \\
+      \sum\limits_{i = 1}^{\floor*{\frac{\playerlen}{2}}}
+      \frac{\stpow_i\left(\stpow_{\playerlen - i + 1} - \stpow_i\right) +
+      \stpow_{\playerlen - i + 1}\left(\stpow_i - \stpow_{\playerlen - i +
+      1}\right)}{\stpow_1 - \stpow_\playerlen} < 0 \Leftrightarrow \\
+      \frac{\left(\stpow_k - \stpow_{k+1}\right)^2}{2} + \\
+      \sum\limits_{i = 1}^{\floor*{\frac{\playerlen}{2}}}
+      \left(\stpow_i\left(\stpow_{\playerlen - i + 1} - \stpow_i\right) -
+      \stpow_{\playerlen - i + 1}\left(\stpow_{\playerlen - i + 1} -
+      \stpow_i\right)\right) < 0 \Leftrightarrow \\
+      \frac{\left(\stpow_k - \stpow_{k+1}\right)^2}{2} - \sum\limits_{i =
+      1}^{\floor*{\frac{\playerlen}{2}}} \left(\stpow_i - \stpow_{\playerlen - i
+      + 1}\right)^2 < 0
+    \end{gather*}
+    If $k \leq \floor*{\frac{\playerlen}{2}}$, then
+    \begin{gather*}
+      \frac{\left(\stpow_k - \stpow_{k+1}\right)^2}{2} - \sum\limits_{i =
+      1}^{\floor*{\frac{\playerlen}{2}}} \left(\stpow_i - \stpow_{\playerlen - i
+      + 1}\right)^2 = \\
+      \frac{\left(\stpow_k - \stpow_{k+1}\right)^2}{2} - \left(\stpow_k -
+      \stpow_{\playerlen - k + 1}\right)^2 - \sum\limits_{\overset{i = 1}{i \neq
+      k}}^{\floor*{\frac{\playerlen}{2}}} \left(\stpow_i - \stpow_{\playerlen -
+      i + 1}\right)^2
+    \end{gather*}
+    It is
+    \begin{gather*}
+      - \sum\limits_{\overset{i = 1}{i \neq k}}^{\floor*{\frac{\playerlen}{2}}}
+      \left(\stpow_i - \stpow_{\playerlen - i + 1}\right)^2 \leq 0 \text{ and}
+      \\
+      k \leq \floor*{\frac{\playerlen}{2}} \Rightarrow \playerlen - k + 1 \geq k
+      + 1 \Rightarrow \stpow_{\playerlen - k + 1} \leq \stpow_{k + 1}
+      \Rightarrow \\
+      \left(\stpow_k - \stpow_{k + 1}\right)^2 \geq \left(\stpow_k -
+      \stpow_{\playerlen - k + 1}\right)^2 \overset{\stpow_k >
+      \stpow_{\playerlen - k + 1}}{\Rightarrow} \\
+      \left(\stpow_k - \stpow_{k + 1}\right)^2 > \frac{\left(\stpow_k -
+      \stpow_{\playerlen - k + 1}\right)^2}{2} \Rightarrow \\
+      \frac{\left(\stpow_k - \stpow_{\playerlen - k + 1}\right)^2}{2} -
+      \left(\stpow_k - \stpow_{k + 1}\right)^2 < 0
+    \end{gather*}
+    We deduce that
+    \begin{equation*}
+      \frac{\left(\stpow_k - \stpow_{k+1}\right)^2}{2} - \sum\limits_{i =
+      1}^{\floor*{\frac{\playerlen}{2}}} \left(\stpow_i - \stpow_{\playerlen - i
+      + 1}\right)^2 < 0
+    \end{equation*}
+
+    Else if $k > \floor*{\frac{\playerlen}{2}}$, then
+    \begin{gather*}
+      \frac{\left(\stpow_k - \stpow_{k+1}\right)^2}{2} - \sum\limits_{i =
+      1}^{\floor*{\frac{\playerlen}{2}}} \left(\stpow_i - \stpow_{\playerlen - i
+      + 1}\right)^2 = \\
+      \frac{\left(\stpow_k - \stpow_{k+1}\right)^2}{2} -
+      \left(\stpow_{\playerlen - k} - \stpow_{k + 1}\right)^2 -
+      \sum\limits_{\overset{i = 1}{i \neq \playerlen -
+      k}}^{\floor*{\frac{\playerlen}{2}}} \left(\stpow_i - \stpow_{\playerlen -
+      i + 1}\right)^2
+    \end{gather*}
+    It is
+    \begin{gather*}
+      - \sum\limits_{\overset{i = 1}{i \neq \playerlen -
+      k}}^{\floor*{\frac{\playerlen}{2}}} \left(\stpow_i - \stpow_{\playerlen -
+      i + 1}\right)^2 \leq 0 \text{ and} \\
+      k > \floor*{\frac{\playerlen}{2}} \Rightarrow \playerlen - k < k
+      \Rightarrow \stpow_{\playerlen - k} \geq \stpow_k \Rightarrow \\
+      \left(\stpow_{\playerlen - k} - \stpow_{k + 1}\right)^2 \geq
+      \left(\stpow_k - \stpow_{k + 1}\right)^2 \overset{\stpow_k > \stpow_{k +
+      1}}{\Rightarrow} \\
+      \left(\stpow_{\playerlen - k} - \stpow_{k + 1}\right)^2 >
+      \frac{\left(\stpow_k - \stpow_{k + 1}\right)^2}{2} \Rightarrow \\
+      \frac{\left(\stpow_k - \stpow_{k + 1}\right)^2}{2} -
+      \left(\stpow_{\playerlen - k} - \stpow_{k + 1}\right)^2 < 0
+    \end{gather*}
+    We deduce that
+    \begin{equation*}
+      \frac{\left(\stpow_k - \stpow_{k+1}\right)^2}{2} - \sum\limits_{i =
+      1}^{\floor*{\frac{\playerlen}{2}}} \left(\stpow_i - \stpow_{\playerlen - i
+      + 1}\right)^2 < 0
+    \end{equation*}
+    We have concluded that in every case
+    $\mathrm{sc}_\rounds\left(\postlist\left[2\right]\right) <
+    \mathrm{sc}_\rounds\left(\postlist\left[1\right]\right)$, thus
+    $\textsc{Ideal}^1\left(\postlist'\right)$ does not hold.
+
+    \item Statement~\ref{theorem:case:manyrounds}: Suppose that
+    \begin{equation}
+      \label{conv:proof:rev}
+      \rounds - 1 \geq \left(\postlen - 1\right)\ceil*{\frac{a+b}{\regen}}
+      \enspace.
+    \end{equation}
+    Observe that
+    \begin{equation}
+      \label{conv:proof:integer}
+      \left(\ref{conv:proof:rev}\right) \Rightarrow \frac{\rounds - 1}{\postlen
+      - 1} \geq \ceil*{\frac{a+b}{\regen}}
+      \underset{\text{integer}}{\overset{\text{rhs}}{\Rightarrow}}
+      \floor*{\frac{\rounds - 1}{\postlen - 1}} \geq \ceil*{\frac{a+b}{\regen}}
+      \enspace.
+    \end{equation}
+    Let $\pid \in \left[\playerlen\right]$. From~(\ref{conv:proof:rev}) we
+    deduce that $\rounds \geq \postlen$ and according to \textsc{VoteThisRound}
+    in Algorithm~\ref{alg:steem:vote}, $u_{\pid}$ votes non-null in rounds
+    $\left(\round_1, \dots, \round_\postlen\right)$ with $r_i = \floor*{\left(i
+    - 1\right)\frac{\rounds - 1}{\postlen - 1}} + 1$. We define the following:
+    \begin{gather*}
+      k \in \mathbb{N}, w \in \mathbb{R} \enspace, \\
+      n \in \mathbb{Z}, p \in \left[0, 1\right) : \left(k - 1\right)w = n + p
+      \enspace, \\
+      m \in \mathbb{Z}, q \in \left[0, 1\right) : w = m + q \enspace.
+    \end{gather*}
+    We have
+    \begin{gather}
+      \label{conv:proof:step:kw}
+      \floor*{\left(k - 1\right)w} = n \enspace, \\
+      \label{conv:proof:step:almostkw}
+      \floor*{kw} =
+      \begin{cases}
+        n + m, & p + q < 1 \\
+        n + m + 1, & p + q \geq 1 \text{ (impossible if } p = 0\text{)}
+      \end{cases} \\
+      \label{conv:proof:step:w:floor}
+      \floor*{w} = m \\
+      \label{conv:proof:step:w:ceil}
+      \ceil*{w} =
+      \begin{cases}
+        m, & p = 0 \\
+        m + 1, & p > 0
+      \end{cases}
+    \end{gather}
+    \begin{equation}
+      \label{conv:proof:step:floors}
+      \begin{gathered}
+        (\ref{conv:proof:step:kw}), (\ref{conv:proof:step:almostkw}),
+        (\ref{conv:proof:step:w:floor}), (\ref{conv:proof:step:w:ceil}), p + q <
+        2 \Rightarrow \\
+        \floor*{kw} \in \left\{\floor*{\left(k - 1\right)w} + \floor*{w},
+        \floor*{\left(k - 1\right)w} + \ceil*{w}\right\}
+      \end{gathered}
+    \end{equation}
+
+    From~(\ref{conv:proof:step:floors}) we deduce that
+    \begin{equation}
+      \label{conv:proof:step}
+      \forall i \in \left[\postlen\right] \setminus \left\{1\right\}, r_i
+      \in \left\{r_{i - 1} + \floor*{\frac{\rounds - 1}{\postlen - 1}}, r_{i -
+      1} + \ceil*{\frac{\rounds - 1}{\postlen - 1}}\right\} \enspace.
+    \end{equation}
+    From (\ref{conv:proof:integer}) and (\ref{conv:proof:step}) we have that
+    $\forall i \in \left[\postlen - 1\right], r_{i+1} - r_i \geq
+    \ceil*{\frac{a+b}{\regen}}$. We will now prove by induction that $\forall i
+    \in \left[\postlen\right], \votpowvec_{\pid, r_i} = 1$.
+
+    \begin{itemize}
+      \item For $i = 1, \votpowvec_{\pid, 1} = 1$
+      (Algorithm~\ref{alg:steem:init}, line~\ref{alg:steem:init:vp}).
+      \item Let $\votpowvec_{\pid, r_i} = 1$. Until $r_{i + 1}$, a single
+      non-null vote is cast by $u_\pid$, which reduces $\votpowvec_{\pid}$ by at
+      most $a + b$ (Algorithm~\ref{alg:steem:handlevote},
+      line~\ref{alg:steem:handlevote:cost:start}) and at least $\ceil*{\frac{a +
+      b}{\regen}}$ regenerations, each of which replenishes $\votpowvec_{\pid}$
+      by $\regen$. Thus
+      \begin{equation*}
+        \votpowvec_{\pid, r_{i + 1}} \geq \min{\left\{\votpowvec_{\pid, r_i} - a
+        - b + \regen\ceil*{\frac{a + b}{\regen}}, 1\right\}} \geq 1 \enspace.
+      \end{equation*}
+      But $\votpowvec_{\pid}$ cannot exceed 1
+      (line~\ref{alg:steem:handlevote:regen}), thus $\votpowvec_{\pid, r_{i +
+      1}} = 1$.
+    \end{itemize}
+    Since the above holds for every $\pid \in \left[\playerlen\right]$, it holds
+    that at the end of the execution, all votes have been cast with full Voting
+    Power, thus $\forall i \in \left[\postlen\right],
+    \mathrm{sc}_{\rounds}\left(\postlist\left[i\right]\right) =
+    \playerlen b + a \sum\limits_{\pid = 1}^\playerlen
+    \postlist\left[i\right]_{\pid}$ and the posts in $\postlist_R$ are sorted by
+    decreasing score (Algorithm~\ref{alg:steem:handlevote},
+    line~\ref{alg:steem:handlevote:order}). We observe that
+    \begin{gather*}
+      \forall i \neq j \in \left[\postlen\right], \idsc{\postlist\left[i\right]}
+      > \idsc{\postlist\left[j\right]} \Rightarrow \\
+      \sum\limits_{\pid = 1}^\playerlen \postlist\left[i\right]_\pid >
+      \sum\limits_{\pid = 1}^\playerlen \postlist\left[j\right]_\pid \Rightarrow
+      \\
+      \playerlen b + a \sum\limits_{\pid = 1}^\playerlen
+      \postlist\left[i\right]_\pid > \playerlen b + a \sum\limits_{\pid =
+      1}^\playerlen \postlist\left[j\right]_\pid \enspace.
+    \end{gather*}
+    Thus all posts will be ordered according to their ideal scores; put
+    otherwise, $\textsc{IdealScore}^M\left(\postlist_\rounds\right)$ holds.
+
+    \item Statement~\ref{theorem:case:fewrounds}: Suppose that
+    \begin{equation}
+      \label{conv:proof:fewrounds}
+      \rounds - 1 < \left(\postlen - 1\right)\ceil*{\frac{a+b}{\regen}}
+      \enspace.
+    \end{equation}
+
+    Several lists of posts will be defined in the rest of the proof. Given that,
+    when all players are honest, the creator of a post is irrelevant, we omit
+    the creator from the definition of posts to facilitate the exposition. Thus
+    every post will be defined as a tuple of likabilities.
+
+    First, we consider the case when
+    \begin{equation}
+      \label{conv:proof:smallattspanrounds}
+      \attspan + \rounds \leq \postlen \enspace.
+    \end{equation}
+    In this case, no player can ever vote for the last post, as we will show
+    now. First of all, $(\ref{conv:proof:smallattspanrounds}) \Rightarrow
+    \rounds < \postlen$, thus all players cast $\rounds$ votes in total. Let
+    $\pid \in \playerlen, i \in \left[\rounds\right]$ and $v_{\pid, i}$ the
+    index of the last post that has ever been in $\player_\pid$'s attention
+    span until the end of round $i$, according to the ordering of $\postlist$.
+    It is $v_{\pid, 1} = \attspan$ and $\forall i \in \left[\rounds\right]
+    \setminus \left\{1\right\}, v_{\pid, i} = v_{\pid, i - 1} + 1$, since in
+    every round $\player_\pid$ votes for a single post and the first unvoted
+    post of the list is added to their attention span. Note that, since this
+    mechanism is the same for all players, the same unvoted post is added to
+    all players' attention span at every round. Thus $\forall \pid \in
+    \playerlen, v_{\pid, \rounds} = \attspan + \rounds - 1
+    \overset{\left(\ref{conv:proof:smallattspanrounds}\right)}{<} \postlen$.
+    We deduce that no player has ever the chance to vote for the last post.
+
+    The above observation naturally leads us to the following counterexample:
+    Let
+    \begin{gather*}
+      \strongpost = \left(\underbrace{1, \dots, 1}_{\playerlen}\right) \\
+      \nullpost = \left(\underbrace{0, \dots, 0}_{\playerlen}\right) \\
+      \postlist = \left[\underbrace{\nullpost, \dots, \nullpost}_{\postlen -
+      1}, \strongpost\right]
+    \end{gather*}
+
+    $\forall i \in \left[\postlen - 1\right],$ it is
+    $\idsc{\postlist\left[\postlen\right]} >
+    \idsc{\postlist\left[i\right]}$, thus $\forall \postlist'$ that
+    contain the same posts as $\postlist$ and
+    $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is
+    $\postlist'\left[1\right] = \postlist\left[\postlen\right]$. However,
+    since the last post is not voted by any player and the first post is voted
+    by at least one player, it is
+    $\mathrm{sc}_\rounds\left(\postlist\left[1\right]\right) >
+    \mathrm{sc}_\rounds\left(\postlist\left[\postlen\right]\right)$, thus
+    $\textsc{Ideal}^1\left(\postlist_\rounds\right)$ does not hold.
+
+    We now move on to the case when $\attspan + \rounds > \postlen$. Let
+    $\votenum = \min{\left\{\rounds, \postlen\right\}}$. Each player casts
+    exactly $\votenum$ votes. Consider $\postlist^1 = 1^{\postlen \times
+    \playerlen}$ and $\pid \in \left[\playerlen\right]$. Let
+    \begin{equation*}
+      i \in \left[\votenum\right] :\left(\votpowvecreg_{\pid, \round_i} < 1
+      \wedge \nexists i' < i: \votpowvecreg_{\pid, \round_{i'}} < 1\right)
+      \enspace,
+    \end{equation*}
+    i.e. $i$ is the first round in which $u_\pid$ votes with less than full
+    Voting Power. Such a round exists in every case as we will show now. Note
+    that, since the first round is a voting round and the Voting Power of all
+    players is full at the beginning, if $i$ exists it is $i \geq 2$.
+
+    \begin{itemize}
+      \item If $\rounds \geq \postlen$, it is $\votenum = \postlen$. \\
+      If $\nexists i \in \left[\postlen\right] :\left(\votpowvecreg_{\pid,
+      \round_i} < 1 \wedge \nexists i' < i: \votpowvecreg_{\pid, \round_{i'}} <
+      1\right)$, then $\forall i \in \left[\postlen\right], \votpowvecreg_{\pid,
+      \round_i} = 1 \Rightarrow \forall i \in \left[\postlen\right] \setminus
+      \left\{1\right\}, \round_i \geq \round_{i - 1} + \ceil*{\frac{a +
+      b}{\regen}}$ to have enough rounds to replenish the Voting Power after a
+      full-weight, full-Voting Power vote. Thus $\round_\postlen \geq 1 +
+      \left(\postlen - 1\right)\ceil*{\frac{a + b}{\regen}} > \rounds$,
+      contradiction.
+
+% Here is the place where the (a+b)/regen > 1 assumption is used. TODO: prove
+% what happens when 0 < (a+b)/regen <= 1
+      \item If $\rounds < \postlen$, every player votes on all rounds, thus $r_2
+      = 2$. Note that
+      \begin{equation}
+        \label{conv:proof:normalregen}
+        \ceil*{\frac{a + b}{\regen}} \geq 2 \Rightarrow \frac{a + b}{\regen} >
+        1 \Rightarrow a + b > \regen\enspace.
+      \end{equation}
+      Thus $\forall \pid \in \left[\playerlen\right], \votpowvecreg_{\pid, r_2}
+      = 1 - a - b + \regen \overset{(\ref{conv:proof:normalregen})}{<} 1$, thus
+      $i = 2$.
+    \end{itemize}
+    We proved that $i$ exists. Since all players follow the same voting pattern,
+    the Voting Power of all players in each round is the same. Let $\rvp =
+    \votpowvecreg_{1, \round_i}$. Assume that $\attspan < i \vee i > 2$. We
+    cover the case where $\attspan \geq i \wedge i = 2$ later. In case
+    $\playerlen$ is even, let $0 < \gamma < 0, 0 < \epsilon < \gamma\left(1 -
+    \rvp\right)$,
+
+    \begin{gather*}
+      \weakpost = \left(\underbrace{1, \dots, 1}_{\playerlen/2},
+      \underbrace{\gamma - \epsilon, \dots, \gamma -
+      \epsilon}_{\playerlen/2}\right) \enspace, \\
+      \strongpost = \left(\underbrace{\gamma, \dots, \gamma}_{\playerlen/2},
+      \underbrace{1, \dots, 1}_{\playerlen/2}\right) \enspace, \\
+      \nullpost = \left(\underbrace{0, \dots, 0}_{\playerlen}\right) \enspace,
+      \\
+      \postlist = \left[\underbrace{\weakpost, \dots, \weakpost}_{i - 1},
+      \strongpost, \underbrace{\nullpost, \dots, \nullpost}_{\postlen -
+      i}\right] \enspace.
+    \end{gather*}
+
+    First of all, it is
+    \begin{gather*}
+      \forall j \in \left[i - 1\right], \idsc{\postlist\left[j\right]} =
+      \frac{\playerlen}{2}\left(1 + \gamma - \epsilon\right) < \\
+      < \frac{\playerlen}{2}\left(1 + \gamma\right) =
+      \idsc{\postlist\left[i\right]}
+    \end{gather*}
+    and $\forall j \in \left\{i + 1, \dots,
+    \postlen\right\}, \idsc{\postlist\left[j\right]} = 0 <
+    \idsc{\postlist\left[i\right]}$, thus the strong post has strictly the
+    highest ideal score of all posts and as a result, $\forall \postlist'$ that
+    contains the same posts as $\postlist$ and
+    $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is
+    $\postlist'\left[1\right] = \postlist\left[i\right]$.
+
+    We observe that all players like both weak and strong posts more than null
+    posts, thus no player will vote for a null post unless her attention span
+    contains only null posts. This can happen in two cases: First, if the player
+    has not yet voted for all non-null posts, but the first $\attspan$ posts of
+    the list, excluding already voted posts, are null posts. Second, if the
+    player has already voted for all non-null posts. For a null post to rank
+    higher than a non-null one, it must be true that there exists one player
+    that has cast the first vote for the null post. However, since the null
+    posts are initially at the bottom of the list and it is impossible for a
+    post to improve its ranking before it is voted, we deduce that this first
+    vote can be cast only after the voter has voted for all non-null posts. We
+    deduce that all players vote for all non-null posts before voting for any
+    null post.
+
+    We will now see that the first $\frac{\playerlen}{2}$ players vote first for
+    all weak posts and then for the strong post. These players like the weak
+    posts more than the strong post. As we saw, they will not vote any null
+    post before voting for all non-null ones. If $\attspan > 1$ they vote for
+    the strong post only when all other posts in their attention span are null
+    ones and thus they will have voted for all weak posts already. If $\attspan
+    = 1$ and since no post can increase its position before being voted, the
+    strong post will become ``visible'' for all players only once they have
+    voted for all weak posts. Thus in both cases the first
+    $\frac{\playerlen}{2}$ players vote for the strong post only after they have
+    voted for all weak posts first.
+
+    The two previous results combined prove that the first
+    $\frac{\playerlen}{2}$ players vote for the strong post in round $\round_i$
+    exactly. We also observe that these players have experienced the exact same
+    Voting Power reduction and regeneration as in the case of $\postlist^1$
+    since they voted only for posts with likability 1, thus in round $\round_i$
+    their Voting Power after regeneration is exactly the same as in the case of
+    $\postlist^1: \forall \pid \in \left[\frac{\playerlen}{2}\right],
+    \votpowvecreg_{\pid, \round_i} = \rvp$.
+
+    We observe that the first $\frac{\playerlen}{2}$ players vote for all weak
+    posts with full Voting Power. As for the last $\frac{\playerlen}{2}$
+    players, we observe that, if $\attspan < i$, they all vote for the first
+    weak post of the list in the first round, and thus with full Voting Power. If
+    $\attspan \geq i$ and $i > 2$, they vote for the strong post in the first
+    round and for the first weak post in $r_2$ with full Voting Power. Thus in
+    all cases the last $\frac{\playerlen}{2}$ players vote for the first weak
+    post with full Voting Power. Therefore, the score of the first weak post at
+    the end of the execution is
+    $\mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) =
+    \frac{\playerlen}{2}\left(a + b\right) +
+    \frac{\playerlen}{2}\left(\left(\gamma - \epsilon\right) a + b\right)$.
+
+    On the other hand, at the end of the execution the strong post has been
+    voted by the first $\frac{\playerlen}{2}$ players with $\rvp$
+    Voting Power and by the last $\frac{\playerlen}{2}$ players with at most
+    full Voting Power, thus its final score will be at most
+    $\mathrm{sc}_{\rounds}\left(\postlist\left[i\right]\right) \leq
+    \frac{\playerlen}{2}\left(\rvp \cdot \gamma a + b\right) +
+    \frac{\playerlen}{2}\left(a + b\right)$. It is
+    \begin{gather*}
+      \epsilon < \gamma\left(1 - \rvp\right) \Rightarrow \\
+      \frac{\playerlen}{2}\left(\rvp \cdot \gamma a + b\right) +
+      \frac{\playerlen}{2}\left(a + b\right) < \frac{\playerlen}{2}\left(a +
+      b\right) + \frac{\playerlen}{2}\left(\left(\gamma - \epsilon\right) a +
+      b\right) \Rightarrow \\
+      \mathrm{sc}_{\rounds}\left(\postlist\left[i\right]\right) <
+      \mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) \enspace.
+    \end{gather*}
+
+    Thus $\postlist_{\rounds}\left[1\right] \neq \postlist\left[i\right]$ and
+    $\mathrm{Ideal}^1\left(\postlist_{\rounds}\right)$ does not hold.
+
+    As for the case when $\playerlen$ is odd, let $0 < \epsilon <
+    \gamma\frac{\playerlen - 3}{\playerlen - 1}\left(1 - \rvp\right)$. In this
+    case, we assume that the likability of the first $i$ posts (weak and strong)
+    for the additional player is $\gamma$, whereas the likability of the last
+    $\postlen - i$ posts (the null posts) is 0. This means that the additional
+    player votes first for the weak and strong posts and then for the null
+    posts. The rest of the likabilities remain as in the case when $\playerlen$
+    is even. We observe that the ideal score of the strong post is still
+    strictly higher than the rest. Furthermore, since the additional player
+    votes for the first weak post within the first $i$ voting rounds, her Voting
+    Power at the time of this vote will be at least $\rvp$. We thus have the
+    following bounds for the scores:
+
+    \begin{gather*}
+      \mathrm{sc}_{\rounds}\left(\postlist\left[i\right]\right) \leq
+      \frac{\playerlen - 1}{2}\left(\rvp \cdot \gamma a + b\right) +
+      \frac{\playerlen - 1}{2}\left(a + b\right) + \gamma a + b \enspace, \\
+      \mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) \geq
+      \frac{\playerlen - 1}{2}\left(a + b\right) + \frac{\playerlen -
+      1}{2}\left(\left(\gamma - \epsilon\right) a + b\right) + \rvp \cdot \gamma
+      a + b \enspace.
+    \end{gather*}
+
+    Given the bounds of $\epsilon$, it is
+    $\mathrm{sc}_{\rounds}\left(\postlist\left[i\right]\right) <
+    \mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right)$, thus
+    $\mathrm{Ideal}^1\left(\postlist_{\rounds}\right)$ does not hold.
+
+    We finally cover the previously untreated edge case where $\attspan \geq i
+    \wedge i = 2$. $\rvp$ is defined like before. We first consider the case
+    when $\playerlen$ is even and greater than 2: $\exists k \in \mathbb{N}
+    \setminus \left\{0, 1\right\}: \playerlen = 2k$. Let $0 < \gamma < 1, 0 <
+    \epsilon < 2 \gamma \frac{1 - \rvp}{\left(k - 1\right)\rvp}$,
+    \begin{gather*}
+      \weakpost = \left(\underbrace{1, \dots, 1}_{k - 1}, \underbrace{\gamma -
+      \epsilon, \dots, \gamma - \epsilon}_{k - 1}, \gamma, \gamma\right)
+      \enspace, \\
+      \strongpost = \left(\underbrace{\gamma, \dots, \gamma}_{k - 1},
+      \underbrace{1, \dots, 1}_{k - 1}, \gamma, \gamma\right) \enspace, \\
+      \postlist = \left[\weakpost, \strongpost, \underbrace{\nullpost, \dots,
+      \nullpost}_{\postlen - 2}\right] \enspace.
+    \end{gather*}
+    We first observe that
+    \begin{gather*}
+      \forall j \in \left\{3, \dots, \postlen\right\},
+      \idsc{\postlist\left[j\right]} = 0 < \\
+      < \idsc{\postlist\left[1\right]} = k - 1 + \left(k - 1\right)\left(\gamma
+      - \epsilon\right) + 2\gamma = \\
+      = k - 1 + \left(k + 1\right)\gamma - \left(k - 1\right)\epsilon < \\
+      < k - 1 + \left(k + 1\right)\gamma = \idsc{\postlist\left[2\right]}
+      \enspace,
+    \end{gather*}
+    thus the strong post has strictly the highest ideal score of all posts and
+    as a result, $\forall \postlist'$ that contains the same posts as
+    $\postlist$ and $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is
+    $\postlist'\left[1\right] = \postlist\left[2\right]$.
+
+    The first $k - 1$ and the last two players vote first for
+    $\postlist\left[1\right]$ and then for $\postlist\left[2\right]$, whereas
+    players $k, \dots, 2k - 2$ vote first for $\postlist\left[2\right]$ and then
+    for $\postlist\left[1\right]$, thus at the end of the execution,
+    \begin{gather*}
+      \mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) = \left(k -
+      1\right)\left(a + b\right) + 2\left(\gamma a + b\right) + \left(k -
+      1\right)\left(\left(\gamma - \epsilon\right)\rvp a + b\right) \enspace, \\
+      \mathrm{sc}_{\rounds}\left(\postlist\left[2\right]\right) = \left(k -
+      1\right)\left(a + b\right) + \left(k + 1\right)\left(\gamma \rvp a +
+      b\right) \enspace.
+    \end{gather*}
+    Given the bound on $\epsilon$, it is
+    $\mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) >
+    \mathrm{sc}_{\rounds}\left(\postlist\left[2\right]\right)$, thus
+    $\mathrm{Ideal}^1\left(\postlist_{\rounds}\right)$ does not hold.
+
+    Second, we consider the case when $\playerlen$ is odd: $\exists k \in
+    \mathbb{N}: \playerlen = 2k + 1$. Let $0 < \gamma < 1, 0 <
+    \epsilon < \gamma \frac{1 - \rvp}{k\rvp}$,
+    \begin{gather*}
+      \weakpost = \left(\underbrace{1, \dots, 1}_{k}, \underbrace{\gamma -
+      \epsilon, \dots, \gamma - \epsilon}_{k}, \gamma\right) \enspace, \\
+      \strongpost = \left(\underbrace{\gamma, \dots, \gamma}_{k}, \underbrace{1,
+      \dots, 1}_{k}, \gamma\right) \enspace, \\
+      \postlist = \left[\weakpost, \strongpost, \underbrace{\nullpost, \dots,
+      \nullpost}_{\postlen - 2}\right] \enspace.
+    \end{gather*}
+    We first observe that
+    \begin{gather*}
+      \forall j \in \left\{3, \dots, \postlen\right\},
+      \idsc{\postlist\left[j\right]} = 0 < \\
+      < \idsc{\postlist\left[1\right]} = k + k\left(\gamma - \epsilon\right) +
+      \gamma = \\
+      = k + \left(k + 1\right)\gamma -k\epsilon < k + \left(k + 1\right)\gamma =
+      \idsc{\postlist\left[2\right]} \enspace,
+    \end{gather*}
+    thus the strong post has strictly the highest ideal score of all posts and
+    as a result, $\forall \postlist'$ that contains the same posts as
+    $\postlist$ and $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is
+    $\postlist'\left[1\right] = \postlist\left[2\right]$.
+
+    The first $k$ and the last player vote first for $\postlist\left[1\right]$
+    and then for $\postlist\left[2\right]$, whereas players $k + 1, \dots, 2k$
+    vote first for $\postlist\left[2\right]$ and then for
+    $\postlist\left[1\right]$, thus at the end of the execution,
+    \begin{gather*}
+      \mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) = k\left(a +
+      b\right) + \gamma a + b + k\left(\left(\gamma - \epsilon\right)\rvp a +
+      b\right) \enspace, \\
+      \mathrm{sc}_{\rounds}\left(\postlist\left[2\right]\right) = k\left(a +
+      b\right) + \left(k + 1\right)\left(\gamma \rvp a + b\right) \enspace.
+    \end{gather*}
+    Given the bound on $\epsilon$, it is
+    $\mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) >
+    \mathrm{sc}_{\rounds}\left(\postlist\left[2\right]\right)$, thus
+    $\mathrm{Ideal}^1\left(\postlist_{\rounds}\right)$ does not hold.
+
+    Last but not least, we consider the case when $\playerlen = 2$. In this
+    case, let $0 < \gamma < 1$ and
+    \begin{equation*}
+      \postlist = \left[\left(1, 0\right), \left(\gamma, 1 - \gamma\frac{1 +
+      \rvp}{2}\right), \underbrace{\nullpost, \dots, \nullpost}_{\postlen -
+      2}\right] \enspace.
+    \end{equation*}
+    It is $\forall j \in \left\{3, \dots, \postlen\right\},
+    \idsc{\postlist\left[j\right]} = 0 < \idsc{\postlist\left[1\right]} = 1
+    \overset{\rvp < 1}{<} 1 + \gamma\frac{1 - \rvp}{2} = \gamma + 1 -
+    \gamma\frac{1 +\rvp}{2} = \idsc{\postlist\left[2\right]}$, thus
+    $\postlist\left[2\right]$ has strictly the highest ideal score of all posts
+    and as a result, $\forall \postlist'$ that contains the same posts as
+    $\postlist$ and $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is
+    $\postlist'\left[1\right] = \postlist\left[2\right]$.
+
+    On the other hand,
+    $\mathrm{sc}_{\rounds}\left(\postlist\left[1\right]\right) = a + 2b > \gamma
+    \rvp a + b + \left(1 - \gamma \frac{1 + \rvp}{2}\right) a + b =
+    \mathrm{sc}_{\rounds}\left(\postlist\left[2\right]\right)$, thus
+    $\mathrm{Ideal}^1\left(\postlist_{\rounds}\right)$ does not hold.
+  \end{itemize}
+\end{proof}
