@@ -8,23 +8,26 @@
     Let\footnote{We thank Heng Guo from the University of Edinburgh for this
     counterexample.}
     \begin{gather*}
-      \weakpost = \left(\underbrace{0, \dots, 0}_{k - 1}, 1, \underbrace{0,
-      \dots, 0}_{\playerlen - k}\right) \\
-      \strongpost = \left(\underbrace{0, \dots, 0}_{k - 1}, \frac{\stpow_k -
+      \weakpost = (\underbrace{0, \dots, 0}_{k - 1}, 1, \underbrace{0,
+      \dots, 0}_{\playerlen - k}) \\
+      \strongpost = (\underbrace{0, \dots, 0}_{k - 1}, \frac{\stpow_k -
       \stpow_{k + 1}}{2\stpow_k}, 1, \underbrace{0, \dots, 0}_{\playerlen - k -
-      1}\right) \\
-      \nullpost = \left(\underbrace{0, \dots, 0}_{\playerlen}\right) \\
-      \postlist = \left[\weakpost, \strongpost, \underbrace{\nullpost, \dots,
-      \nullpost}_{\postlen - 2}\right] \enspace.
+      1}) \\
+      \nullpost = (\underbrace{0, \dots, 0}_{\playerlen}) \\
+      \postlist = [\weakpost, \strongpost, \underbrace{\nullpost, \dots,
+      \nullpost}_{\postlen - 2}] \enspace.
     \end{gather*}
 
     We first note that $\stpow_k > \stpow_{k+1} \geq 0 \Rightarrow 0 \leq
     \frac{\stpow_k - \stpow_{k + 1}}{2\stpow_k} \leq 1$, thus $\strongpost$ is a
-    valid post. We then observe that $\forall i \in \left\{3, \dots,
-    \postlen\right\}, \idsc{\postlist\left[i\right]} = 0 <
-    \idsc{\postlist\left[1\right]} = 1 < 1 + \frac{\stpow_k -
-    \stpow_{k+1}}{2\stpow_k} = \idsc{\postlist\left[2\right]}$, thus $\forall
-    \postlist'$ that contain the same posts as $\postlist$ and
+    valid post. We then observe that
+    \begin{gather*}
+      \forall i \in \left\{3, \dots, \postlen\right\},
+      \idsc{\postlist\left[i\right]} = 0 < \\
+      <\idsc{\postlist\left[1\right]} = 1 < 1 + \frac{\stpow_k -
+      \stpow_{k+1}}{2\stpow_k} = \idsc{\postlist\left[2\right]} \enspace,
+    \end{gather*}
+    thus $\forall \postlist'$ that contain the same posts as $\postlist$ and
     $\textsc{Ideal}^1\left(\postlist'\right)$ holds, it is
     $\postlist'\left[1\right] = \postlist\left[2\right]$.
 
@@ -35,6 +38,7 @@
     $\postlist\left[1\right]$ in the second. Thus the two first posts will have
     been voted by all players by the end of the second round and their score
     will not change until the execution completes. We have:
+
     \begin{gather*}
       \mathrm{sc}_2\left(\postlist\left[1\right]\right) =
       \mathrm{sc}_\rounds\left(\postlist\left[1\right]\right) = \\
@@ -43,16 +47,17 @@
       \sum\limits_{j = k + 2}^{\postlen}\stpow_j b \text{ and} \\
       \mathrm{sc}_2\left(\postlist\left[2\right]\right) =
       \mathrm{sc}_\rounds\left(\postlist\left[2\right]\right) = \\
-      \sum\limits_{j = 1}^{k-1}\stpow_j \min{\left\{b,
-      \votpowvecreg_{j,r_2}\right\}} + \\
-      \stpow_k \min{\left\{a \frac{\stpow_k - \stpow_{k+1}}{2\stpow_k}
-      \votpowvecreg_{k, r_2} + b, \votpowvecreg_{k, r_2}\right\}} + \stpow_{k+1}
+      \sum\limits_{j = 1}^{k-1}\stpow_j \min{\{b, \votpowvecreg_{j,r_2}\}} + \\
+      \stpow_k \min{\{a \frac{\stpow_k - \stpow_{k+1}}{2\stpow_k}
+      \votpowvecreg_{k, r_2} + b, \votpowvecreg_{k, r_2}\}} + \stpow_{k+1}
       \left(a + b\right) + \\
-      \sum\limits_{j = k + 2}^{\postlen}\stpow_j \min{\left\{b,
-      \votpowvecreg_{j, r_2}\right\}} \Rightarrow \\
-      \mathrm{sc}_\rounds\left(\postlist\left[2\right]\right) \leq \\
-      \sum\limits_{j = 1}^{k-1}\stpow_j b + \stpow_k \left(a \frac{\stpow_k -
-      \stpow_{k+1}}{2\stpow_k} + b\right) + \stpow_{k+1} \left(a + b\right) +
+      \sum\limits_{j = k + 2}^{\postlen}\stpow_j \min{\{b, \votpowvecreg_{j,
+      r_2}\}} \Rightarrow
+    \end{gather*}
+    \begin{gather*}
+      \mathrm{sc}_\rounds(\postlist\left[2\right]) \leq \\
+      \sum\limits_{j = 1}^{k-1}\stpow_j b + \stpow_k (a \frac{\stpow_k -
+      \stpow_{k+1}}{2\stpow_k} + b) + \stpow_{k+1} \left(a + b\right) +
       \sum\limits_{j = k + 2}^{\postlen}\stpow_j b \enspace.
     \end{gather*}
 
@@ -61,8 +66,8 @@
       \mathrm{sc}_\rounds\left(\postlist\left[1\right]\right) = \sum\limits_{j =
       1}^{k-1}\stpow_j b + \stpow_k \left(a + b\right) + \stpow_{k+1} b +
       \sum\limits_{j = k + 2}^{\postlen}\stpow_j b > \\
-      \sum\limits_{j = 1}^{k-1}\stpow_j b + \stpow_k \left(a \frac{\stpow_k -
-      \stpow_{k+1}}{2\stpow_k} + b\right) + \stpow_{k+1} \left(a + b\right) +
+      \sum\limits_{j = 1}^{k-1}\stpow_j b + \stpow_k (a \frac{\stpow_k -
+      \stpow_{k+1}}{2\stpow_k} + b) + \stpow_{k+1} \left(a + b\right) +
       \sum\limits_{j = k + 2}^{\postlen}\stpow_j b \geq \\
       \mathrm{sc}_\rounds\left(\postlist\left[2\right]\right) \Rightarrow
       \mathrm{sc}_\rounds\left(\postlist\left[1\right]\right) >
@@ -82,13 +87,13 @@
     1\right]}\left\{\stpow_j \neq \stpow_{j+1}\right\}$ and we only care for the
     case when $\attspan \geq 2$. Let $0 < \gamma < 1$ and
     \begin{gather*}
-      \weakpost = \left(\underbrace{0, \dots, 0}_{k - 1}, 1, \frac{\gamma}{2},
-      \underbrace{0, \dots, 0}_{\playerlen - k - 1}\right) \\
-      \strongpost = \left(\underbrace{0, \dots, 0}_{k - 1}, \gamma, 1,
-      \underbrace{0, \dots, 0}_{\playerlen - k - 1}\right) \\
-      \nullpost = \left(\underbrace{0, \dots, 0}_{\playerlen}\right) \\
-      \postlist = \left[\weakpost, \strongpost, \underbrace{\nullpost, \dots,
-      \nullpost}_{\postlen - 2}\right] \enspace.
+      \weakpost = (\underbrace{0, \dots, 0}_{k - 1}, 1, \frac{\gamma}{2},
+      \underbrace{0, \dots, 0}_{\playerlen - k - 1}) \\
+      \strongpost = (\underbrace{0, \dots, 0}_{k - 1}, \gamma, 1, \underbrace{0,
+      \dots, 0}_{\playerlen - k - 1}) \\
+      \nullpost = (\underbrace{0, \dots, 0}_{\playerlen}) \\
+      \postlist = [\weakpost, \strongpost, \underbrace{\nullpost, \dots,
+      \nullpost}_{\postlen - 2}] \enspace.
     \end{gather*}
 
     We observe that $\forall i \in \left\{3, \dots, \postlen\right\},
@@ -105,6 +110,7 @@
     $\postlist\left[1\right]$ in the second. Thus the two first posts will have
     been voted by all players by the end of the second round and their score
     will not change until the execution completes. We have:
+
     \begin{gather*}
       \mathrm{sc}_2\left(\postlist\left[1\right]\right) =
       \mathrm{sc}_\rounds\left(\postlist\left[1\right]\right) = \\
@@ -113,11 +119,10 @@
       2}^{\postlen}\stpow_j b \text{ and} \\
       \mathrm{sc}_2\left(\postlist\left[2\right]\right) =
       \mathrm{sc}_\rounds\left(\postlist\left[2\right]\right) = \\
-      \sum\limits_{j = 1}^{k-1}\stpow_j \min{\left\{b, \votpowvecreg_{j,
-      r_2}\right\}} + \stpow_k \votpowvecreg_{k, r_2} + \stpow_{k+1} \left(a +
-      b\right) + \\
-      \sum\limits_{j = k + 2}^{\postlen}\stpow_j \min{\left\{b,
-      \votpowvecreg_{j, r_2}\right\}} \leq \\
+      \sum\limits_{j = 1}^{k-1}\stpow_j \min{\{b, \votpowvecreg_{j, r_2}\}} +
+      \stpow_k \votpowvecreg_{k, r_2} + \stpow_{k+1} \left(a + b\right) + \\
+      \sum\limits_{j = k + 2}^{\postlen}\stpow_j \min{\{b, \votpowvecreg_{j,
+      r_2}\}} \leq \\
       \sum\limits_{j = 1}^{k-1}\stpow_j b + \stpow_k \votpowvecreg_{k, r_2} +
       \stpow_{k+1} \left(a + b\right) +
       \sum\limits_{j = k + 2}^{\postlen}\stpow_j b \enspace.
@@ -388,6 +393,7 @@
     in Algorithm~\ref{alg:steem:vote}, $u_{\pid}$ votes non-null in rounds
     $\left(\round_1, \dots, \round_\postlen\right)$ with $r_i = \floor*{\left(i
     - 1\right)\frac{\rounds - 1}{\postlen - 1}} + 1$. We define the following:
+
     \begin{gather*}
       k \in \mathbb{N}, w \in \mathbb{R} \enspace, \\
       n \in \mathbb{Z}, p \in \left[0, 1\right) : \left(k - 1\right)w = n + p
@@ -427,9 +433,9 @@
     From~(\ref{conv:proof:step:floors}) we deduce that
     \begin{equation}
       \label{conv:proof:step}
-      \forall i \in \left[\postlen\right] \setminus \left\{1\right\}, r_i
-      \in \left\{r_{i - 1} + \floor*{\frac{\rounds - 1}{\postlen - 1}}, r_{i -
-      1} + \ceil*{\frac{\rounds - 1}{\postlen - 1}}\right\} \enspace.
+      \forall i \in \left[\postlen\right] \setminus \left\{1\right\}, r_i \in
+      \{r_{i - 1} + \floor*{\frac{\rounds - 1}{\postlen - 1}}, r_{i - 1} +
+      \ceil*{\frac{\rounds - 1}{\postlen - 1}}\} \enspace.
     \end{equation}
     From (\ref{conv:proof:integer}) and (\ref{conv:proof:step}) we have that
     $\forall i \in \left[\postlen - 1\right], r_{i+1} - r_i \geq
@@ -446,8 +452,8 @@
       b}{\regen}}$ regenerations, each of which replenishes $\votpowvec_{\pid}$
       by $\regen$. Thus
       \begin{equation*}
-        \votpowvec_{\pid, r_{i + 1}} \geq \min{\left\{\votpowvec_{\pid, r_i} - a
-        - b + \regen\ceil*{\frac{a + b}{\regen}}, 1\right\}} \geq 1 \enspace.
+        \votpowvec_{\pid, r_{i + 1}} \geq \min{\{\votpowvec_{\pid, r_i} - a
+        - b + \regen\ceil*{\frac{a + b}{\regen}}, 1\}} \geq 1 \enspace.
       \end{equation*}
       But $\votpowvec_{\pid}$ cannot exceed 1
       (line~\ref{alg:steem:handlevote:regen}), thus $\votpowvec_{\pid, r_{i +
@@ -461,6 +467,7 @@
     \postlist\left[i\right]_{\pid}$ and the posts in $\postlist_R$ are sorted by
     decreasing score (Algorithm~\ref{alg:steem:handlevote},
     line~\ref{alg:steem:handlevote:order}). We observe that
+
     \begin{gather*}
       \forall i \neq j \in \left[\postlen\right], \idsc{\postlist\left[i\right]}
       > \idsc{\postlist\left[j\right]} \Rightarrow \\
@@ -495,25 +502,24 @@
     now. First of all, $(\ref{conv:proof:smallattspanrounds}) \Rightarrow
     \rounds < \postlen$, thus all players cast $\rounds$ votes in total. Let
     $\pid \in \playerlen, i \in \left[\rounds\right]$ and $v_{\pid, i}$ the
-    index of the last post that has ever been in $\player_\pid$'s attention
-    span until the end of round $i$, according to the ordering of $\postlist$.
-    It is $v_{\pid, 1} = \attspan$ and $\forall i \in \left[\rounds\right]
-    \setminus \left\{1\right\}, v_{\pid, i} = v_{\pid, i - 1} + 1$, since in
-    every round $\player_\pid$ votes for a single post and the first unvoted
-    post of the list is added to their attention span. Note that, since this
-    mechanism is the same for all players, the same unvoted post is added to
-    all players' attention span at every round. Thus $\forall \pid \in
-    \playerlen, v_{\pid, \rounds} = \attspan + \rounds - 1
-    \overset{\left(\ref{conv:proof:smallattspanrounds}\right)}{<} \postlen$.
-    We deduce that no player has ever the chance to vote for the last post.
+    index of the last post that has ever been in $\player_\pid$'s attention span
+    until the end of round $i$, according to the ordering of $\postlist$. It is
+    $v_{\pid, 1} = \attspan$ and $\forall i \in \left[\rounds\right] \setminus
+    \left\{1\right\}, v_{\pid, i} = v_{\pid, i - 1} + 1$, since in every round
+    $\player_\pid$ votes for a single post and the first unvoted post of the
+    list is added to their attention span. Note that, since this mechanism is
+    the same for all players, the same unvoted post is added to all players'
+    attention span at every round. Thus $\forall \pid \in \playerlen, v_{\pid,
+    \rounds} = \attspan + \rounds - 1
+    \overset{\left(\ref{conv:proof:smallattspanrounds}\right)}{<} \postlen$. We
+    deduce that no player has ever the chance to vote for the last post. The
+    above observation naturally leads us to the following counterexample: Let
 
-    The above observation naturally leads us to the following counterexample:
-    Let
     \begin{gather*}
-      \strongpost = \left(\underbrace{1, \dots, 1}_{\playerlen}\right) \\
-      \nullpost = \left(\underbrace{0, \dots, 0}_{\playerlen}\right) \\
-      \postlist = \left[\underbrace{\nullpost, \dots, \nullpost}_{\postlen -
-      1}, \strongpost\right]
+      \strongpost = (\underbrace{1, \dots, 1}_{\playerlen}), \nullpost =
+      (\underbrace{0, \dots, 0}_{\playerlen}) \\
+      \postlist = [\underbrace{\nullpost, \dots, \nullpost}_{\postlen -
+      1}, \strongpost]
     \end{gather*}
 
     $\forall i \in \left[\postlen - 1\right],$ it is
@@ -529,7 +535,7 @@
     $\textsc{Ideal}^1\left(\postlist_\rounds\right)$ does not hold.
 
     We now move on to the case when $\attspan + \rounds > \postlen$. Let
-    $\votenum = \min{\left\{\rounds, \postlen\right\}}$. Each player casts
+    $\votenum = \min{\{\rounds, \postlen\}}$. Each player casts
     exactly $\votenum$ votes. Consider $\postlist^1 = 1^{\postlen \times
     \playerlen}$ and $\pid \in \left[\playerlen\right]$. Let
     \begin{equation*}
@@ -575,16 +581,15 @@
     \rvp\right)$,
 
     \begin{gather*}
-      \weakpost = \left(\underbrace{1, \dots, 1}_{\playerlen/2},
+      \weakpost = (\underbrace{1, \dots, 1}_{\playerlen/2},
       \underbrace{\gamma - \epsilon, \dots, \gamma -
-      \epsilon}_{\playerlen/2}\right) \enspace, \\
-      \strongpost = \left(\underbrace{\gamma, \dots, \gamma}_{\playerlen/2},
-      \underbrace{1, \dots, 1}_{\playerlen/2}\right) \enspace, \\
-      \nullpost = \left(\underbrace{0, \dots, 0}_{\playerlen}\right) \enspace,
-      \\
-      \postlist = \left[\underbrace{\weakpost, \dots, \weakpost}_{i - 1},
+      \epsilon}_{\playerlen/2}) \enspace, \\
+      \strongpost = (\underbrace{\gamma, \dots, \gamma}_{\playerlen/2},
+      \underbrace{1, \dots, 1}_{\playerlen/2}), \nullpost =
+      (\underbrace{0, \dots, 0}_{\playerlen}) \enspace, \\
+      \postlist = [\underbrace{\weakpost, \dots, \weakpost}_{i - 1},
       \strongpost, \underbrace{\nullpost, \dots, \nullpost}_{\postlen -
-      i}\right] \enspace.
+      i}] \enspace.
     \end{gather*}
 
     First of all, it is
