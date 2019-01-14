@@ -252,7 +252,7 @@
       \postlist\left[i\right]_\pid > \playerlen b + a \sum\limits_{\pid =
       1}^\playerlen \postlist\left[j\right]_\pid \enspace.
     \end{gather*}
-    Thus all posts will be ordered according to their ideal scores; put
+    Therefore all posts will be ordered according to their ideal scores; put
     otherwise, $\textsc{IdealScore}^M\left(\postlist_\rounds\right)$ holds.
 
     \item Statement~\ref{theorem:case:fewrounds}: Suppose that
@@ -326,13 +326,13 @@
       \item If $\rounds \geq \postlen$, it is $\votenum = \postlen$. \\
       If $\nexists i \in \left[\postlen\right] :\left(\votpowvecreg_{\pid,
       \round_i} < 1 \wedge \nexists i' < i: \votpowvecreg_{\pid, \round_{i'}} <
-      1\right)$, then $\forall i \in \left[\postlen\right], \votpowvecreg_{\pid,
-      \round_i} = 1 \Rightarrow \forall i \in \left[\postlen\right] \setminus
-      \left\{1\right\}, \round_i \geq \round_{i - 1} + \ceil*{\frac{a +
-      b}{\regen}}$ to have enough rounds to replenish the Voting Power after a
-      full-weight, full-Voting Power vote. Thus $\round_\postlen \geq 1 +
-      \left(\postlen - 1\right)\ceil*{\frac{a + b}{\regen}} > \rounds$,
-      contradiction.
+      1\right)$, then we have that $\forall i \in \left[\postlen\right],
+      \votpowvecreg_{\pid, \round_i} = 1 \Rightarrow \forall i \in
+      \left[\postlen\right] \setminus \left\{1\right\}, \round_i \geq \round_{i
+      - 1} + \ceil*{\frac{a + b}{\regen}}$ to have enough rounds to replenish
+      the Voting Power after a full-weight, full-Voting Power vote. Thus
+      $\round_\postlen \geq 1 + \left(\postlen - 1\right)\ceil*{\frac{a +
+      b}{\regen}} > \rounds$, contradiction.
 
 % Here is the place where the (a+b)/regen > 1 assumption is used. TODO: prove
 % what happens when 0 < (a+b)/regen <= 1
