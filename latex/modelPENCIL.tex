@@ -1,0 +1,77 @@
+\section{Model}
+  \subimport{./modelfiles/}{notation.tex}
+
+  \subsection{Post list}
+    \subimport{./modelfiles/definitions/}{postdef.tex}
+
+    \noindent $\playerlen$ represents the number of voters (a.k.a. players). A
+    post has a distinct likability in $\left[0, 1\right]$ for each player.
+
+    \subimport{./modelfiles/definitions/}{idealpostscoredef.tex}
+
+    \noindent The ideal score of a post is a single number that represents its
+    overall worth to the community. By using simple summation, we assume that
+    the opinions of all players have the same weight.
+
+    \subimport{./modelfiles/definitions/}{postlistdef.tex}
+
+    \noindent In the case of many UGC platforms, e.g. Steemit, there exists a
+    feed (commonly named ``Trending'') that displays the same ordered posts for
+    all users. In such an ordered list, posts placed closer to the top are more
+    visible, since users typically consume content from top to bottom. We can
+    thus measure the quality of an ordered list of posts by comparing it with a
+    list that contains the same posts in decreasing order of ideal score.
+
+    \subimport{./modelfiles/definitions/}{idealorderdef.tex}
+
+  \subsection{Post Voting System}
+
+    We now define an abstract post-voting system. Such a system is defined
+    through two Interactive Turing Machines (ITMs),
+    $\mathcal{G}_{\mathrm{Feed}}$ and $\Pi_{\mathrm{honest}}$. The first
+    controls the list of posts and aggregates votes, whereas one copy of the
+    second ITM is instantiated for each player. $\mathcal{G}_{\mathrm{Feed}}$
+    sends the post list to one player at a time, receives her vote and reorders
+    the post list accordingly. The process is possibly repeated for many rounds.
+
+    A measure of the quality of a post-voting system is the $t$-ideal rank of
+    the post list at the end of the process.
+
+    In a more general setting, some of the honest protocol instantiations may be
+    replaced with an arbitrary ITM. A robust post-voting system should still
+    produce a post list of high quality.
+
+    \subimport{./modelfiles/definitions/}{pvsdef.tex}
+
+    \noindent Players are activated by an Environment ITM that sends activation
+    messages (Algorithm~\ref{alg:honest}, line~\ref{alg:honest:activate}).
+
+    \subimport{./modelfiles/definitions/}{actmsg.tex}
+    \subimport{./modelfiles/definitions/}{execpat.tex}
+    \subimport{./modelfiles/definitions/}{tconvergencedef.tex}
+
+    \noindent Note that concrete post voting systems may or may not give
+    information such as the total number of rounds $\rounds$ to the players.
+    This is decided in algorithm \textsc{Aux}.
+
+    We now give a high-level description of a concrete post voting system, based
+    on the Steemit platform. According to this mechanism, each player is
+    assigned a number of coins known as ``Steem Power'' ($\stpow$) that remains
+    constant throughout the execution and another number called ``Voting Power''
+    ($\votpow$) in $\left[0, 1\right]$, initialized to 1. A vote is a pair
+    containing a post and a weight $w \in \left[0, 1\right]$. Upon receiving a
+    list of posts, the honest player chooses to vote her most liked post amongst
+    the top $\attspan$ posts of the list. The weight is chosen to be equal to
+    the respective likability. The functionality increases the score of the post
+    by $\stpow\left(a \cdot \votpow \cdot w + b\right)$ and subsequently
+    decreases the player's Voting Power by the same amount (but keeping it
+    within the aforementioned bounds).
+
+    \subimport{./modelfiles/definitions/}{steemdef.tex}
+    \subimport{./modelfiles/}{steemdefremark.tex}
+    \subimport{./modelfiles/theorems/}{steemconvergencetheorem.tex}
+    \subimport{./modelfiles/proofsketches/}{steemconvergenceproofsketch.tex}
+
+    See Appendix~\ref{appendix:proof} for proof.
+
+    \subimport{./modelfiles/corollaries/}{steemconvergencecorollary.tex}

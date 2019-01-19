@@ -1,4 +1,4 @@
-all: contentCuration.pdf contentCurationfullversion.pdf
+all: contentCuration.pdf contentCurationfullversion.pdf contentCurationPENCIL.pdf
 
 #.ONESHELL:
 contentCuration.pdf: $(shell find latex/ *)
@@ -8,6 +8,14 @@ contentCuration.pdf: $(shell find latex/ *)
 	pdflatex contentCuration.tex; \
 	pdflatex contentCuration.tex; \
 	rm -rf contentCuration.aux contentCuration.log contentCuration.out contentCuration.toc contentCuration.lof contentCuration.lot contentCuration.bbl contentCuration.blg contentCuration.vtc
+
+contentCurationPENCIL.pdf: $(shell find latex/ *)
+	export TEXINPUTS=.:./latex//:; \
+	pdflatex contentCurationPENCIL.tex; \
+	bibtex contentCurationPENCIL.aux; \
+	pdflatex contentCurationPENCIL.tex; \
+	pdflatex contentCurationPENCIL.tex; \
+	rm -rf contentCurationPENCIL.aux contentCurationPENCIL.log contentCurationPENCIL.out contentCurationPENCIL.toc contentCurationPENCIL.lof contentCurationPENCIL.lot contentCurationPENCIL.bbl contentCurationPENCIL.blg contentCurationPENCIL.vtc
 
 contentCurationfullversion.pdf: $(shell find latex/ *)
 	export TEXINPUTS=.:./latex//:; \
