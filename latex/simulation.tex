@@ -61,6 +61,54 @@
     from the $\left[0, 1\right]$-uniform distribution and all players have Steem
     Power equal to 1; we leave the case of variable Steem Power as future work.
 
+    \begin{figure}[h]
+      \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.05\textwidth]{honest_70_t_ideal.png}
+        \subcaption{$t$-ideal rank evolution}
+        \label{fig:honest:70:tideal}
+      \end{subfigure}\hfill
+      \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.05\textwidth]{honest_70_coeffs.png}
+        \subcaption{Kendall's Tau and Spearman's Rho evolution}
+        \label{fig:honest:70:coeffs}
+      \end{subfigure}
+      \caption{270 honest players, 70 posts and 200.000 rounds}
+    \end{figure}
+
+    \begin{figure}[h]
+      \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.05\textwidth]{honest_100_t_ideal.png}
+        \subcaption{$t$-ideal rank evolution}
+        \label{fig:honest:100:tideal}
+      \end{subfigure}\hfill
+      \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.05\textwidth]{honest_100_coeffs.png}
+        \caption{Kendall's Tau and Spearman's Rho evolution}
+        \label{fig:honest:100:coeffs}
+      \end{subfigure}
+      \caption{300 honest players, 100 posts and 200.000 rounds}
+    \end{figure}
+
+    \begin{figure}[h]
+      \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.05\textwidth]{selfish_positionsgained}
+        \caption{Positions gained by selfish post}
+        \label{fig:selfish:gain}
+      \end{subfigure}\hfill
+      \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.05\textwidth]{selfish_t_ideal}
+        \caption{$t$-ideal rank}
+        \label{fig:selfish:tideal}
+      \end{subfigure}
+      \caption{100 honest players, 100 posts and 1 to 100 selfish players}
+    \end{figure}
+
     \subsubsection*{Scenario A}
       As already mentioned, the results closely follow
       Theorem~\ref{theorem:convergence:steem}.
@@ -72,20 +120,6 @@
       \playerlen = 270$ and $\postlen = 70$. (Observe that $\rounds - 1 >
       \left(\postlen - 1\right)\ceil*{\frac{a + b}{\regen}}$.)
 
-      \begin{figure}[!htbp]
-        \includegraphics[width=0.9\textwidth]{honest_70_t_ideal.png}
-        \caption{$t$-ideal rank evolution with 270 honest players, 70 posts and
-        200.000 rounds}
-        \label{fig:honest:70:tideal}
-      \end{figure}
-
-      \begin{figure}[!htbp]
-        \includegraphics[width=0.9\textwidth]{honest_70_coeffs.png}
-        \caption{Kendall's Tau and Spearman's Rho evolution with 270 honest
-        players, 70 posts and 200.000 rounds}
-        \label{fig:honest:70:coeffs}
-      \end{figure}
-
       As we can see, all three measures show that the real list converges
       rapidly to the ideal order at the very end of the execution; meanwhile,
       the quality of the list improves very slowly.
@@ -96,20 +130,6 @@
       executed with the same parameters, except for $\postlen = 100$ and
       $\playerlen = 300$. (Observe that $\rounds - 1 < \left(\postlen -
       1\right)\ceil*{\frac{a + b}{\regen}}$.)
-
-      \begin{figure}[!htbp]
-        \includegraphics[width=0.9\textwidth]{honest_100_t_ideal.png}
-        \caption{$t$-ideal rank evolution with 300 honest players, 100 posts and
-        200.000 rounds}
-        \label{fig:honest:100:tideal}
-      \end{figure}
-
-      \begin{figure}[!htbp]
-        \includegraphics[width=0.9\textwidth]{honest_100_coeffs.png}
-        \caption{Kendall's Tau and Spearman's Rho evolution with 300 honest
-        players, 100 posts and 200.000 rounds}
-        \label{fig:honest:100:coeffs}
-      \end{figure}
 
       Here we see that at the end of the execution, only the first three posts
       are correctly ordered. Regarding the rest of the list, both Kendall's Tau
@@ -131,17 +151,3 @@
       resulting list at the same executions. The system parameters are
       $\playerlen = 101 .. 200, a = \frac{1}{50}, b = 10^{-4}, \regen =
       \frac{3}{5 \cdot 24 \cdot 60}, \attspan = 10, \rounds = 5000$.
-
-      \begin{figure}[!htbp]
-        \includegraphics[width=0.9\textwidth]{selfish_positionsgained}
-        \caption{Positions gained by selfish post with 100 honest players, 100
-        posts and 1 to 100 selfish players}
-        \label{fig:selfish:gain}
-      \end{figure}
-
-      \begin{figure}[!htbp]
-        \includegraphics[width=0.9\textwidth]{selfish_t_ideal}
-        \caption{$t$-ideal rank with 100 honest players, 100 posts and 1 to 100
-        selfish players}
-        \label{fig:selfish:tideal}
-      \end{figure}
