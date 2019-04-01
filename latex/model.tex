@@ -58,14 +58,17 @@
     on the Steemit platform. According to this mechanism, each player is
     assigned a number of coins known as ``Steem Power'' ($\stpow$) that remains
     constant throughout the execution and another number called ``Voting Power''
-    ($\votpow$) in $\left[0, 1\right]$, initialized to 1. A vote is a pair
-    containing a post and a weight $w \in \left[0, 1\right]$. Upon receiving a
-    list of posts, the honest player chooses to vote her most liked post amongst
-    the top $\attspan$ posts of the list. The weight is chosen to be equal to
-    the respective likability. The functionality increases the score of the post
-    by $\stpow\left(a \cdot \votpow \cdot w + b\right)$ and subsequently
-    decreases the player's Voting Power by the same amount (but keeping it
-    within the aforementioned bounds).
+    ($\votpow$) in $\left[0, 1\right]$, initialized to 1. $a$ and $b$ are
+    system-wide constants that roughly specify how influential a single vote is.
+    A vote is a pair containing a post and a weight $w \in \left[0, 1\right]$.
+    Upon receiving a list of posts, the honest player chooses to vote her most
+    liked post amongst the top $\attspan$ posts of the list. The weight $w$ is
+    chosen to be equal to the likability of the post. The functionality
+    increases the score of the post by $\stpow\left(a \cdot \votpow \cdot w +
+    b\right)$ and subsequently decreases the player's Voting Power by the same
+    amount (but keeping it within the aforementioned bounds). Voting Power is
+    replenished with time, at a rate defined by the parameter $\regen$. The
+    purpose of Voting Power is to ``rate limit'' votes.
 
     \subimport{./modelfiles/definitions/}{steemdef.tex}
     \subimport{./modelfiles/}{steemdefremark.tex}

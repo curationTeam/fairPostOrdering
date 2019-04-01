@@ -13,7 +13,11 @@
   \frac{3}{5 \cdot 24 \cdot 60 \cdot 60} = 0.0000069\bar{4}$, thus
   $\ceil*{\frac{a + b}{\regen}} = 2895$. A post can be voted for 7 days from its
   creation and at most one vote can be cast every 3 seconds, thus $\rounds =
-  \frac{7 \cdot 24 \cdot 60 \cdot 60}{3} = 201600$.
+  \frac{7 \cdot 24 \cdot 60 \cdot 60}{3} = 201600$. We do not know why these
+  particular parameters were chosen, but we conjecture that $a, b$ and $\regen$
+  ensure users can vote often enough without abusing the system, 7 days is the
+  time needed for the quality of a post to be determined and 3 seconds is the
+  time needed for transactions to settle in the Steem blockchain.
 \end{remark}
 
 \begin{remark}
