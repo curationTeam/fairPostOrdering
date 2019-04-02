@@ -118,3 +118,28 @@
 %  \item (Maybe)Impact of the curation quality when greedy players are present in
 %  the system.
 %  \end{itemize}
+
+  \subsection{Steem consensus algorithm}
+    In a nutshell, the Delegated Proof of Stake
+    \cite{steemdpos,bitsharesdpos,steem} works as follows: Steem users can sign
+    up as ``validator'' candidates for one of 21 slots. Each user that owns some
+    STEEM can vote for a validator. The 20 candidates that receive most votes
+    (weighted by the respective users' STEEM) become validators. The 21st slot
+    is filled with one of the candidates that was not elected, chosen at random
+    with probability proportional to her votes.
+
+    A validator is responsible for receiving new transactions and adding them to
+    blocks. Validators take turns in block production. An honest validator
+    attaches her block to the latest valid block she knows and broadcasts it to
+    the network. We say that a round is complete after each validator has had a
+    chance to create a block. Honest nodes accept the longest known chain as the
+    valid one. Elections for validators happen once each round, thus each STEEM
+    holder is allowed to change her opinion very often.
+
+    The protocol promises that all new transactions are permanently added to the
+    blockchain in a short amount of time, given that at least two thirds of the
+    validators are honest. Unfortunately, we were unable to locate a formal
+    proof of this claim.
+
+    Note that our analysis does not focus on DPOS, but on the curation mechanism
+    of Steemit. The latter is independent of the consensus protocol of Steem.
