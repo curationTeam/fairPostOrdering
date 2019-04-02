@@ -133,7 +133,8 @@
       Here we see that at the end of the execution, only the first three posts
       are correctly ordered. Regarding the rest of the list, both Kendall's Tau
       and Spearman's Rho coefficients show that the order of the posts improves
-      only slightly throughout the execution of the simulation.
+      only slightly throughout the execution of the simulation, ending up in a
+      state of bad quality.
 
     \subsubsection{Scenario B: Selfish users}
       In order to understand how the presence of voting rings/Sybil accounts
@@ -150,3 +151,12 @@
       resulting list at the same executions. The system parameters are
       $\playerlen = 101 .. 200, a = \frac{1}{50}, b = 10^{-4}, \regen =
       \frac{3}{5 \cdot 24 \cdot 60}, \attspan = 10, \rounds = 5000$.
+
+      As we can see in Figure~\ref{fig:selfish:gain}, there is a cutoff point
+      around which the selfish players quickly move from gaining no positions to
+      overtaking all honest posts. The number of selfish players needed for this
+      advantage is approximately half of the amount of honest ones. On the other
+      hand, figure~\ref{fig:selfish:tideal} shows that even a single selfish
+      player can almost completely ruin the $t$-ideal rank of the result by
+      only allowing a very small number of the best posts to be placed in the
+      correct order.
