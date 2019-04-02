@@ -21,7 +21,7 @@ def main():
     kendalls = []
     spearmans = []
 
-    for i in range(1, selfishMax):
+    for i in range(0, selfishMax):
         print("selfish:", i)
         noProfiles = (100, i, 0)
         sp = (1,) * sum(noProfiles)

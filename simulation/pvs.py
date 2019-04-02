@@ -125,7 +125,10 @@ class PVS:
 
 
         if self.noProfiles[1] > 0: # if there exist selfish players
-            return ideal_pos - real_pos, t_similar_list[-1], spearman_list[-1], kendall_tau_list[-1]
+            gain = ideal_pos - real_pos
+        else:
+            gain = 0
+        return gain, t_similar_list[-1], spearman_list[-1], kendall_tau_list[-1]
 
 if __name__== "__main__":
     PVS(noProfiles, sp, a, b, regen_time, att_span, noRound,
