@@ -5,19 +5,19 @@
 1. Limited contribution (unfixable)
 1. Loose connection to blockchain (unfixable)
 1. Unsurprising results, aligned with previous work (unfixable)
-1. Formality unneeded for counterexample-based proofs (ignore?)
-1. Simulations limited to specific parameters (will do)
+1. Formality unneeded for counterexample-based proofs (won't fix)
+1. Simulations limited to specific parameters (won't fix)
 1. High level and obvious results for selfish behavior, w/o game theory (unfixable)
 1. Smaller figures, all in one page (done)
-1. More discussion on results (e.g. discuss Fig. 6)
-1. Describe attacks and measure gain (let's decide)
-1. Propose protection mechanisms against attacks (let's decide)
+1. More discussion on results (e.g. discuss Fig. 6) (done)
+1. Describe attacks and measure gain (won't fix)
+1. Propose protection mechanisms against attacks (won't fix)
 
 ### Reviewer 2
 
 #### Knowledgeable, weak reject
 
-1. Unclear take-home message (will do, discuss)
+1. Unclear take-home message (done)
 1. Simplistic voting protocol (unfixable)
 1. Steemit isn't even supposed to be Sybil resilient (false)
 1. Compare with other voting protocols:
@@ -32,7 +32,7 @@
    * Shen et al, "Knowledge Sharing in the Online Social Network of Yahoo! Answers and Its Implications"
    * Liu, "Systematic Measurement of Centralized Online Reputation Systems"
    * Rao et al, "Ranked content advertising in online social networks"
-1. In introduction: (will do, discuss)
+1. In introduction: (will do)
    1. Add intuition
    1. Add our algorithm/algorithm class sketch
    1. Add design/variant space
