@@ -70,9 +70,28 @@
   has triggered interest in building social media platforms backed by
   distributed ledgers, where users are rewarded for generated content and
   variants of coin-holder voting are used to decide how these rewards are
-  distributed. The effects of explicit financial incentives on the quality of
-  content in Steemit has been analyzed in~\cite{thelwall2017can}. Beyond the
-  Steemit's whitepaper~\cite{steemit}, a series of blog
+  distributed.
+
+  As already mentioned, coin-weighted voting is a viable mechanism to measure
+  the influence of users in the platform and, by extension, to make the system
+  more resistant to Sybil attacks. Different countermeasures for the Sybil
+  problem in content curation and recommendation sites have been explored in the
+  past~\cite{molavi2013iolaus,tran2009sybil,yu2009dsybil,meo2017using}.
+  Orthogonal to the coin-weighted voting model, these solutions leverage the
+  trust graph of the underlying social network (which is explicitly created by
+  users) to bound the effect of Sybil
+  votes~\cite{molavi2013iolaus,tran2009sybil,yu2009dsybil}.
+  \cite{viswanath2012canal} claim that trust graph-based solutions require heavy
+  computation, and propose optimizations for real-world applications modeling
+  the transitive trust relationships as credit networks. We acknowledge these
+  mechanisms as complementary to coin-weighted voting and potentially
+  implementable in Steemit. We note that the abstract post-voting system defined
+  in this work can be particularized to include such trust graph-based
+  solutions.
+
+  The effects of explicit financial incentives on the quality of content in
+  Steemit has been analyzed in~\cite{thelwall2017can}. Beyond the Steemit's
+  whitepaper~\cite{steemit}, a series of blog
   posts~\cite{curationRewards,selfvoters} effectively extend the economic
   analysis of the system. In parallel with Steemit, other projects such as
   Synereo~\cite{synereo} and Akasha\footnote{\url{https://akasha.world/}
