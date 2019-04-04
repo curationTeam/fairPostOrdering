@@ -20,19 +20,19 @@
 1. Unclear take-home message (done)
 1. Simplistic voting protocol (unfixable)
 1. Steemit isn't even supposed to be Sybil resilient (false)
-1. Compare with other voting protocols:
+1. Compare with other voting protocols: (done)
    * Zhai et al, "Sorcery: Overcoming deceptive votes in P2P content sharing systems"
    * Kakhki et al, "Iolaus: Securing Online Content Rating Systems"
    * Tran et al, "Sybil-Resilient Online Content Voting"
    * Yu et al, "DSybil: Optimal Sybil-Resistance for Recommendation Systems"
    * Viswanath et al, "Canal: Scaling Social Network-Based Sybil Tolerance Schemes"
    * Meo et al, "Using Centrality Measures to Predict Helpfulness-Based Reputation in Trust Networks"
-1. Get inspiration from other studies:
+1. Get inspiration from other studies: (done)
    * Zhu, "Measurement and analysis of an online content voting network: a case study of Digg"
    * Shen et al, "Knowledge Sharing in the Online Social Network of Yahoo! Answers and Its Implications"
    * Liu, "Systematic Measurement of Centralized Online Reputation Systems"
    * Rao et al, "Ranked content advertising in online social networks"
-1. In introduction: (will do)
+1. In introduction: (done)
    1. Add intuition
    1. Add our algorithm/algorithm class sketch
    1. Add design/variant space
