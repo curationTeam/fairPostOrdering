@@ -1,15 +1,84 @@
 \section{Related Work}
-User-generated content (UGC) has been identified as a fundamental component of social media platforms and Web 2.0 in general~\cite{kaplan2010users}. The content created by users needs to be curated, and crowdsourced content curation~\cite{askalidis2013theoretical} has emerged as an alternative to expert-based~\cite{stanoevska2012content} or algorithmic-based~\cite{rader2015understanding} curation techniques. Motivated by the widespread adoption of crowdsourced aggregation sites such as Reddit or Digg\footnote{\url{http://digg.com/} Accessed: 2019-01-02}, several research efforts~\cite{das2010ranking,ghosh2011incentivizing,abbassi2014distributed} have aimed to model the mechanics and incentives for users in UGC platforms. This surge of interest is accompanied by studies which have shown how
-social media users behave strategically when they publish and consume content~\cite{may2014filter}. As an example, in the case of Reddit, users try to maximize their `karma'~\cite{bergstrom2011don}, the social badge of the social media platform~\cite{anderson2013steering}.
+  User-generated content (UGC) has been identified as a fundamental component of
+  social media platforms and Web 2.0 in general~\cite{kaplan2010users}. The
+  content created by users needs to be curated, and crowdsourced content
+  curation~\cite{askalidis2013theoretical} has emerged as an alternative to
+  expert-based~\cite{stanoevska2012content} or
+  algorithmic-based~\cite{rader2015understanding} curation techniques. Motivated
+  by the widespread adoption of crowdsourced aggregation sites such as Reddit or
+  Digg\footnote{\url{http://digg.com/} Accessed: 2019-01-02}, several research
+  efforts~\cite{das2010ranking,ghosh2011incentivizing,abbassi2014distributed}
+  have aimed to model the mechanics and incentives for users in UGC platforms.
+  This surge of interest is accompanied by studies which have shown how social
+  media users behave strategically when they publish and consume
+  content~\cite{may2014filter}. As an example, in the case of Reddit, users try
+  to maximize their `karma'~\cite{bergstrom2011don}, the social badge of the
+  social media platform~\cite{anderson2013steering}.
 
-Previous works have analyzed content curation from an incentives and game-theoretic standpoint~\cite{ghosh2011incentivizing,das2010ranking,gupte2009news,may2014filter,abbassi2014distributed} . Our formalisation is based on these models and inherits features such as the quality distribution of the articles and the users' attention span~\cite{askalidis2013theoretical,ghosh2011incentivizing}. In terms of the analysis of our results, the analysis of our \textit{$t$-convergence} metric is similar to the top-$k$ posts in~\cite{askalidis2013theoretical}. We also leverage the rank correlation coefficients Kendall's Tau~\cite{kendall1955rank} and Spearman's Rho~\cite{spearman1904proof} to measure content curation efficiency.
-Our approach describes the mechanics of post-voting systems from a computational perspective, something that departs from the approach of all previous works, drawing inspiration from the real-ideal world paradigm of cryptography~\cite{goldreich1999foundations,lindell} as employed in our definition of $t$-convergence.
+  Previous works have analyzed content curation from an incentives and
+  game-theoretic
+  standpoint~\cite{ghosh2011incentivizing,das2010ranking,gupte2009news,may2014filter,abbassi2014distributed}
+  . Our formalisation is based on these models and inherits features such as the
+  quality distribution of the articles and the users' attention
+  span~\cite{askalidis2013theoretical,ghosh2011incentivizing}. In terms of the
+  analysis of our results, the analysis of our \textit{$t$-convergence} metric
+  is similar to the top-$k$ posts in~\cite{askalidis2013theoretical}. We also
+  leverage the rank correlation coefficients Kendall's
+  Tau~\cite{kendall1955rank} and Spearman's Rho~\cite{spearman1904proof} to
+  measure content curation efficiency. Our approach describes the mechanics of
+  post-voting systems from a computational perspective, something that departs
+  from the approach of all previous works, drawing inspiration from the
+  real-ideal world paradigm of
+  cryptography~\cite{goldreich1999foundations,lindell} as employed in our
+  definition of $t$-convergence.
 
-Post-voting systems constitute a special case of voting mechanisms, as studied within social choice theory, belonging to the subcategory of cardinal voting systems~\cite{hillinger2005case}. In this context, it follows from Gibbard's theorem~\cite{gibbard1973manipulation} that no decentralised non-trivial
-post-voting mechanism can be strategy-proof. This is consistent with our results that
-demonstrate how selfish behaviour is beneficial to the participants. Our system shares the property of spanning multiple voting rounds with previous work~\cite{kalech2011practical}. Other related literature in social choice~\cite{lu2011robust,conitzer2005communication,xia2010compilation} is centered on political elections and as a result attempts to resolve a variation of the problem with quite different constraints and assumptions. In more detail, in the case of political elections, voter communication in many rounds is costly while navigating the ballot is not subject to any constraints as voters are assumed to have plenty of time to parse all the options available to them. As a result, voters can express their preferences for any candidate, irrespective of the order in which the latter appear on the ballot paper. On the other hand, the online and interactive nature of post-voting systems make multi-round voting a natural feature to be taken advantage of. At the same time, the fairness requirements are more lax and it is acceptable (even desirable) for participants to act reactively on the outcome of each others' evaluations. On the other hand, in the post-voting case, the ``ballot'' is only partially available given the high number of posts to be ranked that may very well exceed the time available to a (human) user to participate in the process. As a result a user will be unable to vote for posts that she has not viewed, for instance, because they are placed in the bottom of the list. This is captured in our model by introducing the concept of ``attention span.''
+  Post-voting systems constitute a special case of voting mechanisms, as studied
+  within social choice theory, belonging to the subcategory of cardinal voting
+  systems~\cite{hillinger2005case}. In this context, it follows from Gibbard's
+  theorem~\cite{gibbard1973manipulation} that no decentralised non-trivial
+  post-voting mechanism can be strategy-proof. This is consistent with our
+  results that demonstrate how selfish behaviour is beneficial to the
+  participants. Our system shares the property of spanning multiple voting
+  rounds with previous work~\cite{kalech2011practical}. Other related literature
+  in social
+  choice~\cite{lu2011robust,conitzer2005communication,xia2010compilation} is
+  centered on political elections and as a result attempts to resolve a
+  variation of the problem with quite different constraints and assumptions. In
+  more detail, in the case of political elections, voter communication in many
+  rounds is costly while navigating the ballot is not subject to any constraints
+  as voters are assumed to have plenty of time to parse all the options
+  available to them. As a result, voters can express their preferences for any
+  candidate, irrespective of the order in which the latter appear on the ballot
+  paper. On the other hand, the online and interactive nature of post-voting
+  systems make multi-round voting a natural feature to be taken advantage of. At
+  the same time, the fairness requirements are more lax and it is acceptable
+  (even desirable) for participants to act reactively on the outcome of each
+  others' evaluations. On the other hand, in the post-voting case, the
+  ``ballot'' is only partially available given the high number of posts to be
+  ranked that may very well exceed the time available to a (human) user to
+  participate in the process. As a result a user will be unable to vote for
+  posts that she has not viewed, for instance, because they are placed in the
+  bottom of the list. This is captured in our model by introducing the concept
+  of ``attention span.''
 
-Content curation is also related to the concept of online governance. The governance of online communities such as Wikipedia has been thoroughly studied in previous academic work~\cite{leskovec2010governance,forte2008scaling}. However, the financially incentivized governance processes in blockchain systems, where the voters are at the same time equity-holders, have still many open research questions~\cite{vitalik,ehrsam}. This shared ownership property has triggered interest in building social media platforms backed by distributed ledgers, where users are rewarded for generated content and variants of coin-holder voting are used to decide how these rewards are distributed.
-The effects of explicit financial incentives on the quality of content in Steemit has been analyzed in~\cite{thelwall2017can}.
-Beyond the Steemit's whitepaper~\cite{steemit}, a series of blog posts~\cite{curationRewards,selfvoters} effectively extend the economic analysis of the system. In parallel with Steemit, other projects such as Synereo~\cite{synereo} and Akasha\footnote{\url{https://akasha.world/} Accessed: 2019-01-02} are exploring the convergence of social media and decentralized content curation.
-Beyond blockchain-based social media platforms, coin-holder voting systems are present in decentralized platforms such as DAOs~\cite{darkdaos} and in different blockchain protocols~\cite{dash,tezos}. However, most of these systems use coin-holder voting processes to agree on a value or take a consensual decision.
+  Content curation is also related to the concept of online governance. The
+  governance of online communities such as Wikipedia has been thoroughly studied
+  in previous academic work~\cite{leskovec2010governance,forte2008scaling}.
+  However, the financially incentivized governance processes in blockchain
+  systems, where the voters are at the same time equity-holders, have still many
+  open research questions~\cite{vitalik,ehrsam}. This shared ownership property
+  has triggered interest in building social media platforms backed by
+  distributed ledgers, where users are rewarded for generated content and
+  variants of coin-holder voting are used to decide how these rewards are
+  distributed. The effects of explicit financial incentives on the quality of
+  content in Steemit has been analyzed in~\cite{thelwall2017can}. Beyond the
+  Steemit's whitepaper~\cite{steemit}, a series of blog
+  posts~\cite{curationRewards,selfvoters} effectively extend the economic
+  analysis of the system. In parallel with Steemit, other projects such as
+  Synereo~\cite{synereo} and Akasha\footnote{\url{https://akasha.world/}
+  Accessed: 2019-01-02} are exploring the convergence of social media and
+  decentralized content curation. Beyond blockchain-based social media
+  platforms, coin-holder voting systems are present in decentralized platforms
+  such as DAOs~\cite{darkdaos} and in different blockchain
+  protocols~\cite{dash,tezos}. However, most of these systems use coin-holder
+  voting processes to agree on a value or take a consensual decision.
