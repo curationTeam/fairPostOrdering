@@ -1,0 +1,29 @@
+p.  2: some context first
+       (cont cur) Term used for other purposes, but here...
+p.  3: several types of cont cur
+       *Human* moderator processes posts
+p.  4: Users' feedback input to ranking algorithm
+       complicated, but good solutions exist (reddit)
+p.  5: Ranking algorithm run in a decentralized manner
+p.  6: Steemit: biggest Dec cont cur platform
+       Steem -> blockchain (app-chain, hosts more projects - e.g. DTube)
+       Steemit -> platform (website)
+       separate projects
+       post creation & voting registered on-chain
+p.  7: our focus: post ranking
+       voting gives money to creator
+p.  8: both simulations
+p.  9: likability in [0, 1], explain
+       we ignore post content
+       total likability = sum of likabilities
+       we answer: how ideal are steem-curated lists?
+p. 10: setup inspired by simulation-based security
+       Env orchestrates - activates players for some rounds
+       G_feed holds post list - represents uncorruptible aggregator
+       G_feed initialized with post list (in some order)
+p. 11: abstract because parametrized by functions
+p. 13: we say G_feed ...-converges
+       only honest players, but possibly adversarial post list
+p. 21: e.g. many posts/many votes
+       with specific utility functions
+       post additions throughout execution
