@@ -12,6 +12,7 @@ p.  6: Steemit: biggest Dec cont cur platform
        post creation & voting registered on-chain
 p.  7: our focus: post ranking
        voting gives money to creator
+       explain creation -> voting -> closing flow
 p.  8: both simulations
 p.  9: likability in [0, 1], explain
        we ignore post content
@@ -21,9 +22,40 @@ p. 10: setup inspired by simulation-based security
        Env orchestrates - activates players for some rounds
        G_feed holds post list - represents uncorruptible aggregator
        G_feed initialized with post list (in some order)
+       limitation: execution lasts R rounds
 p. 11: abstract because parametrized by functions
 p. 13: we say G_feed ...-converges
        only honest players, but possibly adversarial post list
-p. 21: e.g. many posts/many votes
+       first t posts ordered as in ideal list
+p. 14: G_feed runs init, aux, handleVote
+       aux gives others' money (irl parties can see on chain)
+       explain Voting Power
+       Pi_honest runs vote
+       Steemit has constant values for parameters
+       ^1 week to vote
+       1 vote/user/post
+       vote weighted by:
+         a) user-defined weight
+         b) user's money
+         c) user's Voting Power (explain)
+p. 15: Actual theorem parametric
+       many details missing
+p. 16: likabilities uniformly distributed
+       all players same money
+       3 ranking metrics wrt round number
+       parameters exactly like Steemit
+       70 posts, 100 players
+       slow, then rapid improvement in all 3
+p. 17: low values in all 3
+       100 posts, 100 players
+p. 18: t-ideal rank and positions gained wrt #selfish players
+       selfish have 1 post, all vote only for it
+       selfish very handicapped:
+         a) post at bottom
+         b) post not liked by anyone else
+       0 selfish -> perfect ranking
+       tragic: 1 selfish -> almost 0 ranking
+       good news: no gains until voting ring size >= (#honest players) / 2
+p. 20: e.g. many posts/many votes
        with specific utility functions
        post additions throughout execution
